@@ -1,48 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.widget.ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
-    tools:context="com.groupl.project.pier.Login"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/black"
-        android:padding="20dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome_to_pier"
-            android:textSize="40sp"
-            android:fontFamily="sans-serif"
-            android:textColor="#FFFFFF"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Please Log in to our App to get full potential of Pier..."
-            android:textSize="15sp"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="5dp"/>
-
-
-    </LinearLayout>
-
+    android:background="#fff"
+    tools:context="com.groupl.project.pier.Login">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1B222C"
+            android:padding="10dp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textSize="25sp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:text="Welcome to Pier"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#fff"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="Your personal assistem that using its powerfull AI can give predictions about your spending habit"/>
 
-        <ImageView
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="250dp"
-            android:background="@drawable/rsz_headerlogin"
-            android:layout_marginTop="-85dp"
-            android:layout_marginBottom="30dp"/>
+            android:layout_marginBottom="10dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rsz_headerlogin"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
@@ -75,13 +83,16 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="50dp"
                 android:text="Don't have an acccount?"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="#c65c44"
-            android:text="Sign Up"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#c65c44"
+                android:text="Sign Up"/>
 
         </LinearLayout>
 
-</android.widget.LinearLayout>
+    </LinearLayout>
+
+
+</android.widget.ScrollView>
