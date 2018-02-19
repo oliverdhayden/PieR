@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PieR</string>
+    <string name="title_activity_settings">Pier</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+    <string name="logins">Login</string>
+    <string name="welcome_to_pier">Welcome to Pier</string>
+</resources>

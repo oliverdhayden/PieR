@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.groupl.project.pier.Login"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/black"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_to_pier"
+            android:textSize="40sp"
+            android:fontFamily="sans-serif"
+            android:textColor="#FFFFFF"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please Log in to our App to get full potential of Pier..."
+            android:textSize="15sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="5dp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:background="@drawable/rsz_headerlogin"
+            android:layout_marginTop="-85dp"
+            android:layout_marginBottom="30dp"/>
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:padding="10dp"
+                android:background="@drawable/edittext"
+                android:drawableLeft="@drawable/ic_user"
+                android:drawablePadding="10dp"
+                android:hint="USERNAME" />
+
+            <EditText
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext"
+                android:drawableLeft="@drawable/ic_key"
+                android:drawablePadding="10dp"
+                android:inputType="textPassword"
+                android:hint="PASSWORD"
+                android:padding="10dp"/>
+            <Button
+                android:layout_width="170dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_orange"
+                android:text="LOGIN"
+                android:textSize="15sp"
+                android:textColor="#fff"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp"
+                android:text="Don't have an acccount?"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="#c65c44"
+            android:text="Sign Up"/>
+
+        </LinearLayout>
+
+</android.widget.LinearLayout>
