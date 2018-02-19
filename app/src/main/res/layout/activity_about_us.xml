@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.groupl.project.pier.aboutUS"
     android:orientation="vertical"
-    android:background="#FFDBC5">
+    android:background="@drawable/bg1">
 
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/colorPrimary"
+        android:background="#1B222C"
         android:orientation="vertical"
         android:padding="13dp">
 
@@ -38,7 +38,7 @@
         android:orientation="vertical"
         android:padding="20dp"
         android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
+        android:background="#1B222C"
         android:gravity="center"
         android:layout_gravity="center"
         >
@@ -88,22 +88,5 @@
             android:textColor="#d6cd6d"
             android:text="Liviu - Soccer Guy" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom"
-        android:gravity="bottom">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_marginBottom="0dp"
-            android:background="@drawable/rsz_header"
-            android:gravity="bottom"
-            android:layout_gravity="bottom"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"></ImageView>
-    </LinearLayout>
-
 
 </android.widget.LinearLayout>
