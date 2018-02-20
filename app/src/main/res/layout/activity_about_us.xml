@@ -12,7 +12,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="#1B222C"
+        android:background="@color/light_black"
         android:orientation="vertical"
         android:padding="13dp">
 
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="About us "
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Who are we??"
-            android:textColor="#fff" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
@@ -38,7 +38,7 @@
         android:orientation="vertical"
         android:padding="20dp"
         android:layout_margin="5dp"
-        android:background="#1B222C"
+        android:background="@color/light_black"
         android:gravity="center"
         android:layout_gravity="center"
         >
@@ -49,7 +49,7 @@
             android:gravity="center"
             android:text="The Group L"
             android:textStyle="bold"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:background="@drawable/button_orange"/>
         <TextView
             android:layout_width="match_parent"
@@ -75,7 +75,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:textColor="#976dd6"
+            android:textColor="@color/light_violet"
             android:text="Raju - The Lazy Guy" />
         <TextView
             android:layout_width="match_parent"

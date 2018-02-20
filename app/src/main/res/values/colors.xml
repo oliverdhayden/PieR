@@ -7,5 +7,10 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="black">#1b222c</color>
     <color name="red">#FF4500</color>
+    <color name="light_black">#1B222C</color>
+    <color name="white">#fff</color>
+    <color name="orange">#c65c44</color>
+    <color name="light_white">#adffffff</color>
+    <color name="light_violet">#976dd6</color>
 
 </resources>
