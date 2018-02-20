@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="60"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/textViewTagName"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="@string/groceries"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/textViewUnknown"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="@string/unknown"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/textViewDayOfTheMonth"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="@string/day_of_the_month"
+            android:textSize="25sp"
+            />
+
+        <TextView
+            android:id="@+id/textViewMonth"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:gravity="center"
+            android:text="@string/month"
+            android:textSize="13sp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

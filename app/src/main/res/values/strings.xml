@@ -5,4 +5,34 @@
     <string name="Close">Close</string>
     <string name="logins">Login</string>
     <string name="welcome_to_pier">Welcome to Pier</string>
+
+    <string name="left_arrow">Left Arrow</string>
+    <string name="right_arrow">Right Arrow</string>
+
+    <string name="groceries">Groceries</string>
+    <string name="transport">Transport</string>
+    <string name="bills">Bills</string>
+    <string name="rent">Rent</string>
+    <string name="unknown">unknown</string>
+    <string name="day_of_the_month">23</string>
+    <string name="month">JAN</string>
+
+    <string name="november">November \n 2017</string>
+    <string name="december">December \n 2017</string>
+    <string name="january">January \n 2018</string>
+    <string name="february">February \n 2018</string>
+
+    <string name="amount">$30</string>
+    <string name="brand">Tesco</string>
+    <string name="date">1/10/2017</string>
+    <string name="tag_message">Please select the adequate TAG for this payment</string>
+    <string name="tag_description">tag_image</string>
+
+    <string name="groceriesTag">Groceries</string>
+    <string name="rentTag">Rent</string>
+    <string name="tfl">Tfl</string>
+    <string name="billsTag">Bills</string>
+    <string name="shopping">Shopping</string>
+    <string name="general">General</string>
+    <string name="entertainment">Entertainment</string>
 </resources>

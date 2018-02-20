@@ -5,19 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.groupl.project.pier.ActivityTwo">
+    tools:context="com.groupl.project.pier.ActivityTwo"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <ListView
+            android:id="@+id/listViewIdForTag"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
-            android:textSize="30sp"
-            android:id="@+id/activityTitle2"
-            android:textAlignment="center"/>
+            android:layout_height="wrap_content">
+
+        </ListView>
 
     </RelativeLayout>
 
