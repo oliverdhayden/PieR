@@ -9,29 +9,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.groupl.project.pier.MainActivity">
+        <activity android:name="com.groupl.project.pier.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.groupl.project.pier.ActivityOne"></activity>
-        <activity android:name="com.groupl.project.pier.ActivityTwo"></activity>
-        <activity android:name="com.groupl.project.pier.ActivityThree"></activity>
+        <activity android:name="com.groupl.project.pier.ActivityOne" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.groupl.project.pier.ActivityTwo" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.groupl.project.pier.ActivityThree" android:screenOrientation="portrait"></activity>
 
         <activity
             android:name="com.groupl.project.pier.Login"
             android:excludeFromRecents="true"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.groupl.project.pier.settingPage"
             android:excludeFromRecents="true"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.groupl.project.pier.aboutUS"
             android:excludeFromRecents="true"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
