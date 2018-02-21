@@ -26,20 +26,44 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30dp"
-            android:textColor="@color/white"
-            android:fontFamily="sans-serif"
-            android:textStyle="bold"
-            android:text="@string/welcome_i_am_pier" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_blue"
-            android:textSize="17sp"
-            android:text="@string/desc_welcome"/>
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:textColor="@color/white"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:text="@string/welcome_i_am_pier" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/light_blue"
+                android:textSize="17sp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/desc_welcome"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/white_button_r"
+                android:textSize="18sp"
+                android:textColor="@color/light_blue"
+                android:text="@string/start"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/light_blue_button_r"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:text="@string/start"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
