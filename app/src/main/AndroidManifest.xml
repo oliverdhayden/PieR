@@ -42,7 +42,6 @@
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
-        <activity android:name=".Welcome"></activity>
     </application>
 
 </manifest>
