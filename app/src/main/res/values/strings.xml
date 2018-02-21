@@ -39,4 +39,5 @@
     <string name="welcome_i_am_pier">Welcome I am PieR</string>
     <string name="start">START TOUR</string>
     <string name="slide_one_text">Catagorise your spending to keep tabs on where your hard earned money ends up.</string>
+    <string name="slite_two_text">Using machine learning techniques, our app will create a predictive model based on your income and expenditure so you don\'t have to worry about working out if you can afford to get the next round in.</string>
 </resources>
