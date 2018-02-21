@@ -12,5 +12,6 @@
     <color name="orange">#c65c44</color>
     <color name="light_white">#adffffff</color>
     <color name="light_violet">#976dd6</color>
+    <color name="light_blue">#01aeff</color>
 
 </resources>

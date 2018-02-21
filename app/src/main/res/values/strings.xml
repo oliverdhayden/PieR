@@ -35,4 +35,6 @@
     <string name="shopping">Shopping</string>
     <string name="general">General</string>
     <string name="entertainment">Entertainment</string>
+    <string name="desc_welcome">your persona money sever App</string>
+    <string name="welcome_i_am_pier">Welcome I am PieR</string>
 </resources>
