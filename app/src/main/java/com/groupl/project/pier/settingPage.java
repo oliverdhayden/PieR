@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -56,5 +57,10 @@ public class settingPage extends AppCompatActivity {
     static public boolean getPreference(Context context, String option){
         SharedPreferences prefs = context.getSharedPreferences("Preference", MODE_PRIVATE);
         return prefs.getBoolean("Option "+ option, true);
+    }
+
+    public void reset(View view) {
+        WelcomePage.setPreference(true, "firsttime",this);
+        Toast.makeText(settingPage.this,"First Time Resetted", Toast.LENGTH_SHORT).show();
     }
 }

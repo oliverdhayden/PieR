@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.groupl.project.pier.WelcomePage"
+    android:theme="@style/NoActionBar"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/sliderlayout">
+    <ImageView
+        android:id="@+id/slideimg"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
+    <TextView
+        android:id="@+id/slidetitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categorise"
+        android:textSize="30sp"
+        android:textColor="@color/croma"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/slidedesciption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="@string/slide_one_text"/>
+
+</android.widget.LinearLayout>

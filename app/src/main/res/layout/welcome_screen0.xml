@@ -54,6 +54,7 @@
                 android:background="@drawable/white_button_r"
                 android:textSize="18sp"
                 android:textColor="@color/light_blue"
+                android:onClick="skipTour"
                 android:text="LOG IN"/>
             <Button
                 android:id="@+id/btnNext"
@@ -63,7 +64,8 @@
                 android:background="@drawable/light_blue_button_r"
                 android:textSize="18sp"
                 android:textColor="@color/white"
-                android:text="@string/start"/>
+                android:text="@string/start"
+                android:onClick="startTour"/>
 
         </LinearLayout>
 

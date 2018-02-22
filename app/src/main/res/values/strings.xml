@@ -42,5 +42,8 @@
     <string name="slite_two_text">Using machine learning techniques, our app will create a predictive model based on your income and expenditure so you don\'t have to worry about working out if you can afford to get the next round in.</string>
     <string name="next">Next</string>
     <string name="blanck" />
+    <string name="slide_title1">Categorize</string>
+    <string name="slide_title2">Machine Learning</string>
+    <string name="slide_title3">Plugins</string>
     <string name="slide_three_text">We also offer a range of additional plugins that show you where and how you can save on everything from groceries to rent.</string>
 </resources>
