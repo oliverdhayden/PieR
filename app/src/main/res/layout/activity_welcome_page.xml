@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.groupl.project.pier.WelcomePage"
-    android:theme="@style/NoActionBar"
+    android:theme="@style/NoActionBarTranparetStatus"
     android:gravity="center"
     android:orientation="vertical"
     android:id="@+id/sliderlayout">
@@ -17,9 +17,8 @@
         android:id="@+id/slidetitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Categorise"
+        android:text="Title"
         android:textSize="30sp"
-        android:textColor="@color/croma"
         android:textStyle="bold"/>
     <TextView
         android:id="@+id/slidedesciption"
@@ -29,6 +28,6 @@
         android:layout_marginLeft="30dp"
         android:gravity="center"
         android:textSize="16sp"
-        android:text="@string/slide_one_text"/>
+        android:text="Description"/>
 
 </android.widget.LinearLayout>

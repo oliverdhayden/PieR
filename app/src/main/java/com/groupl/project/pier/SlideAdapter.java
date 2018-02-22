@@ -27,15 +27,15 @@ public class SlideAdapter extends PagerAdapter {
     public String[] lst_title = {"Categorize","Machine Learning","Plugins"};
     // list description
     public String[] lst_description ={
-            String.valueOf(R.string.slide_one_text),
-            String.valueOf(R.string.slite_two_text),
-            String.valueOf(R.string.slide_three_text)
+            "Catagorise your spending to keep tabs on where your hard earned money ends up.",
+            "Using machine learning techniques, our app will create a predictive model based on your income and expenditure so you don\\'t have to worry about working out if you can afford to get the next round in.",
+            "We also offer a range of additional plugins that show you where and how you can save on everything from groceries to rent."
     };
     // list of background colors
     public int[] lst_bgcolor = {
-            Color.rgb(55,55,55),
             Color.rgb(239,85,85),
-            Color.rgb(110,49,89)
+            Color.rgb(51,149,255),
+            Color.rgb(242,237,216)
     };
 
     public SlideAdapter(Context context){

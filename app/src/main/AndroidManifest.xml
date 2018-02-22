@@ -12,7 +12,7 @@
         <activity
             android:name=".WelcomePage"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/NoActionBarTranparetStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +45,7 @@
             android:theme="@style/NoActionBar" />
         <activity android:name=".MainActivity" />
         <activity android:name=".WelcomeSlider"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBarTranparetStatus"></activity>
     </application>
 
 </manifest>
