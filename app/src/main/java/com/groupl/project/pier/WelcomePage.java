@@ -26,6 +26,7 @@ public class WelcomePage extends AppCompatActivity {
 
     }
 
+
     public void skipTour(View view) {
         Intent intent = new Intent(WelcomePage.this, MainActivity.class);
         startActivity(intent);

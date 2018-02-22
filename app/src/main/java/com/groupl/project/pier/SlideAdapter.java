@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -59,6 +60,7 @@ public class SlideAdapter extends PagerAdapter {
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.activity_welcome_page,container,false);
         LinearLayout layoutslide = (LinearLayout) view.findViewById(R.id.sliderlayout);
+        Button button = (Button) view.findViewById(R.id.slider_button);
         ImageView imgslide = (ImageView) view.findViewById(R.id.slideimg);
         TextView txtTitle = (TextView) view.findViewById(R.id.slidetitle);
         TextView txtDescription = (TextView) view.findViewById(R.id.slidedesciption);
@@ -66,6 +68,12 @@ public class SlideAdapter extends PagerAdapter {
         imgslide.setImageResource(lst_img[position]);
         txtTitle.setText(lst_title[position]);
         txtDescription.setText(lst_description[position]);
+        if(position == lst_title.length -1){
+            button.setVisibility(View.VISIBLE);
+        }
+        else{
+            button.setVisibility(View.GONE);
+        }
         container.addView(view);
         return view;
     }
