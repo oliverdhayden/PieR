@@ -21,6 +21,7 @@ public class WelcomePage extends AppCompatActivity {
             Intent intent = new Intent(WelcomePage.this, MainActivity.class);
             startActivity(intent);
             setPreference(false, "firsttime",this);
+            finish();
         }
 
 
@@ -31,6 +32,7 @@ public class WelcomePage extends AppCompatActivity {
         Intent intent = new Intent(WelcomePage.this, MainActivity.class);
         startActivity(intent);
         setPreference(false, "firsttime",this);
+        finish();
     }
 
     static public void setPreference(boolean b, String option,Context context) {
