@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -16,7 +15,7 @@ import java.util.ArrayList;
  * Created by ollie on 28/01/2018.
  */
 
-public class ActivityTwo extends AppCompatActivity {
+public class Tagging extends AppCompatActivity {
 
     private ListView mListView;
 
@@ -33,7 +32,7 @@ public class ActivityTwo extends AppCompatActivity {
 
         getWindow().setAllowEnterTransitionOverlap(false);
         getWindow().setAllowReturnTransitionOverlap(false);
-        setContentView(R.layout.activity_two);
+        setContentView(R.layout.activity_tagging);
 
         mListView = (ListView) findViewById(R.id.listViewIdForTag);
 
@@ -81,13 +80,13 @@ public class ActivityTwo extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_home:
-                        Intent intent0 = new Intent(ActivityTwo.this, MainActivity.class);
+                        Intent intent0 = new Intent(Tagging.this, MainActivity.class);
                         startActivity(intent0);
                         overridePendingTransition(0, 0);
                         break;
 
                     case R.id.ic_pie:
-                        Intent intent1 = new Intent(ActivityTwo.this, ActivityOne.class);
+                        Intent intent1 = new Intent(Tagging.this, FullStatement.class);
                         startActivity(intent1);
                         overridePendingTransition(0, 0);
                         break;
@@ -96,7 +95,7 @@ public class ActivityTwo extends AppCompatActivity {
                         break;
 
                     case R.id.ic_settings:
-                        Intent intent3 = new Intent(ActivityTwo.this, ActivityThree.class);
+                        Intent intent3 = new Intent(Tagging.this, Feedback.class);
                         startActivity(intent3);
                         overridePendingTransition(0, 0);
                         break;

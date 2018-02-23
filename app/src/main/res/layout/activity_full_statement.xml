@@ -5,19 +5,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.groupl.project.pier.ActivityThree">
+    tools:context="com.groupl.project.pier.ActivityOne"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp">
 
-        <TextView
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
-            android:textSize="30sp"
-            android:id="@+id/activityTitle3"
-            android:textAlignment="center"/>
+            android:id="@+id/container">
+        </android.support.v4.view.ViewPager>
 
     </RelativeLayout>
 

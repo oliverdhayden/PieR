@@ -61,14 +61,14 @@ public class Previous1Month extends Fragment {
             @Override
             public void onClick(View view) {
                 //this will give us acces to every method inside of the main activity
-                ((ActivityOne)getActivity()).setViewPager(0);
+                ((FullStatement)getActivity()).setViewPager(0);
             }
         });
         goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
               //this will give us acces to every method inside of the main activity
-             ((ActivityOne)getActivity()).setViewPager(2);
+             ((FullStatement)getActivity()).setViewPager(2);
               }
         });
 

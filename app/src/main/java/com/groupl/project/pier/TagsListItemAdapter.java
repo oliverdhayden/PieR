@@ -84,8 +84,8 @@ public class TagsListItemAdapter extends ArrayAdapter<ListItemForTags> {
                 positionOfTheItemInTheList = (Integer) view.getTag();
 
                 //open the dialog when the tag button is pressed
-                if(mContext instanceof ActivityTwo){
-                    ((ActivityTwo)mContext).openDialog();
+                if(mContext instanceof Tagging){
+                    ((Tagging)mContext).openDialog();
                 }
 
 
