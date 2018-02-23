@@ -43,29 +43,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //adding logo to title bar
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setCustomView(R.layout.actionbar_logo);
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
-
-//        final ActionBar actionBar = getActionBar();
-//        actionBar.setDisplayShowCustomEnabled(true);
-//        actionBar.setDisplayShowTitleEnabled(false);
-//        actionBar.setIcon(R.drawable.icon);
-//        LayoutInflater inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View v = inflater.inflate(R.layout.actionbar_logo, null);
-
-
-
-
-
-
-
-
-
-
-
-
 
         //nav bar
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
@@ -119,37 +101,36 @@ public class MainActivity extends AppCompatActivity {
         //pieChart.setCenterTextColor(Color.BLACK);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Super Cool Chart");
+        //pieChart.setCenterText("Super Cool Chart");
         pieChart.setCenterTextSize(10);
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
-        //More options just check out the documentation!
 
         addDataSet(pieChart);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-//                Log.d(TAG, "onValueSelected: Value select from chart.");
-//                Log.d(TAG, "onValueSelected: " + e.toString());
-//                Log.d(TAG, "onValueSelected: " + h.toString());
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "onValueSelected: " + e.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
 
-                int pos1 = e.toString().indexOf("(sum): ");
-                String sales = e.toString().substring(pos1 + 7);
-
-                for(int i = 0; i < yData.length; i++){
-                    if(yData[i] == Float.parseFloat(sales)){
-                        pos1 = i;
-                        break;
-                    }
-                }
-                String employee = xData[pos1 + 1];
-                Toast.makeText(MainActivity.this, "Employee " + employee + "\n" + "Sales: $" + sales + "K", Toast.LENGTH_LONG).show();
+//                int pos1 = e.toString().indexOf("(sum): ");
+//                String sales = e.toString().substring(pos1 + 7);
+//
+//                for(int i = 0; i < yData.length; i++){
+//                    if(yData[i] == Float.parseFloat(sales)){
+//                        pos1 = i;
+//                        break;
+//                    }
+//                }
+//                String employee = xData[pos1 + 1];
+//                Toast.makeText(MainActivity.this, "Employee " + employee + "\n" + "Sales: $" + sales + "K", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onNothingSelected() {
-
+                Log.i(TAG, "onNothingSelected: ran");
             }
         });
 
