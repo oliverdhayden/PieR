@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.groupl.project.pier.ActivityTwo"
+    tools:context="com.groupl.project.pier.FullStatement"
     >
 
     <RelativeLayout
@@ -13,12 +13,11 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp">
 
-        <ListView
-            android:id="@+id/listViewIdForTag"
+        <android.support.v4.view.ViewPager
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </ListView>
+            android:layout_height="match_parent"
+            android:id="@+id/container">
+        </android.support.v4.view.ViewPager>
 
     </RelativeLayout>
 

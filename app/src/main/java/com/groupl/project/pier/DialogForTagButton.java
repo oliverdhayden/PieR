@@ -39,10 +39,10 @@ public class DialogForTagButton extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int position) {
 
                         //remove the selected transaction from the arrayList
-                        ((ActivityTwo)getActivity()).transactionList.remove(0);
+                        ((Tagging)getActivity()).transactionList.remove(0);
 
                         //update the adapter because the arrayList has changed
-                        ((ActivityTwo)getActivity()).adapter.notifyDataSetChanged();
+                        ((Tagging)getActivity()).adapter.notifyDataSetChanged();
 
                         Toast.makeText(getContext(), "Transaction was tagged in " + tagItems[indexOfSelectedItem] + " category" , Toast.LENGTH_LONG).show();
                         Toast.makeText(getContext(), "The index of the removed transaction: " + TagsListItemAdapter.positionOfTheItemInTheList, Toast.LENGTH_LONG).show();

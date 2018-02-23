@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
         import android.view.Menu;
         import android.view.MenuItem;
-        import android.widget.TextView;
 
 /**
  * Created by ollie on 28/01/2018.
@@ -17,13 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 -------------READ THIS TO UNDERSTAND WHICH CLASSES AND LAYOUTS ARE BEING USED FOR SPENDINGS TAB---------------
 
 The following classes are only for Spendings:
-DayOfTheMonthListItem, MonthListItemAdaptor, Previous1Month, Previous2Month, Previous3Month, SectionsStatePagerAdapter, ActivityOne
+DayOfTheMonthListItem, MonthListItemAdaptor, Previous1Month, Previous2Month, Previous3Month, SectionsStatePagerAdapter, FullStatement
 
 The following layouts are for Spendings:
-activity_one, adapter_view_layout, current_month_fragment_layout, previous1_month_fragment_layout, previous2_month_fragment_layout, previous3_month_fragment_layout
+activity_full_statement, adapter_view_layout, current_month_fragment_layout, previous1_month_fragment_layout, previous2_month_fragment_layout, previous3_month_fragment_layout
 
  */
-public class ActivityOne extends AppCompatActivity {
+public class FullStatement extends AppCompatActivity {
 
     private SectionsStatePageAdapter mSectionsStatePageAdapter;
     private ViewPager mViewPager;
@@ -39,7 +38,7 @@ public class ActivityOne extends AppCompatActivity {
 //        getWindow().setExitTransition(fade);
 //        getWindow().setEnterTransition(fade);
 
-        setContentView(R.layout.activity_one);
+        setContentView(R.layout.activity_full_statement);
 
 
         mSectionsStatePageAdapter = new SectionsStatePageAdapter(getSupportFragmentManager());  //code for fragments
@@ -60,7 +59,7 @@ public class ActivityOne extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_home:
-                        Intent intent0 = new Intent(ActivityOne.this, MainActivity.class);
+                        Intent intent0 = new Intent(FullStatement.this, MainActivity.class);
                         startActivity(intent0);
                         overridePendingTransition(0, 0);
                         break;
@@ -69,13 +68,13 @@ public class ActivityOne extends AppCompatActivity {
                         break;
 
                     case R.id.ic_money:
-                        Intent intent2 = new Intent(ActivityOne.this, ActivityTwo.class);
+                        Intent intent2 = new Intent(FullStatement.this, Tagging.class);
                         startActivity(intent2);
                         overridePendingTransition(0, 0);
                         break;
 
                     case R.id.ic_settings:
-                        Intent intent3 = new Intent(ActivityOne.this, ActivityThree.class);
+                        Intent intent3 = new Intent(FullStatement.this, Feedback.class);
                         startActivity(intent3);
                         overridePendingTransition(0, 0);
                         break;

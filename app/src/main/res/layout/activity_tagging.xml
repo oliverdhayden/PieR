@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.groupl.project.pier.ActivityOne"
+    tools:context="com.groupl.project.pier.Tagging"
     >
 
     <RelativeLayout
@@ -13,11 +13,12 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp">
 
-        <android.support.v4.view.ViewPager
+        <ListView
+            android:id="@+id/listViewIdForTag"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/container">
-        </android.support.v4.view.ViewPager>
+            android:layout_height="wrap_content">
+
+        </ListView>
 
     </RelativeLayout>
 

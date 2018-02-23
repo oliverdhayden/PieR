@@ -1,9 +1,7 @@
 package com.groupl.project.pier;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -13,18 +11,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -91,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.ic_pie:
-                        Intent intent1 = new Intent(MainActivity.this, ActivityOne.class);
+                        Intent intent1 = new Intent(MainActivity.this, FullStatement.class);
                         Log.i(TAG, "onNavigationItemSelected: 1");
                         startActivity(intent1);
                         overridePendingTransition(0, 0);
                         break;
 
                     case R.id.ic_money:
-                        Intent intent2 = new Intent(MainActivity.this, ActivityTwo.class);
+                        Intent intent2 = new Intent(MainActivity.this, Tagging.class);
                         Log.i(TAG, "onNavigationItemSelected: 2");
 
                         startActivity(intent2);
@@ -106,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.ic_settings:
-                        Intent intent3 = new Intent(MainActivity.this, ActivityThree.class);
+                        Intent intent3 = new Intent(MainActivity.this, Feedback.class);
                         Log.i(TAG, "onNavigationItemSelected: 3");
 
                         startActivity(intent3);

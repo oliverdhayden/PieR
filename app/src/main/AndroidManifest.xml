@@ -20,13 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityOne"
+            android:name=".FullStatement"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityTwo"
+            android:name=".Tagging"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityThree"
+            android:name=".Feedback"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Login"
