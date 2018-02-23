@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -43,6 +44,11 @@ public class Tagging extends AppCompatActivity {
         setContentView(R.layout.activity_tagging);
 
         mListView = (ListView) findViewById(R.id.listViewIdForTag);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.actionbar_logo);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
 
         ListItemForTags item1 = new ListItemForTags("$20", "Tesco", "12/3.2018", "Please select the adequate TAG for this payment");
         ListItemForTags item2 = new ListItemForTags("$120", "BritishGas", "12/3.2018", "Please select the adequate TAG for this payment");

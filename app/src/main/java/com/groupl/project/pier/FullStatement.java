@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -48,6 +49,11 @@ public class FullStatement extends AppCompatActivity {
 //        getWindow().setEnterTransition(fade);
 
         setContentView(R.layout.activity_full_statement);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.actionbar_logo);
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
 
 
         mSectionsStatePageAdapter = new SectionsStatePageAdapter(getSupportFragmentManager());  //code for fragments
