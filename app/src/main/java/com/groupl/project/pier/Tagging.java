@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +19,11 @@ import java.util.ArrayList;
  */
 
 public class Tagging extends AppCompatActivity {
+
+    //raju
+    private DrawerLayout myDrawerLaout;
+    private ActionBarDrawerToggle myToggle;
+    NavigationView navigation;
 
     private ListView mListView;
 
@@ -103,6 +111,51 @@ public class Tagging extends AppCompatActivity {
                 return false;
             }
         });
+        //raju
+        navigation = (NavigationView) findViewById(R.id.navigation_view);
+
+        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.login:
+                        Intent login = new Intent(Tagging.this,Login.class);
+                        startActivity(login);
+                        break;
+                    case R.id.setting:
+                        Intent setting = new Intent(Tagging.this,settingPage.class);
+                        startActivity(setting);
+                        break;
+                    case R.id.about:
+                        Intent about = new Intent(Tagging.this,aboutUS.class);
+                        startActivity(about);
+                        break;
+                }
+                return false;
+            }
+
+        });
+
+        //raju
+        myDrawerLaout = (DrawerLayout) findViewById(R.id.drawer);
+        myToggle = new ActionBarDrawerToggle(this,myDrawerLaout,R.string.Open,R.string.Close);
+        myDrawerLaout.addDrawerListener(myToggle);
+        myToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+
+    //raju - opens the menu tab
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        String idStr = getResources().getResourceName(id);
+        if (myToggle.onOptionsItemSelected(item)){
+            return false;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void openDialog() {

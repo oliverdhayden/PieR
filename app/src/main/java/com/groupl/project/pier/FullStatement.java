@@ -100,15 +100,15 @@ public class FullStatement extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.login:
-                        Intent login = new Intent(ActivityOne.this,Login.class);
+                        Intent login = new Intent(FullStatement.this,Login.class);
                         startActivity(login);
                         break;
                     case R.id.setting:
-                        Intent setting = new Intent(ActivityOne.this,settingPage.class);
+                        Intent setting = new Intent(FullStatement.this,settingPage.class);
                         startActivity(setting);
                         break;
                     case R.id.about:
-                        Intent about = new Intent(ActivityOne.this,aboutUS.class);
+                        Intent about = new Intent(FullStatement.this,aboutUS.class);
                         startActivity(about);
                         break;
                 }
