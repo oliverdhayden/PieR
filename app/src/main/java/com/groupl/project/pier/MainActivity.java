@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         //pie chart
         pieChart = (PieChart) findViewById(R.id.idPieChart);
 
-        //pieChart.setDescription("Sales by employee (In Thousands $) ");
+        //pieChart.setDescription(" ");
         pieChart.setRotationEnabled(true);
         pieChart.setUsePercentValues(true);
         //pieChart.setHoleColor(Color.BLUE);
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //create the data set
-        PieDataSet pieDataSet = new PieDataSet(yEntries, "Employee Sales");
+        PieDataSet pieDataSet = new PieDataSet(yEntries,"");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);
 

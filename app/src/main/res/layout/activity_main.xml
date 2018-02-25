@@ -15,10 +15,38 @@
         android:layout_height="match_parent">
 
 
-    <com.github.mikephil.charting.charts.PieChart
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/idPieChart"></com.github.mikephil.charting.charts.PieChart>
+        android:weightSum="2"
+        android:orientation="vertical">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/idPieChart"
+            >
+        </com.github.mikephil.charting.charts.PieChart>
+
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="STATEMENT TOTALS GO HERE"
+                android:textSize="20dp"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
