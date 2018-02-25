@@ -18,4 +18,32 @@
     <color name="green">#19BC7C</color>
     <color name="croma">#AA1F41</color>
 
+    <!--pie char colours-->
+    <color name="sky_blue">#1BE7FF</color>
+    <color name="light_green">#6EEB83</color>
+    <color name="arctic_lime">#E4FF1A</color>
+    <color name="marigold">#E8AA14</color>
+    <color name="orioles_orange">#FF5714</color>
+    <color name="steel_blue">#4281A4</color>
+    <color name="light_slate_gray">#7E7F9A</color>
+    <color name="fuzzy_wuzzy">#C1666B</color>
+    <color name="amazon">#417B5A</color>
+
+    <!--google pie chart colours-->
+    <color name="medium_aquamarine">#56E289</color>
+    <color name="turquoise">#56E2CF</color>
+    <color name="cornflower_blue">#56AEE2</color>
+    <color name="royal_blue">#5668e2</color>
+    <color name="medium_slate_blue">#8a56e2</color>
+    <color name="medium_orchid">#cf56e2</color>
+    <color name="hot_pink">#e256ae</color>
+    <color name="indian_red">#e25668</color>
+    <color name="coral">#e28956</color>
+    <color name="sandy_brown">#e2cf56</color>
+    <color name="yellow_green">#aee256</color>
+
+
+
+
+
 </resources>

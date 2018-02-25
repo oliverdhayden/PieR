@@ -96,17 +96,19 @@ public class MainActivity extends AppCompatActivity {
 
         //pieChart.setDescription("Sales by employee (In Thousands $) ");
         pieChart.setRotationEnabled(true);
-        //pieChart.setUsePercentValues(true);
+        pieChart.setUsePercentValues(true);
         //pieChart.setHoleColor(Color.BLUE);
         //pieChart.setCenterTextColor(Color.BLACK);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         //pieChart.setCenterText("Super Cool Chart");
-        pieChart.setCenterTextSize(10);
+        //pieChart.setCenterTextSize(0);
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
 
         addDataSet(pieChart);
+
+        pieChart.animateX(700);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -212,13 +214,21 @@ public class MainActivity extends AppCompatActivity {
 
         //add colors to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(Color.GRAY);
-        colors.add(Color.BLUE);
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.CYAN);
-        colors.add(Color.YELLOW);
-        colors.add(Color.MAGENTA);
+//        colors.add(Color.GRAY);
+//        colors.add(Color.BLUE);
+//        colors.add(Color.RED);
+//        colors.add(Color.GREEN);
+//        colors.add(Color.CYAN);
+//        colors.add(Color.YELLOW);
+//        colors.add(Color.MAGENTA);
+
+        colors.add(getResources().getColor(R.color.sky_blue));
+        colors.add(getResources().getColor(R.color.light_green));
+        colors.add(getResources().getColor(R.color.arctic_lime));
+        colors.add(getResources().getColor(R.color.marigold));
+        colors.add(getResources().getColor(R.color.steel_blue));
+        colors.add(getResources().getColor(R.color.light_slate_gray));
+        colors.add(getResources().getColor(R.color.fuzzy_wuzzy));
 
         pieDataSet.setColors(colors);
 
