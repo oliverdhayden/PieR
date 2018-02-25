@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         pieChart = (PieChart) findViewById(R.id.idPieChart);
 
         //pieChart.setDescription(" ");
+        pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
         pieChart.setUsePercentValues(true);
         //pieChart.setHoleColor(Color.BLUE);
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         //pieChart.setCenterTextSize(0);
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
+        pieChart.getLegend().setEnabled(false);
 
         addDataSet(pieChart);
 
