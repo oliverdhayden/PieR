@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
         import android.view.MenuItem;
 
@@ -73,22 +72,22 @@ public class FullStatement extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.ic_home:
+                    case R.id.ic_summary:
                         Intent intent0 = new Intent(FullStatement.this, MainActivity.class);
                         startActivity(intent0);
                         overridePendingTransition(0, 0);
                         break;
 
-                    case R.id.ic_pie:
+                    case R.id.ic_full_statement:
                         break;
 
-                    case R.id.ic_money:
+                    case R.id.ic_tagging:
                         Intent intent2 = new Intent(FullStatement.this, Tagging.class);
                         startActivity(intent2);
                         overridePendingTransition(0, 0);
                         break;
 
-                    case R.id.ic_settings:
+                    case R.id.ic_feedback:
                         Intent intent3 = new Intent(FullStatement.this, Feedback.class);
                         startActivity(intent3);
                         overridePendingTransition(0, 0);

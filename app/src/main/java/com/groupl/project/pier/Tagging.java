@@ -93,22 +93,22 @@ public class Tagging extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.ic_home:
+                    case R.id.ic_summary:
                         Intent intent0 = new Intent(Tagging.this, MainActivity.class);
                         startActivity(intent0);
                         overridePendingTransition(0, 0);
                         break;
 
-                    case R.id.ic_pie:
+                    case R.id.ic_full_statement:
                         Intent intent1 = new Intent(Tagging.this, FullStatement.class);
                         startActivity(intent1);
                         overridePendingTransition(0, 0);
                         break;
 
-                    case R.id.ic_money:
+                    case R.id.ic_tagging:
                         break;
 
-                    case R.id.ic_settings:
+                    case R.id.ic_feedback:
                         Intent intent3 = new Intent(Tagging.this, Feedback.class);
                         startActivity(intent3);
                         overridePendingTransition(0, 0);

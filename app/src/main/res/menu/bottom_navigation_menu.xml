@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/ic_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home"
-        />
-    <item
-        android:id="@+id/ic_pie"
+        android:id="@+id/ic_summary"
         android:icon="@drawable/ic_pie_chart_black_24dp"
-        android:title="Spending"
+        android:title="Summary"
         />
     <item
-        android:id="@+id/ic_money"
-        android:icon="@drawable/ic_attach_money_black_24dp"
+        android:id="@+id/ic_full_statement"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
         android:title="Statements"
         />
     <item
-        android:id="@+id/ic_settings"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="Settings"
+        android:id="@+id/ic_tagging"
+        android:icon="@drawable/ic_local_offer_black_24dp"
+        android:title="Tagging"
+        />
+    <item
+        android:id="@+id/ic_feedback"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="Feeback"
         />
 </menu>

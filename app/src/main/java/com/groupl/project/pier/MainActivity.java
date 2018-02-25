@@ -1,7 +1,6 @@
 package com.groupl.project.pier;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -60,18 +58,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.ic_home:
+                    case R.id.ic_summary:
 
                         break;
 
-                    case R.id.ic_pie:
+                    case R.id.ic_full_statement:
                         Intent intent1 = new Intent(MainActivity.this, FullStatement.class);
                         Log.i(TAG, "onNavigationItemSelected: 1");
                         startActivity(intent1);
                         overridePendingTransition(0, 0);
                         break;
 
-                    case R.id.ic_money:
+                    case R.id.ic_tagging:
                         Intent intent2 = new Intent(MainActivity.this, Tagging.class);
                         Log.i(TAG, "onNavigationItemSelected: 2");
 
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         break;
 
-                    case R.id.ic_settings:
+                    case R.id.ic_feedback:
                         Intent intent3 = new Intent(MainActivity.this, Feedback.class);
                         Log.i(TAG, "onNavigationItemSelected: 3");
 
