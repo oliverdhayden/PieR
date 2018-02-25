@@ -42,7 +42,14 @@
     <color name="sandy_brown">#e2cf56</color>
     <color name="yellow_green">#aee256</color>
 
-
+    <!--custom colours (jo)-->
+    <color name="burnt_sienna">#E96653</color>
+    <color name="fiord">#465565</color>
+    <color name="porsche">#EBC163</color>
+    <color name="pot_pourri">#F3DFDA</color>
+    <color name="shadow_green">#9ABCB5</color>
+    <color name="porsche_2">#ED9F69</color>
+    <color name="tobacco_brown">#746747</color>
 
 
 

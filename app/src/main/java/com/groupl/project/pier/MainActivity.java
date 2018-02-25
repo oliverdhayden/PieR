@@ -222,13 +222,37 @@ public class MainActivity extends AppCompatActivity {
 //        colors.add(Color.YELLOW);
 //        colors.add(Color.MAGENTA);
 
-        colors.add(getResources().getColor(R.color.sky_blue));
-        colors.add(getResources().getColor(R.color.light_green));
-        colors.add(getResources().getColor(R.color.arctic_lime));
-        colors.add(getResources().getColor(R.color.marigold));
-        colors.add(getResources().getColor(R.color.steel_blue));
-        colors.add(getResources().getColor(R.color.light_slate_gray));
-        colors.add(getResources().getColor(R.color.fuzzy_wuzzy));
+        //test colours
+//        colors.add(getResources().getColor(R.color.sky_blue));
+//        colors.add(getResources().getColor(R.color.light_green));
+//        colors.add(getResources().getColor(R.color.arctic_lime));
+//        colors.add(getResources().getColor(R.color.marigold));
+//        colors.add(getResources().getColor(R.color.steel_blue));
+//        colors.add(getResources().getColor(R.color.light_slate_gray));
+//        colors.add(getResources().getColor(R.color.fuzzy_wuzzy));
+
+        //google pie chart colours
+        colors.add(getResources().getColor(R.color.medium_aquamarine));
+        colors.add(getResources().getColor(R.color.turquoise));
+        colors.add(getResources().getColor(R.color.cornflower_blue));
+        colors.add(getResources().getColor(R.color.royal_blue));
+        colors.add(getResources().getColor(R.color.medium_slate_blue));
+        colors.add(getResources().getColor(R.color.medium_orchid));
+        colors.add(getResources().getColor(R.color.hot_pink));
+        colors.add(getResources().getColor(R.color.indian_red));
+        colors.add(getResources().getColor(R.color.coral));
+        colors.add(getResources().getColor(R.color.sandy_brown));
+        colors.add(getResources().getColor(R.color.yellow_green));
+
+        //custom colours from jo
+//        colors.add(getResources().getColor(R.color.burnt_sienna));
+//        colors.add(getResources().getColor(R.color.fiord));
+//        colors.add(getResources().getColor(R.color.porsche));
+//        colors.add(getResources().getColor(R.color.pot_pourri));
+//        colors.add(getResources().getColor(R.color.shadow_green));
+//        colors.add(getResources().getColor(R.color.porsche_2));
+//        colors.add(getResources().getColor(R.color.tobacco_brown));
+
 
         pieDataSet.setColors(colors);
 
