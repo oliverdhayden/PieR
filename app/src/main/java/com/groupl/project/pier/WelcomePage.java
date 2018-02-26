@@ -16,6 +16,4 @@ public class WelcomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-
-
 }

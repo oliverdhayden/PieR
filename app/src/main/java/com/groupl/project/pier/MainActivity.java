@@ -188,6 +188,10 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "onNavigationItemSelected: about");
                         startActivity(about);
                         break;
+                    case R.id.upload:
+                        Intent upload = new Intent(MainActivity.this,FileUpload.class);
+                        Log.i(TAG, "onNavigationItemSelected: upload");
+                        startActivity(upload);
                 }
                 Log.i(TAG, "onNavigationItemSelected: false");
                 return false;
