@@ -23,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:textSize="25sp"
+                android:textSize="35sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:text="Welcome to Pier"/>
@@ -34,7 +34,7 @@
                 android:fontFamily="sans-serif"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Your personal assistem that using its powerfull AI can give predictions about your spending habit"/>
+                android:text="Your personal assistent that using its powerfull AI can give predictions about your spending habit"/>
 
         </LinearLayout>
         <LinearLayout
@@ -44,7 +44,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rsz_headerlogin"/>
+                android:background="@drawable/rsz_headerlogin_black"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

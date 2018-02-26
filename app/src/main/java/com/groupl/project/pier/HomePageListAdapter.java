@@ -1,6 +1,7 @@
 package com.groupl.project.pier;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,12 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+
+import static com.amazonaws.util.ClassLoaderHelper.getResource;
 
 /**
  * Created by alexandra on 04/02/2018.
@@ -42,7 +47,6 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
         String spendingType = getItem(position).getSpendingType();
         String money = getItem(position).getSpendingMoney();
         String imgURL = getItem(position).getImgURL();
-
         ViewHolder holder= new ViewHolder();
 
         //this logic means that: store some objects before time
