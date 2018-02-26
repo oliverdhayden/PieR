@@ -50,18 +50,18 @@ public class Tagging extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
 
-        ListItemForTags item1 = new ListItemForTags("$20", "Tesco", "12/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item2 = new ListItemForTags("$120", "BritishGas", "12/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item3 = new ListItemForTags("$234", "Sainsbury", "11/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item4 = new ListItemForTags("$230", "Amazon", "10/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item5 = new ListItemForTags("$45", "eBay", "12/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item6 = new ListItemForTags("$67", "Tesco", "12/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item7 = new ListItemForTags("$89", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item8 = new ListItemForTags("$567", "Landlord", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item9 = new ListItemForTags("$56", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item10 = new ListItemForTags("$23", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item11 = new ListItemForTags("$46", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item12 = new ListItemForTags("$56", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item1 = new ListItemForTags("£20", "Tesco", "12/3.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item2 = new ListItemForTags("£120", "BritishGas", "12/3.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item3 = new ListItemForTags("£234", "Sainsbury", "11/3.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item4 = new ListItemForTags("£230", "Amazon", "10/3.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item5 = new ListItemForTags("£45", "eBay", "12/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item6 = new ListItemForTags("£67", "Tesco", "12/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item7 = new ListItemForTags("£89", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item8 = new ListItemForTags("£567", "Landlord", "9/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item9 = new ListItemForTags("£56", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item10 = new ListItemForTags("£23", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item11 = new ListItemForTags("£46", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
+        ListItemForTags item12 = new ListItemForTags("£56", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
 
         transactionList = new ArrayList<>();
         transactionList.add(item1);

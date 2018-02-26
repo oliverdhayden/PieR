@@ -5,24 +5,34 @@ package com.groupl.project.pier;
  */
 
 public class DayOfTheMonthListItem {
+    private String brandName;
     private String tagName;
-    private String unknown;
     private String dayOfTheMonth;
     private String month;
+    private String AmountOfTheTransaction;
 
-    public DayOfTheMonthListItem(String tagName, String unknown, String dayOfTheMonth, String month) {
+    public DayOfTheMonthListItem(String tagName, String brandName,String AmountOfTheTransaction, String dayOfTheMonth, String month) {
         this.tagName = tagName;
-        this.unknown = unknown;
+        this.brandName = brandName;
         this.dayOfTheMonth = dayOfTheMonth;
+        this.AmountOfTheTransaction = AmountOfTheTransaction;
         this.month = month;
+    }
+
+    public String getAmountOfTheTransaction() {
+        return AmountOfTheTransaction;
+    }
+
+    public void setAmountOfTheTransaction(String amountOfTheTransaction) {
+        AmountOfTheTransaction = amountOfTheTransaction;
     }
 
     public String getTagName() {
         return tagName;
     }
 
-    public String getUnknown() {
-        return unknown;
+    public String getBrandName() {
+        return brandName;
     }
 
     public String getDayOfTheMonth() {
@@ -37,8 +47,8 @@ public class DayOfTheMonthListItem {
         this.tagName = tagName;
     }
 
-    public void setUnknown(String unknown) {
-        this.unknown = unknown;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     public void setDayOfTheMonth(String dayOfTheMonth) {

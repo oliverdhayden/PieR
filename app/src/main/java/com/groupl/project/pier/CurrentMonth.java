@@ -28,20 +28,20 @@ public class CurrentMonth extends Fragment {
         mListView = (ListView) view.findViewById(R.id.ListView);
         goToPrevious1Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious1);
 
-        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("Groceries", "unknown", "12","FEB");
-        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("Groceries", "unknown", "12","FEB");
-        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("Rent", "unknown", "12","FEB");
-        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("Transport", "unknown", "10","FEB");
-        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("Groceries", "unknown", "10","FEB");
-        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("Transport", "unknown", "9","FEB");
-        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("Bills", "unknown", "9","FEB");
-        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("Groceries", "unknown", "8","FEB");
-        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("Transport", "unknown", "8","FEB");
-        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("Groceries", "unknown", "5","FEB");
-        DayOfTheMonthListItem item11 = new DayOfTheMonthListItem("Bills", "unknown", "9","FEB");
-        DayOfTheMonthListItem item12 = new DayOfTheMonthListItem("Groceries", "unknown", "8","FEB");
-        DayOfTheMonthListItem item13 = new DayOfTheMonthListItem("Transport", "unknown", "8","FEB");
-        DayOfTheMonthListItem item14 = new DayOfTheMonthListItem("Groceries", "unknown", "5","FEB");
+        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("Groceries", "Lidl", "£12", "12","FEB");
+        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("Groceries", "Tesco", "£12", "12","FEB");
+        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("Rent", "Unknown", "£120", "12","FEB");
+        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("Transport", "Tfl", "£10","10","FEB");
+        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("Groceries", "Tesco", "£10","10","FEB");
+        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("Transport", "Tfl", "£9","9","FEB");
+        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("Bills", "British Gas", "£9","9","FEB");
+        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("Groceries", "Sainsburys", "£8","8","FEB");
+        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("Transport", "Tfl", "£83","8","FEB");
+        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("Groceries", "Lidl", "£54","8","FEB");
+        DayOfTheMonthListItem item11 = new DayOfTheMonthListItem("Bills", "BritishGas", "£93","8","FEB");
+        DayOfTheMonthListItem item12 = new DayOfTheMonthListItem("Groceries", "Lidl", "£8","8","FEB");
+        DayOfTheMonthListItem item13 = new DayOfTheMonthListItem("Transport", "Tfl", "£81","5","FEB");
+        DayOfTheMonthListItem item14 = new DayOfTheMonthListItem("Groceries", "Lidl", "£5","5","FEB");
 
         ArrayList<DayOfTheMonthListItem> MontlyList = new ArrayList<>();
         MontlyList.add(item1);

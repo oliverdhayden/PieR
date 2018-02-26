@@ -4,40 +4,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="60"
         android:orientation="vertical"
+        android:layout_marginTop="5dp"
         >
+
+        <TextView
+            android:id="@+id/textViewBrandName"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="@string/groceries"
+            android:textSize="18sp"
+            android:layout_marginStart="15dp"/>
 
         <TextView
             android:id="@+id/textViewTagName"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:text="@string/groceries"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"/>
-
-        <TextView
-            android:id="@+id/textViewUnknown"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
             android:text="@string/unknown"
             android:textSize="18sp"
-            android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"/>
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="22"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_border_for_transactions">
+
+        <TextView
+            android:id="@+id/textViewAmountOfTheTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="£120"
+            android:gravity="center"
+            android:textSize="25sp"
+            />
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="40"
+        android:layout_weight="18"
         android:orientation="vertical"
+        android:layout_marginTop="5dp"
         >
 
         <TextView

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -20,6 +21,12 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
@@ -40,6 +47,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // UNIVERSAL IMAGE LOADER SETUP
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+
+        ImageLoader.getInstance().init(config);
+        // END - UNIVERSAL IMAGE LOADER SETUP
 
         //adding logo to title bar
         final ActionBar actionBar = getSupportActionBar();
@@ -168,6 +190,29 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        //------------------------------code for home page which displays the summary of the spendings----------------
+
+        ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
+
+        HomePageListItem l1 = new HomePageListItem("Groceries","£120", "drawable://" + R.drawable.grocery);
+        HomePageListItem l2 = new HomePageListItem("Rent","£1470", "drawable://" + R.drawable.rent);
+        HomePageListItem l3 = new HomePageListItem("Transport","£235", "drawable://" + R.drawable.transport);
+        HomePageListItem l4 = new HomePageListItem("Bills","£130", "drawable://" + R.drawable.bills);
+        HomePageListItem l5 = new HomePageListItem("Shopping","£200", "drawable://" + R.drawable.shopping);
+        HomePageListItem l7 = new HomePageListItem("Eating Out","£49", "drawable://" + R.drawable.general);
+        HomePageListItem l8 = new HomePageListItem("General","£68", "drawable://" + R.drawable.entertainment);
+
+        ArrayList<HomePageListItem> breakdownList = new ArrayList<>();
+        breakdownList.add(l1);
+        breakdownList.add(l2);
+        breakdownList.add(l3);
+        breakdownList.add(l4);
+        breakdownList.add(l5);
+        breakdownList.add(l7);
+        breakdownList.add(l8);
+
+        HomePageListAdapter adapter = new HomePageListAdapter(this, R.layout.adapter_view_for_home_page, breakdownList);
+        mListView.setAdapter(adapter);
 
         //raju
         myDrawerLaout = (DrawerLayout) findViewById(R.id.drawer);
@@ -175,6 +220,9 @@ public class MainActivity extends AppCompatActivity {
         myDrawerLaout.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
 
     }
 

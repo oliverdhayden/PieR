@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class DialogForTagButton extends AppCompatDialogFragment {
 
-    private String[] tagItems = {"Groceries", "Rent", "Tfl", "Bills", "Shopping", "General", "Entertainment"};
+    private String[] tagItems = {"Groceries", "Rent", "Transport", "Bills", "Shopping", "General", "Eating Out"};
     private int checked_item;
     private int indexOfSelectedItem;
 

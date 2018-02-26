@@ -46,4 +46,8 @@
     <string name="slide_title2">Machine Learning</string>
     <string name="slide_title3">Plugins</string>
     <string name="slide_three_text">We also offer a range of additional plugins that show you where and how you can save on everything from groceries to rent.</string>
+
+    <string name="type">Spending Type</string>
+    <string name="money">20</string>
+
 </resources>

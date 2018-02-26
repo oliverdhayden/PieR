@@ -28,16 +28,16 @@ public class Previous3Month extends Fragment {
         mListView = (ListView)view.findViewById(R.id.ListView);
         goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
 
-        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("Groceries", "unknown", "13","NOV");
-        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("Groceries", "unknown", "12","NOV");
-        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("Rent", "unknown", "12","NOV");
-        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("Transport", "unknown", "12","NOV");
-        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("Groceries", "unknown", "12","NOV");
-        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("Transport", "unknown", "1","NOV");
-        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("Bills", "unknown", "1","NOV");
-        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("Groceries", "unknown", "1","NOV");
-        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("Transport", "unknown", "1","NOV");
-        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("Groceries", "unknown", "1","NOV");
+        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("Groceries", "Tesco", "£22","22","NOV");
+        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("Groceries", "Tesco", "£22","22","NOV");
+        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("Rent", "unknown", "£22","22","NOV");
+        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("Transport", "Tfl", "£20","20","NOV");
+        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("Groceries", "Tesco", "£20","19","NOV");
+        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("Transport", "Tfl", "£19","19","NOV");
+        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("Bills", "British Gas", "£19","19","NOV");
+        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("Groceries", "Tesco", "£18","18","NOV");
+        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("Transport", "Tfl", "£18","18","NOV");
+        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("Groceries", "Tesco", "£15","15","NOV");
 
         ArrayList<DayOfTheMonthListItem> MontlyList = new ArrayList<>();
         MontlyList.add(item1);
