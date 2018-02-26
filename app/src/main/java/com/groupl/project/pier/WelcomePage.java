@@ -21,7 +21,6 @@ public class WelcomePage extends AppCompatActivity {
             Intent intent = new Intent(WelcomePage.this, MainActivity.class);
             startActivity(intent);
             setPreference(false, "firsttime",this);
-            finish();
         }
 
 
