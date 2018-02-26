@@ -194,13 +194,13 @@ public class MainActivity extends AppCompatActivity {
 
         ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
 
-        HomePageListItem l1 = new HomePageListItem("Groceries","£120", "drawable://" + R.drawable.grocery);
+        HomePageListItem l1 = new HomePageListItem("Groceries","£120", "drawable://" + R.drawable.groceries);
         HomePageListItem l2 = new HomePageListItem("Rent","£1470", "drawable://" + R.drawable.rent);
-        HomePageListItem l3 = new HomePageListItem("Transport","£235", "drawable://" + R.drawable.transport);
+        HomePageListItem l3 = new HomePageListItem("Transport","£235", "drawable://" + R.drawable.transportation);
         HomePageListItem l4 = new HomePageListItem("Bills","£130", "drawable://" + R.drawable.bills);
         HomePageListItem l5 = new HomePageListItem("Shopping","£200", "drawable://" + R.drawable.shopping);
-        HomePageListItem l7 = new HomePageListItem("Eating Out","£49", "drawable://" + R.drawable.general);
-        HomePageListItem l8 = new HomePageListItem("General","£68", "drawable://" + R.drawable.entertainment);
+        HomePageListItem l7 = new HomePageListItem("Eating Out","£49", "drawable://" + R.drawable.food);
+        HomePageListItem l8 = new HomePageListItem("General","£68", "drawable://" + R.drawable.general);
 
         ArrayList<HomePageListItem> breakdownList = new ArrayList<>();
         breakdownList.add(l1);

@@ -63,6 +63,7 @@ public class SlideAdapter extends PagerAdapter {
         Button button = (Button) view.findViewById(R.id.slider_button);
         ImageView imgslide = (ImageView) view.findViewById(R.id.slideimg);
         TextView txtTitle = (TextView) view.findViewById(R.id.slidetitle);
+        TextView txtLeft = (TextView) view.findViewById(R.id.slideleft);
         TextView txtDescription = (TextView) view.findViewById(R.id.slidedesciption);
         layoutslide.setBackgroundColor(lst_bgcolor[position]);
         imgslide.setImageResource(lst_img[position]);
@@ -70,6 +71,7 @@ public class SlideAdapter extends PagerAdapter {
         txtDescription.setText(lst_description[position]);
         if(position == lst_title.length -1){
             button.setVisibility(View.VISIBLE);
+            txtLeft.setVisibility(View.GONE);
         }
         else{
             button.setVisibility(View.GONE);
