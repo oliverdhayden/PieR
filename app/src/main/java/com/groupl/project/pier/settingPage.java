@@ -60,7 +60,7 @@ public class settingPage extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        WelcomePage.setPreference(true, "firsttime",this);
+        WelcomeSlider.setPreference(true, "firsttime",this);
         Toast.makeText(settingPage.this,"First Time Resetted", Toast.LENGTH_SHORT).show();
     }
 }

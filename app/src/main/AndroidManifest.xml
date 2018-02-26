@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".WelcomePage"
+            android:name=".WelcomeSlider"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTranparetStatus">
             <intent-filter>
@@ -44,7 +44,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".WelcomeSlider"
+        <activity android:name=".WelcomePage"
             android:theme="@style/NoActionBarTranparetStatus"></activity>
     </application>
 
