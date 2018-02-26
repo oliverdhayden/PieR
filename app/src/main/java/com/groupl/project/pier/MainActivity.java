@@ -1,6 +1,8 @@
 package com.groupl.project.pier;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
+import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -33,6 +35,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static PinpointManager pinpointManager;
+
     private String TAG = "Main Activity";
     private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
     private String[] xData = {"Mitch", "Jessica" , "Mohammad" , "Kelsey", "Sam", "Robert", "Ashley"};
@@ -51,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Establishes connection to AWS Mobile
         AWSMobileClient.getInstance().initialize(this).execute();
+
+        // AWS-Analytics
+        PinpointConfiguration pinpointConfig = new PinpointConfiguration(
+                getApplicationContext(),
+                AWSMobileClient.getInstance().getCredentialsProvider(),
+                AWSMobileClient.getInstance().getConfiguration());
+        pinpointManager = new PinpointManager(pinpointConfig);
+        // Starts new session with PinPoint
+        pinpointManager.getSessionClient().startSession();
+        // Stops session and submits default app started event
+        pinpointManager.getSessionClient().stopSession();
+        pinpointManager.getAnalyticsClient().submitEvents();
 
         // UNIVERSAL IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
