@@ -78,7 +78,8 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/header"
         app:itemIconTint="@color/colorAccent"
-        app:menu="@menu/drawermenu"></android.support.design.widget.NavigationView>
+        app:menu="@menu/drawermenu"
+        android:background="@drawable/gradient_bg"></android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
 
