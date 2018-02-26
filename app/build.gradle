@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled = true
     }
     buildTypes {
         release {
@@ -30,5 +31,7 @@ dependencies {
     compile 'com.android.support:design:26.1.0' //nav bar
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3' //pie chart
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' //img for home page
-    compile('com.amazonaws:aws-android-sdk-mobile-client:2.6.7@aar') { transitive = true; }
+    compile ('com.amazonaws:aws-android-sdk-mobile-client:2.6.15@aar') { transitive = true; }
+    compile 'com.amazonaws:aws-android-sdk-pinpoint:2.6.+' // re aws-analytics
+    compile 'com.android.support:multidex:1.0.+' // re aws-analytics
 }
