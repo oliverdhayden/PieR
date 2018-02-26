@@ -12,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--android:name="com.YourApplication.Application"> // UNRESOLVED-->
         <activity
             android:name=".WelcomeSlider"
             android:screenOrientation="portrait"
@@ -33,10 +32,15 @@
             android:name=".Feedback"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Login"
-            android:excludeFromRecents="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:name=".Login">
+            <!--android:excludeFromRecents="true"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/NoActionBar">-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".settingPage"
             android:excludeFromRecents="true"

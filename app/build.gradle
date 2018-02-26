@@ -31,7 +31,15 @@ dependencies {
     compile 'com.android.support:design:26.1.0' //nav bar
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3' //pie chart
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5' //img for home page
-    compile ('com.amazonaws:aws-android-sdk-mobile-client:2.6.15@aar') { transitive = true; }
-    compile 'com.amazonaws:aws-android-sdk-pinpoint:2.6.+' // re aws-analytics
-    compile 'com.android.support:multidex:1.0.+' // re aws-analytics
+    // aws dependency
+    compile ('com.amazonaws:aws-android-sdk-mobile-client:2.6.+@aar') { transitive = true }
+    // aws-analytics
+    compile 'com.amazonaws:aws-android-sdk-pinpoint:2.6.+'
+    compile 'com.android.support:multidex:1.0.+'
+    // aws google sign-in
+    compile 'com.android.support:support-v4:26.+'
+    compile ('com.amazonaws:aws-android-sdk-auth-google:2.6.+@aar') { transitive = true }
+    // aws google sign-in UI library
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile ('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true }
 }

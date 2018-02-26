@@ -22,5 +22,9 @@
     "Default": {
       "Region": "us-east-1"
     }
+  },
+  "GoogleSignIn": {
+    "ClientId-WebApp": "1054208607087-48v8aipb7mhvam0b7u5nqmgkr4j5nlu1.apps.googleusercontent.com",
+    "Permissions": "email,profile,openid"
   }
 }
