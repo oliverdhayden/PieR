@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import static com.groupl.project.pier.WelcomePage.setPreference;
 
 public class WelcomePage extends AppCompatActivity {
+    String TAG = "WelcomePage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
