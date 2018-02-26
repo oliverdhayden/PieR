@@ -1,5 +1,6 @@
 package com.groupl.project.pier;
 
+import com.amazonaws.mobile.client.AWSMobileClient;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Establishes connection to AWS Mobile
+        AWSMobileClient.getInstance().initialize(this).execute();
 
         // UNIVERSAL IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
