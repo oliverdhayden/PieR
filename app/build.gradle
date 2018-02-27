@@ -42,4 +42,7 @@ dependencies {
     // aws google sign-in UI library
     compile 'com.android.support:appcompat-v7:26.+'
     compile ('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true }
+    // aws s3 storage
+    compile 'com.amazonaws:aws-android-sdk-s3:2.6.+'
+    compile 'com.amazonaws:aws-android-sdk-cognito:2.6.+'
 }
