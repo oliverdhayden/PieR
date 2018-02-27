@@ -60,15 +60,12 @@
         <activity
             android:name=".WelcomePage"
             android:theme="@style/NoActionBarTranparetStatus" />
-<<<<<<< HEAD
         <activity android:name=".FileUpload"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-=======
         <activity android:name=".FileUpload" />
->>>>>>> f4721aac01a5d939db152f2b0db257920837b6ab
     </application>
 
 </manifest>
