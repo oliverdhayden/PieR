@@ -12,6 +12,14 @@
   "IdentityManager": {
     "Default": {}
   },
+  "CognitoUserPool": {
+    "Default": {
+      "PoolId": "eu-west-2_L2N7BBzdI",
+      "AppClientId": "5d7r3mp0k2d807iqkja671khr2",
+      "AppClientSecret": "nalb4vvtno7sgiui505s5f8be03n7ecbfq54o7td9o8tqoui6do",
+      "Region": "eu-west-2"
+    }
+  },
   "S3TransferUtility": {
     "Default": {
       "Bucket": "pierandroid-userfiles-mobilehub-318679301",
