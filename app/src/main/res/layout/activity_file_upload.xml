@@ -8,7 +8,18 @@
     android:orientation="vertical"
     android:background="@drawable/bg1">
 
-
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:id="@+id/progressBar"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/btn_upload"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/txt_progress"/>
 
 
 </android.widget.LinearLayout>

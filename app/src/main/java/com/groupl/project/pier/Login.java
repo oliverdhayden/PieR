@@ -10,12 +10,18 @@ import android.widget.ImageView;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.amazonaws.ClientConfiguration;
 import com.amazonaws.mobile.auth.google.GoogleButton;
 import com.amazonaws.mobile.auth.ui.AuthUIConfiguration;
 import com.amazonaws.mobile.auth.ui.SignInUI;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.AWSStartupHandler;
 import com.amazonaws.mobile.client.AWSStartupResult;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
 
 public class Login extends AppCompatActivity {
     String TAG = "Login";
@@ -25,7 +31,6 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_login);
 
-        Log.i(TAG,"onCreate ran --------------------------------");
         AWSMobileClient.getInstance().initialize(this, new AWSStartupHandler() {
             @Override
             public void onComplete(AWSStartupResult awsStartupResult) {
@@ -44,17 +49,23 @@ public class Login extends AppCompatActivity {
             }
         }).execute();
 
+//        CognitoUserPool userPool = new CognitoUserPool(this, "eu-west-2_L2N7BBzdI", clientId, clientSecret, clientConfiguration);
+//        CognitoUser user = userPool.getCurrentUser();
+//        GetDetailsHandler handler = new GetDetailsHandler() {
+//            @Override
+//            public void onSuccess(final CognitoUserDetails list) {
+//                // Successfully retrieved user details
+//            }
+//
+//            @Override
+//            public void onFailure(final Exception exception) {
+//                // Failed to retrieve the user details, probe exception for the cause
+//            }
+//        };
+//        user.getDetails(handler);
 
+        finish();
         }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            Log.i(TAG,"--------------------------------------");
-            return true;
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
 
 }
