@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:src="@drawable/left_arrow"
-            android:background="@color/colorWhite"
+            android:background="@color/light_gray"
             android:contentDescription="@string/left_arrow"
             android:layout_weight="20"/>
 
@@ -26,8 +26,10 @@
             android:layout_weight="60"
             android:text="@string/january"
             android:gravity="center"
-            android:background="@color/colorWhite"
+            android:background="@color/light_gray"
             android:textSize="20sp"
+            android:fontFamily="@font/open_sans_semibold"
+            android:textColor="@color/light_black"
             />
 
         <ImageButton
@@ -35,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:src="@drawable/rigth_arrow"
-            android:background="@color/colorWhite"
+            android:background="@color/light_gray"
             android:contentDescription="@string/right_arrow"
             android:layout_weight="20"/>
 

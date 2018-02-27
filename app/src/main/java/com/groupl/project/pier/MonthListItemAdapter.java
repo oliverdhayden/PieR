@@ -11,7 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -31,7 +35,7 @@ public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
     }
 
     static class ViewHolder {
-        TextView tagName;
+        ImageView imgUrl;
         TextView brandName;
         TextView dayOfTheMonth;
         TextView month;
@@ -41,7 +45,7 @@ public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        String tagName = getItem(position).getTagName();
+        String img = getItem(position).getImgUrl();
         String brandName = getItem(position).getBrandName();
         String dayOfTheMonth = getItem(position).getDayOfTheMonth();
         String amountOfTheTransaction = getItem(position).getAmountOfTheTransaction();
@@ -55,7 +59,7 @@ public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
 
             convertView = inflater.inflate(mResource, parent, false);
 
-            holder.tagName = (TextView) convertView.findViewById(R.id.textViewTagName);
+            holder.imgUrl = (ImageView) convertView.findViewById(R.id.imageForSpendings);
             holder.brandName = (TextView) convertView.findViewById(R.id.textViewBrandName);
             holder.dayOfTheMonth = (TextView) convertView.findViewById(R.id.textViewDayOfTheMonth);
             holder.month = (TextView) convertView.findViewById(R.id.textViewMonth);
@@ -69,7 +73,17 @@ public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.tagName.setText(tagName);
+        int  defaultImage = mContext.getResources().getIdentifier("@drawable/image_failed", null, mContext.getPackageName());
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                .cacheOnDisc(true).resetViewBeforeLoading(true)
+                .showImageForEmptyUri(defaultImage)
+                .showImageOnFail(defaultImage)
+                .showImageOnLoading(defaultImage).build();
+
+        //download and display image from url
+        imageLoader.displayImage(img, holder.imgUrl, options);
+
         holder.brandName.setText(brandName);
         holder.dayOfTheMonth.setText(dayOfTheMonth);
         holder.month.setText(month);

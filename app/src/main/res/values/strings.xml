@@ -50,4 +50,7 @@
     <string name="type">Spending Type</string>
     <string name="money">20</string>
 
+    <string name="green_light_message">Spending not too much money</string>
+    <string name="yellow_light_message">Be carefull on how much money you spend</string>
+    <string name="red_light_message">Spending way too much money</string>
 </resources>

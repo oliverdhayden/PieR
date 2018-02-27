@@ -6,13 +6,13 @@ package com.groupl.project.pier;
 
 public class DayOfTheMonthListItem {
     private String brandName;
-    private String tagName;
+    private String imgUrl;
     private String dayOfTheMonth;
     private String month;
     private String AmountOfTheTransaction;
 
-    public DayOfTheMonthListItem(String tagName, String brandName,String AmountOfTheTransaction, String dayOfTheMonth, String month) {
-        this.tagName = tagName;
+    public DayOfTheMonthListItem(String imgUrl, String brandName,String AmountOfTheTransaction, String dayOfTheMonth, String month) {
+        this.imgUrl = imgUrl;
         this.brandName = brandName;
         this.dayOfTheMonth = dayOfTheMonth;
         this.AmountOfTheTransaction = AmountOfTheTransaction;
@@ -27,8 +27,8 @@ public class DayOfTheMonthListItem {
         AmountOfTheTransaction = amountOfTheTransaction;
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
     public String getBrandName() {
@@ -43,8 +43,8 @@ public class DayOfTheMonthListItem {
         return month;
     }
 
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public void setBrandName(String brandName) {

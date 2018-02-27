@@ -45,8 +45,8 @@ public class Feedback extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
 
 
-        TextView title = findViewById(R.id.activityTitle3);
-        title.setText("This is Activity Three");
+        //TextView title = findViewById(R.id.activityTitle3);
+       // title.setText("This is Activity Three");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

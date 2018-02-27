@@ -9,6 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
 import java.util.ArrayList;
 
 /**
@@ -28,20 +35,35 @@ public class CurrentMonth extends Fragment {
         mListView = (ListView) view.findViewById(R.id.ListView);
         goToPrevious1Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious1);
 
-        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("Groceries", "Lidl", "£12", "12","FEB");
-        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("Groceries", "Tesco", "£12", "12","FEB");
-        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("Rent", "Unknown", "£120", "12","FEB");
-        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("Transport", "Tfl", "£10","10","FEB");
-        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("Groceries", "Tesco", "£10","10","FEB");
-        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("Transport", "Tfl", "£9","9","FEB");
-        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("Bills", "British Gas", "£9","9","FEB");
-        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("Groceries", "Sainsburys", "£8","8","FEB");
-        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("Transport", "Tfl", "£83","8","FEB");
-        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("Groceries", "Lidl", "£54","8","FEB");
-        DayOfTheMonthListItem item11 = new DayOfTheMonthListItem("Bills", "BritishGas", "£93","8","FEB");
-        DayOfTheMonthListItem item12 = new DayOfTheMonthListItem("Groceries", "Lidl", "£8","8","FEB");
-        DayOfTheMonthListItem item13 = new DayOfTheMonthListItem("Transport", "Tfl", "£81","5","FEB");
-        DayOfTheMonthListItem item14 = new DayOfTheMonthListItem("Groceries", "Lidl", "£5","5","FEB");
+        // UNIVERSAL IMAGE LOADER SETUP
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getActivity().getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+
+        ImageLoader.getInstance().init(config);
+        // END - UNIVERSAL IMAGE LOADER SETUP
+
+        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Lidl", "£12", "12","FEB");
+        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£12", "12","FEB");
+        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("drawable://" + R.drawable.rent, "Landlord", "£120", "12","FEB");
+        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£10","10","FEB");
+        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£10","10","FEB");
+        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£9","9","FEB");
+        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("drawable://" + R.drawable.bills, "British Gas", "£9","9","FEB");
+        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Sainsburys", "£8","8","FEB");
+        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tfl", "£83","8","FEB");
+        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Lidl", "£54","8","FEB");
+        DayOfTheMonthListItem item11 = new DayOfTheMonthListItem("drawable://" + R.drawable.bills, "BritishGas", "£93","8","FEB");
+        DayOfTheMonthListItem item12 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Lidl", "£8","8","FEB");
+        DayOfTheMonthListItem item13 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£81","5","FEB");
+        DayOfTheMonthListItem item14 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Lidl", "£5","5","FEB");
 
         ArrayList<DayOfTheMonthListItem> MontlyList = new ArrayList<>();
         MontlyList.add(item1);

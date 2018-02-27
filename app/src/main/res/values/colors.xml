@@ -3,11 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ffffff</color>
-    <color name="colorGrey">#D5D8DC</color>
+    <color name="colorGrey">#dcdfe4</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="black">#1b222c</color>
+    <color name="black">#03060a</color>
     <color name="red">#FF4500</color>
-    <color name="light_black">#1B222C</color>
+    <color name="light_black">#1b222c</color>
     <color name="white">#fff</color>
     <color name="orange">#c65c44</color>
     <color name="light_white">#adffffff</color>
@@ -50,7 +50,7 @@
     <color name="shadow_green">#9ABCB5</color>
     <color name="porsche_2">#ED9F69</color>
     <color name="tobacco_brown">#746747</color>
-    <color name="light_gray">#e1e0e0</color>
+    <color name="light_gray">#EEEEEE</color>
 
 
 </resources>
