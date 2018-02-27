@@ -15,6 +15,7 @@
             >
 
             <TextView
+                android:id="@+id/textViewRedLight"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/deactive_red_circle"
@@ -27,6 +28,7 @@
                 />
 
             <TextView
+                android:id="@+id/textViewYellowLight"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/deactive_yellow_circle"
@@ -39,6 +41,7 @@
                 />
 
             <TextView
+                android:id="@+id/textViewGreenLight"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/green_circle"
@@ -66,6 +69,7 @@
         android:background="@color/traffic_light_green">
 
         <TextView
+            android:id="@+id/textViewFeedbackTag"
             android:layout_width="200dp"
             android:layout_height="30dp"
             android:fontFamily="@font/open_sans_semibold"
@@ -74,6 +78,7 @@
             android:textColor="@color/light_black" />
 
         <TextView
+            android:id="@+id/textViewFeedbackMessage"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:gravity="center"

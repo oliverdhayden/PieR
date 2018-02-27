@@ -19,6 +19,7 @@ import android.widget.TextView;
  */
 
 public class Feedback extends AppCompatActivity {
+    public static String PACKAGE_NAME;
     //raju
     private DrawerLayout myDrawerLaout;
     private ActionBarDrawerToggle myToggle;
@@ -26,6 +27,8 @@ public class Feedback extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        PACKAGE_NAME = getApplicationContext().getPackageName();
 
         getWindow().setAllowEnterTransitionOverlap(false);
         getWindow().setAllowReturnTransitionOverlap(false);
