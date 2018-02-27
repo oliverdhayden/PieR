@@ -5,18 +5,28 @@ package com.groupl.project.pier;
  */
 
 public class FeedbackTagListItem {
+    private String colorOfTheMessage;
     private String colorRed;
     private String colorYellow;
     private String colorGreen;
     private String feedbackTag;
     private String feedbackMessage;
 
-    public FeedbackTagListItem(String colorRed, String colorYellow, String colorGreen, String feedbackTag, String feedbackMessage) {
+    public FeedbackTagListItem(String colorOfTheMessage, String colorRed, String colorYellow, String colorGreen, String feedbackTag, String feedbackMessage) {
         this.colorRed = colorRed;
         this.colorYellow = colorYellow;
         this.colorGreen = colorGreen;
+        this.colorOfTheMessage = colorOfTheMessage;
         this.feedbackTag = feedbackTag;
         this.feedbackMessage = feedbackMessage;
+    }
+
+    public String getColorOfTheMessage() {
+        return colorOfTheMessage;
+    }
+
+    public void setColorOfTheMessage(String colorOfTheMessage) {
+        this.colorOfTheMessage = colorOfTheMessage;
     }
 
     public String getColorRed() {

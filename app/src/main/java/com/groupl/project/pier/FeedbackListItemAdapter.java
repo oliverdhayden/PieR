@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -28,6 +29,7 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
     }
 
     static class ViewHolder {
+        LinearLayout textMessage;
         TextView redLight;
         TextView yellowLight;
         TextView greenLight;
@@ -38,6 +40,7 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
+        String textMessageLayout = getItem(position).getColorOfTheMessage();
         String stringRedLight = getItem(position).getColorRed();
         String stringYellowLight = getItem(position).getColorYellow();
         String stringGreenLight = getItem(position).getColorGreen();
@@ -52,6 +55,7 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
 
             convertView = inflater.inflate(mResource, parent, false);
 
+            holder.textMessage = (LinearLayout) convertView.findViewById(R.id.textMessageLayout);
             holder.redLight = (TextView) convertView.findViewById(R.id.textViewRedLight);
             holder.yellowLight = (TextView) convertView.findViewById(R.id.textViewYellowLight);
             holder.greenLight = (TextView) convertView.findViewById(R.id.textViewGreenLight);
@@ -66,13 +70,16 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
             holder = (FeedbackListItemAdapter.ViewHolder) convertView.getTag();
         }
 
+        int resTextMessage = mContext.getResources().getIdentifier(textMessageLayout , "drawable", Feedback.PACKAGE_NAME);
         int redLightResID = mContext.getResources().getIdentifier(stringRedLight , "drawable", Feedback.PACKAGE_NAME);
         int yellowLightResID = mContext.getResources().getIdentifier(stringYellowLight , "drawable", Feedback.PACKAGE_NAME);
         int greenLightResID = mContext.getResources().getIdentifier(stringGreenLight , "drawable", Feedback.PACKAGE_NAME);
 
+        holder.textMessage.setBackgroundResource(resTextMessage);
         holder.redLight.setBackgroundResource(redLightResID);
         holder.yellowLight.setBackgroundResource(yellowLightResID);
         holder.greenLight.setBackgroundResource(greenLightResID);
+
         holder.feedbackTag.setText(stringFeedbackTag);
         holder.feedbackMessage.setText(stringFeedbackMessage);
 

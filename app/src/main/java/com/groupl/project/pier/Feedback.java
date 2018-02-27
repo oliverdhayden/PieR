@@ -12,7 +12,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by ollie on 28/01/2018.
@@ -20,6 +23,9 @@ import android.widget.TextView;
 
 public class Feedback extends AppCompatActivity {
     public static String PACKAGE_NAME;
+    private String greenMessage;
+    private String redMessage;
+    private String yellowMessage;
     //raju
     private DrawerLayout myDrawerLaout;
     private ActionBarDrawerToggle myToggle;
@@ -47,6 +53,32 @@ public class Feedback extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
 
+
+        //---------LIST VIEW CODE---------
+        greenMessage = "Spending not too much money";
+        yellowMessage = "Be carefull on how much money you spend";
+        redMessage = "Spending way too much money";
+        FeedbackTagListItem l1 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Groceries", greenMessage);
+        FeedbackTagListItem l2 = new FeedbackTagListItem("yellow_circle","deactive_red_circle", "yellow_circle", "deactive_green_circle", "Rent", yellowMessage);
+        FeedbackTagListItem l3 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Bills", greenMessage);
+        FeedbackTagListItem l4 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Shopping", greenMessage);
+        FeedbackTagListItem l5 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Transport", greenMessage);
+        FeedbackTagListItem l6 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Eating Out", greenMessage);
+        FeedbackTagListItem l7 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "General", greenMessage);
+
+        ArrayList<FeedbackTagListItem> breakdownList = new ArrayList<>();
+        breakdownList.add(l1);
+        breakdownList.add(l2);
+        breakdownList.add(l3);
+        breakdownList.add(l4);
+        breakdownList.add(l5);
+        breakdownList.add(l7);
+
+        ListView mListView = (ListView)findViewById(R.id.listViewForFeedbackPage);
+        FeedbackListItemAdapter adapter= new FeedbackListItemAdapter(this, R.layout.adapter_view_for_feedback_layout, breakdownList);
+        mListView.setAdapter(adapter);
+
+        //---------LIST VIEW CODE END--------
 
         //TextView title = findViewById(R.id.activityTitle3);
        // title.setText("This is Activity Three");
