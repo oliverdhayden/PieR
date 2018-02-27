@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.s3.transferutility.*;
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.services.s3.AmazonS3Client;
 // Following imports handle uploading a file to S3 Bucket
 import android.app.Activity;
 
