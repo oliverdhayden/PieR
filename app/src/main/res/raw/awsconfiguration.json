@@ -12,6 +12,17 @@
   "IdentityManager": {
     "Default": {}
   },
+  "S3TransferUtility": {
+    "Default": {
+      "Bucket": "pierandroid-userfiles-mobilehub-318679301",
+      "Region": "eu-west-2"
+    }
+  },
+  "Cognito": {
+    "Default": {
+      "Region": "eu-west-2"
+    }
+  },
   "PinpointAnalytics": {
     "Default": {
       "AppId": "34e301add7e54a878c1b5cb780595507",
@@ -21,6 +32,12 @@
   "PinpointTargeting": {
     "Default": {
       "Region": "us-east-1"
+    }
+  },
+  "UserFileManager": {
+    "Default": {
+      "Bucket": "pierandroid-userfiles-mobilehub-318679301",
+      "Region": "eu-west-2"
     }
   },
   "GoogleSignIn": {
