@@ -61,9 +61,6 @@
             android:name=".WelcomePage"
             android:theme="@style/NoActionBarTranparetStatus" />
         <activity android:name=".FileUpload" />
-        <activity
-            android:name=".AuthenticatorActivity"
-            android:label="@string/title_activity_authenticator"></activity>
     </application>
 
 </manifest>
