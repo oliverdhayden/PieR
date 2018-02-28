@@ -20,6 +20,11 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:id="@+id/txt_progress"/>
-
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/imageView"
+        />`
 
 </android.widget.LinearLayout>
