@@ -58,13 +58,13 @@ public class Feedback extends AppCompatActivity {
         greenMessage = "Spending not too much money";
         yellowMessage = "Be carefull on how much money you spend";
         redMessage = "Spending way too much money";
-        FeedbackTagListItem l1 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Groceries", greenMessage);
-        FeedbackTagListItem l2 = new FeedbackTagListItem("yellow_circle","deactive_red_circle", "yellow_circle", "deactive_green_circle", "Rent", yellowMessage);
-        FeedbackTagListItem l3 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Bills", greenMessage);
-        FeedbackTagListItem l4 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Shopping", greenMessage);
-        FeedbackTagListItem l5 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Transport", greenMessage);
-        FeedbackTagListItem l6 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Eating Out", greenMessage);
-        FeedbackTagListItem l7 = new FeedbackTagListItem("green_circle","deactive_red_circle", "deactive_yellow_circle", "green_circle", "General", greenMessage);
+        FeedbackTagListItem l1 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Groceries", greenMessage);
+        FeedbackTagListItem l2 = new FeedbackTagListItem("yellow_box","deactive_red_circle", "yellow_circle", "deactive_green_circle", "Rent", yellowMessage);
+        FeedbackTagListItem l3 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Bills", greenMessage);
+        FeedbackTagListItem l4 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Shopping", greenMessage);
+        FeedbackTagListItem l5 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Transport", greenMessage);
+        FeedbackTagListItem l6 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Eating Out", greenMessage);
+        FeedbackTagListItem l7 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "General", greenMessage);
 
         ArrayList<FeedbackTagListItem> breakdownList = new ArrayList<>();
         breakdownList.add(l1);
