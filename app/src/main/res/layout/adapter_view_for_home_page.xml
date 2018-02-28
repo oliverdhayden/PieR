@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@drawable/listview_box">
+    android:background="@drawable/gradient_bg">
 
     <ImageView
         android:layout_width="match_parent"
