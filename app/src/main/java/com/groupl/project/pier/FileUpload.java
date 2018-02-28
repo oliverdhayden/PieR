@@ -37,14 +37,14 @@ public class FileUpload extends AppCompatActivity {
     Button btn_upload;
     TextView _status;
 
-    AmazonS3Client s3;
-    BasicAWSCredentials credentials;
-    TransferUtility transferUtility;
-    TransferObserver observer;
+//    AmazonS3Client s3;
+//    BasicAWSCredentials credentials;
+//    TransferUtility transferUtility;
+//    TransferObserver observer;
 
-    String key = "FK5382F0HJ409J2309";
-    String secret = "FAJ9E280F39FA0FUA90FSP/ACN3820F";
-    String path = "someFilePath.png";
+//    String key = "FK5382F0HJ409J2309";
+//    String secret = "FAJ9E280F39FA0FUA90FSP/ACN3820F";
+//    String path = "someFilePath.png";
     Intent intent = null;
 
 
@@ -57,23 +57,10 @@ public class FileUpload extends AppCompatActivity {
         pb = (ProgressBar) findViewById(R.id.progressBar);
         btn_upload = (Button) findViewById(R.id.btn_upload);
         _status = (TextView) findViewById(R.id.txt_progress);
-        
 
-        //when button clicked open file manager
-        btn_upload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                credentials = new BasicAWSCredentials(key, secret);
-                s3 = new AmazonS3Client(credentials);
-                transferUtility = new TransferUtility(s3, FileUpload.this);
-
-                intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");
-                startActivityForResult(intent, 7);
-
-            }
-        });
+        intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        startActivityForResult(intent, 7);
 
     }
 
@@ -85,60 +72,64 @@ public class FileUpload extends AppCompatActivity {
                         if(resultCode==RESULT_OK){
                             String PathHolder = data.getData().getPath();
                             Toast.makeText(FileUpload.this, PathHolder , Toast.LENGTH_LONG).show();
+//                            intent = new Intent(MainActivity.class);
+//                            Intent intent1 = new Intent(intent.this, MainActivity.class);
+//                            startActivity(intent);
+                            uploadData(PathHolder); //COMMENT THIS TO STOP CRASHING
                         }
                         break;
                 }
             }
 
+    public void uploadData(String path) {
 
+        // Initialize AWSMobileClient if not initialized upon the app startup.
+        // AWSMobileClient.getInstance().initialize(this).execute();
 
+        TransferUtility transferUtility =
+                TransferUtility.builder()
+                        .context(getApplicationContext())
+                        .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                        .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
+                        .build();
 
+        File file = new File(path);
+        TransferObserver uploadObserver =
+                transferUtility.upload(
+                        "pierandroid-userfiles-mobilehub-318679301",
+                        file.getName(),
+                        file);
+            //        "s3Folder/s3Key.txt",
 
-//                File file = new File(path);
-//                if(!file.exists()) {
-//                    Toast.makeText(FileUpload.this, "File Not Found!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                observer = transferUtility.upload(
-//                        "media.invision.com",
-//                        "Test_Video",
-//                        file
-//                );
-//
-//                observer.setTransferListener(new TransferListener() {
-//                    @Override
-//                    public void onStateChanged(int id, TransferState state) {
-//
-//                        if (state.COMPLETED.equals(observer.getState())) {
-//
-//                            Toast.makeText(FileUpload.this, "File Upload Complete", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
-//
-//
-//
-//                        long _bytesCurrent = bytesCurrent;
-//                        long _bytesTotal = bytesTotal;
-//
-//                        float percentage =  ((float)_bytesCurrent /(float)_bytesTotal * 100);
-//                        Log.d("percentage","" +percentage);
-//                        pb.setProgress((int) percentage);
-//                        _status.setText(percentage + "%");
-//                    }
-//
-//                    @Override
-//                    public void onError(int id, Exception ex) {
-//
-//                        Toast.makeText(FileUpload.this, "" + ex.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//            }
-//        });
+        uploadObserver.setTransferListener(new TransferListener() {
 
-//    }
+            @Override
+            public void onStateChanged(int id, TransferState state) {
+                if (TransferState.COMPLETED == state) {
+                    // Handle a completed upload.
+                }
+            }
+
+            @Override
+            public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+                float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
+                int percentDone = (int)percentDonef;
+
+                Log.d("MainActivity", "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
+            }
+
+            @Override
+            public void onError(int id, Exception ex) {
+                // Handle errors
+            }
+
+        });
+
+        // If your upload does not trigger the onStateChanged method inside your
+        // TransferListener, you can directly check the transfer state as shown here.
+        if (TransferState.COMPLETED == uploadObserver.getState()) {
+            // Handle a completed upload.
+        }
+    }
 
 }
