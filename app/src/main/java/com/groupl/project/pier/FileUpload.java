@@ -1,12 +1,14 @@
 package com.groupl.project.pier;
-
+import android.os.Environment;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.amazonaws.services.s3.AmazonS3;
-
+import android.support.v4.content.ContextCompat;
+import android.content.Context;
 import android.database.Cursor;
+import android.content.CursorLoader;
 import android.provider.MediaStore;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Region;
@@ -40,7 +42,10 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import android.widget.ImageView;
 
 import java.io.File;
-
+import  	android.Manifest;
+import  	android.content.pm.PackageManager;
+import  	android.support.v4.content.ContextCompat;
+import  	android.support.v4.app.ActivityCompat;
 public class FileUpload extends AppCompatActivity {
 
     ProgressBar pb;
@@ -61,7 +66,37 @@ public class FileUpload extends AppCompatActivity {
     private ImageView imageView;
     Uri PathUri;
 
+    public void requestPermissions() {
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            System.out.println("hello");
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +127,7 @@ public class FileUpload extends AppCompatActivity {
                         if(resultCode==RESULT_OK){
                             PathUri = data.getData();
                             imageView.setImageURI(PathUri);
-                            PathHolder = getRealPathFromURI((PathUri));
+                            PathHolder = getRealPathFromURI(PathUri);
                             PathUri = data.getData();
                             imageView.setImageURI(PathUri);
                             //Toast.makeText(FileUpload.this, PathHolder , Toast.LENGTH_LONG).show();
@@ -104,17 +139,20 @@ public class FileUpload extends AppCompatActivity {
                         break;
                 }
             }
-    private String getRealPathFromURI(Uri contentURI) {
-        String thePath = "no-path-found";
-        String[] filePathColumn = {MediaStore.Images.Media.DISPLAY_NAME};
-        Cursor cursor = getContentResolver().query(contentURI, filePathColumn, null, null, null);
-        if(cursor.moveToFirst()){
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            thePath = cursor.getString(columnIndex);
-        }
+
+
+    private String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+        Cursor cursor = loader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String result = cursor.getString(column_index);
         cursor.close();
-        return  thePath;
+        return result;
     }
+
+
     public void credentialsProvider(){
 
         // Initialize the Amazon Cognito credentials provider
@@ -131,8 +169,23 @@ public class FileUpload extends AppCompatActivity {
         // Set the region of your S3 bucket
         s3.setRegion(Region.getRegion(Regions.EU_WEST_2));
     }
-    public void uploadData(String path) {
 
+
+    public File getPublicAlbumStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
+        if (!file.mkdirs()){
+            System.out.println("Directory not existy");
+        }
+        return file;
+    }
+
+
+
+
+    public void uploadData(String path) {
+        requestPermissions();
         // Initialize AWSMobileClient if not initialized upon the app startup.
         // AWSMobileClient.getInstance().initialize(this).execute();
 
@@ -142,13 +195,10 @@ public class FileUpload extends AppCompatActivity {
                         .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
                         .build();
+        System.out.println(getPublicAlbumStorageDir("Pictures"));
+        System.out.println(getRealPathFromURI(PathUri)+"!!!!!!!!!!!!!!!");
 
-        File file = new File(getRealPathFromURI(PathUri));
-        System.out.println(file);
-        System.out.println(file.canRead());
-        System.out.println(file == null );
-        System.out.println(file.isDirectory());
-        System.out.println(!file.exists());
+        File file = new File("/sdcard/Pictures/Layout/IMG_20180202_165559.jpg");
         if (file == null) {
             Toast.makeText(this, "Could not find the filepath of  the selected file", Toast.LENGTH_LONG).show();
             // to make sure that file is not emapty or null
@@ -156,9 +206,9 @@ public class FileUpload extends AppCompatActivity {
         }
         TransferObserver uploadObserver =
                 transferUtility.upload(
-                        "pierandroid-userfiles-mobilehub-318679301",
-                        PathHolder,
-                        new File(getRealPathFromURI(PathUri)));
+                        "pierandroid-userfiles-mobilehub-318679301/public",
+                        "IMG_20180202_165559.jpg",
+                        file);
             //        "s3Folder/s3Key.txt",
 
         uploadObserver.setTransferListener(new TransferListener() {
@@ -166,7 +216,7 @@ public class FileUpload extends AppCompatActivity {
             @Override
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
-                    // Handle a import android.database.Cursor;completed upload.
+                    System.out.println("hello");
                 }
             }
 
@@ -180,7 +230,7 @@ public class FileUpload extends AppCompatActivity {
 
             @Override
             public void onError(int id, Exception ex) {
-                // Handle errors
+                System.out.println(id+ " "+ex);
             }
 
         });
@@ -188,7 +238,7 @@ public class FileUpload extends AppCompatActivity {
         // If your upload does not trigger the onStateChanged method inside your
         // TransferListener, you can directly check the transfer state as shown here.
         if (TransferState.COMPLETED == uploadObserver.getState()) {
-            // Handle a completed upload.
+            System.out.println("COMPLETE");
         }
     }
 
