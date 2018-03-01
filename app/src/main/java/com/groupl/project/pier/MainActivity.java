@@ -304,13 +304,13 @@ public class MainActivity extends AppCompatActivity {
 //        colors.add(getResources().getColor(R.color.fuzzy_wuzzy));
 
         //google pie chart colours
-        colors.add(getResources().getColor(R.color.medium_aquamarine));
-        colors.add(getResources().getColor(R.color.turquoise));
-        colors.add(getResources().getColor(R.color.cornflower_blue));
-        colors.add(getResources().getColor(R.color.royal_blue));
-        colors.add(getResources().getColor(R.color.medium_slate_blue));
-        colors.add(getResources().getColor(R.color.medium_orchid));
-        colors.add(getResources().getColor(R.color.hot_pink));
+        colors.add(getResources().getColor(R.color.b4));
+        colors.add(getResources().getColor(R.color.b2));
+        colors.add(getResources().getColor(R.color.b3));
+        colors.add(getResources().getColor(R.color.b1));
+        colors.add(getResources().getColor(R.color.b5));
+        colors.add(getResources().getColor(R.color.b6));
+        colors.add(getResources().getColor(R.color.b7));
         colors.add(getResources().getColor(R.color.indian_red));
         colors.add(getResources().getColor(R.color.coral));
         colors.add(getResources().getColor(R.color.sandy_brown));
