@@ -20,12 +20,14 @@
         android:layout_marginEnd="5dp"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         android:contentDescription="@string/green_light_message"/>
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginStart="15dp">
+        android:layout_marginStart="15dp"
+        android:gravity="center_vertical">
         <TextView
             android:id="@+id/textViewFeedbackTag"
             android:layout_width="200dp"

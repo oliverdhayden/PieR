@@ -1,9 +1,11 @@
 package com.groupl.project.pier;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +61,7 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
             holder.spendingMoney = (TextView) convertView.findViewById(R.id.textViewMoneySpent);
             holder.img =  (ImageView) convertView.findViewById(R.id.image);
 
+
             //a TAG is gest a way to store a view in memory
             //here the view will be stored in memory
             convertView.setTag(holder);
@@ -81,6 +84,29 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
 
         holder.spendingType.setText(spendingType);
         holder.spendingMoney.setText(money);
+
+        // change colour of the category texts
+        if(spendingType.toLowerCase().equals("rent")){
+            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.b3));
+        }
+        if(spendingType.toLowerCase().equals("transport")){
+            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.indian_red));
+        }
+        if(spendingType.toLowerCase().equals("shopping")){
+            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.b5));
+        }
+        if(spendingType.toLowerCase().equals("bills")){
+            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.b4));
+        }
+        if(spendingType.toLowerCase().equals("groceries")){
+            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.b7));
+        }
+        if(spendingType.toLowerCase().equals("eating out")){
+            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.b2));
+        }
+        if(spendingType.toLowerCase().equals("general")){
+            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.sandy_brown));
+        }
 
         return convertView;
 
