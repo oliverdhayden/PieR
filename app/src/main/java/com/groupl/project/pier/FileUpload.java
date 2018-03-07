@@ -199,7 +199,7 @@ public class FileUpload extends AppCompatActivity {
         System.out.println(getPublicAlbumStorageDir("Pictures"));
         System.out.println(getRealPathFromURI(PathUri)+"!!!!!!!!!!!!!!!");
 
-        File file = new File("/sdcard/Pictures/Layout/IMG_20180202_165559.jpg");
+        File file = new File("/sdcard/Download/1p74ap.jpg");
         if (file == null) {
             Toast.makeText(this, "Could not find the filepath of  the selected file", Toast.LENGTH_LONG).show();
             // to make sure that file is not emapty or null
@@ -208,7 +208,7 @@ public class FileUpload extends AppCompatActivity {
         TransferObserver uploadObserver =
                 transferUtility.upload(
                         "pierandroid-userfiles-mobilehub-318679301/public",
-                        "IMG_20180202_165559.jpg",
+                        "1p74ap.jpg",
                         file);
             //        "s3Folder/s3Key.txt",
 
