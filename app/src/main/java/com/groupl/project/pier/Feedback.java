@@ -15,6 +15,13 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+
 import java.util.ArrayList;
 
 /**
@@ -48,6 +55,21 @@ public class Feedback extends AppCompatActivity {
 
         setContentView(R.layout.activity_feedback);
 
+        // UNIVERSAL IMAGE LOADER SETUP
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheOnDisc(true).cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300)).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getApplicationContext())
+                .defaultDisplayImageOptions(defaultOptions)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 1024 * 1024).build();
+
+        ImageLoader.getInstance().init(config);
+        // END - UNIVERSAL IMAGE LOADER SETUP
+
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setCustomView(R.layout.actionbar_logo);
         actionBar.setDisplayShowTitleEnabled(false);
@@ -58,13 +80,13 @@ public class Feedback extends AppCompatActivity {
         greenMessage = "Spending not too much money";
         yellowMessage = "Be carefull on how much money you spend";
         redMessage = "Spending way too much money";
-        FeedbackTagListItem l1 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Groceries", greenMessage);
-        FeedbackTagListItem l2 = new FeedbackTagListItem("yellow_box","deactive_red_circle", "yellow_circle", "deactive_green_circle", "Rent", yellowMessage);
-        FeedbackTagListItem l3 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Bills", greenMessage);
-        FeedbackTagListItem l4 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Shopping", greenMessage);
-        FeedbackTagListItem l5 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Transport", greenMessage);
-        FeedbackTagListItem l6 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "Eating Out", greenMessage);
-        FeedbackTagListItem l7 = new FeedbackTagListItem("green_box","deactive_red_circle", "deactive_yellow_circle", "green_circle", "General", greenMessage);
+        FeedbackTagListItem l1 = new FeedbackTagListItem("drawable://" + R.drawable.red_light,"Groceries",redMessage);
+        FeedbackTagListItem l2 = new FeedbackTagListItem("drawable://" + R.drawable.yellow_light,"Bills", yellowMessage);
+        FeedbackTagListItem l3 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Rent", greenMessage);
+        FeedbackTagListItem l4 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Eating Out", greenMessage);
+        FeedbackTagListItem l5 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"General", greenMessage);
+        FeedbackTagListItem l6 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Transport", greenMessage);
+        FeedbackTagListItem l7 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Shopping",greenMessage);
 
         ArrayList<FeedbackTagListItem> breakdownList = new ArrayList<>();
         breakdownList.add(l1);
@@ -75,7 +97,7 @@ public class Feedback extends AppCompatActivity {
         breakdownList.add(l7);
 
         ListView mListView = (ListView)findViewById(R.id.listViewForFeedbackPage);
-        FeedbackListItemAdapter adapter= new FeedbackListItemAdapter(this, R.layout.adapter_view_for_feedback_layout, breakdownList);
+        FeedbackListItemAdapter adapter= new FeedbackListItemAdapter(this, R.layout.adapter_view_feedback, breakdownList);
         mListView.setAdapter(adapter);
 
         //---------LIST VIEW CODE END--------

@@ -15,14 +15,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="20"
-            android:background="@color/light_gray"
+            android:background="@color/white"
             android:contentDescription="@string/left_arrow" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="60"
-            android:background="@color/light_gray"
+            android:background="@color/white"
             android:fontFamily="@font/open_sans_semibold"
             android:gravity="center"
             android:text="@string/february"
@@ -34,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="20"
-            android:background="@color/light_gray"
+            android:background="@color/white"
             android:contentDescription="@string/right_arrow"
             android:src="@drawable/rigth_arrow" />
 

@@ -9,7 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ImageView;
 
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -29,10 +33,7 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
     }
 
     static class ViewHolder {
-        LinearLayout textMessage;
-        TextView redLight;
-        TextView yellowLight;
-        TextView greenLight;
+        ImageView trafficLight;
         TextView feedbackTag;
         TextView feedbackMessage;
     }
@@ -40,14 +41,11 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        String textMessageLayout = getItem(position).getColorOfTheMessage();
-        String stringRedLight = getItem(position).getColorRed();
-        String stringYellowLight = getItem(position).getColorYellow();
-        String stringGreenLight = getItem(position).getColorGreen();
+        String stringTrafficLight = getItem(position).getTrafficLight();
         String stringFeedbackTag = getItem(position).getFeedbackTag();
         String stringFeedbackMessage = getItem(position).getFeedbackMessage();
 
-        FeedbackListItemAdapter.ViewHolder holder= new FeedbackListItemAdapter.ViewHolder();
+        ViewHolder holder= new ViewHolder();
 
         //this logic means that: store some objects before time
         if(convertView == null) {  //if that posision hasn't been visited yet
@@ -55,10 +53,7 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
 
             convertView = inflater.inflate(mResource, parent, false);
 
-            holder.textMessage = (LinearLayout) convertView.findViewById(R.id.textMessageLayout);
-            holder.redLight = (TextView) convertView.findViewById(R.id.textViewRedLight);
-            holder.yellowLight = (TextView) convertView.findViewById(R.id.textViewYellowLight);
-            holder.greenLight = (TextView) convertView.findViewById(R.id.textViewGreenLight);
+            holder.trafficLight = (ImageView) convertView.findViewById(R.id.light);
             holder.feedbackTag = (TextView) convertView.findViewById(R.id.textViewFeedbackTag);
             holder.feedbackMessage = (TextView) convertView.findViewById(R.id.textViewFeedbackMessage);
             //a TAG is gest a way to store a view in memory
@@ -67,18 +62,19 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
         }
         else {
             //here the view will be referenced from memory
-            holder = (FeedbackListItemAdapter.ViewHolder) convertView.getTag();
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        int resTextMessage = mContext.getResources().getIdentifier(textMessageLayout , "drawable", Feedback.PACKAGE_NAME);
-        int redLightResID = mContext.getResources().getIdentifier(stringRedLight , "drawable", Feedback.PACKAGE_NAME);
-        int yellowLightResID = mContext.getResources().getIdentifier(stringYellowLight , "drawable", Feedback.PACKAGE_NAME);
-        int greenLightResID = mContext.getResources().getIdentifier(stringGreenLight , "drawable", Feedback.PACKAGE_NAME);
+        int  defaultImage = mContext.getResources().getIdentifier("@drawable/image_failed", null, mContext.getPackageName());
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                .cacheOnDisc(true).resetViewBeforeLoading(true)
+                .showImageForEmptyUri(defaultImage)
+                .showImageOnFail(defaultImage)
+                .showImageOnLoading(defaultImage).build();
 
-        holder.textMessage.setBackgroundResource(resTextMessage);
-        holder.redLight.setBackgroundResource(redLightResID);
-        holder.yellowLight.setBackgroundResource(yellowLightResID);
-        holder.greenLight.setBackgroundResource(greenLightResID);
+        //download and display image from url
+        imageLoader.displayImage(stringTrafficLight, holder.trafficLight, options);
 
         holder.feedbackTag.setText(stringFeedbackTag);
         holder.feedbackMessage.setText(stringFeedbackMessage);

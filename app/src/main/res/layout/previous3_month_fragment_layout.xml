@@ -16,7 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:src="@drawable/left_arrow"
-            android:background="@color/light_gray"
+            android:background="@color/white"
             android:contentDescription="@string/left_arrow"
             android:layout_weight="20"/>
 
@@ -26,7 +26,7 @@
             android:layout_weight="60"
             android:text="@string/november"
             android:gravity="center"
-            android:background="@color/light_gray"
+            android:background="@color/white"
             android:textSize="20sp"
             android:fontFamily="@font/open_sans_semibold"
             android:textColor="@color/light_black"
@@ -35,7 +35,7 @@
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/light_gray"
+            android:background="@color/white"
             android:contentDescription="@string/right_arrow"
             android:layout_weight="20"/>
 
