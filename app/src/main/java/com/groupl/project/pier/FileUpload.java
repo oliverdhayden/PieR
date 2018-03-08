@@ -156,11 +156,10 @@ public class FileUpload extends AppCompatActivity {
 
                             imageView.setImageURI(PathUri);
 
-
-                            //PathHolder = getRealPathFromURI(PathUri);
-//                            PathUri = data.getData();
+                            PathHolder = PathUri.toString();
+                            PathUri = data.getData();
                             imageView.setImageURI(PathUri);
-                            //Toast.makeText(FileUpload.this, realPath , Toast.LENGTH_LONG).show();
+                            Toast.makeText(FileUpload.this, PathHolder , Toast.LENGTH_LONG).show();
 //                            intent = new Intent(MainActivity.class);
 //                            Intent intent1 = new Intent(intent.this, MainActivity.class);
 //                            startActivity(intent);
