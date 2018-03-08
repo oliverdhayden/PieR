@@ -267,7 +267,7 @@ public class FileUpload extends AppCompatActivity {
             @Override
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
-                    System.out.println("hello");
+                    Toast.makeText(FileUpload.this, "upload complete " , Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -276,13 +276,15 @@ public class FileUpload extends AppCompatActivity {
             public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
                 float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
                 int percentDone = (int)percentDonef;
-
-                Log.d("MainActivity", "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
+                Log.i(TAG, "onProgressChanged:" + "ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
+                Log.d(TAG, "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
             }
 
             @Override
             public void onError(int id, Exception ex) {
                 System.out.println(id+ " "+ex);
+                Toast.makeText(FileUpload.this, "error uploading" , Toast.LENGTH_LONG).show();
+
             }
 
         });
