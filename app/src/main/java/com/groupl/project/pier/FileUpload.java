@@ -1,5 +1,6 @@
 
 package com.groupl.project.pier;
+import android.os.Build;
 import android.os.Environment;
 import android.content.Intent;
 import android.net.Uri;
@@ -43,16 +44,22 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import android.widget.ImageView;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+
 import  	android.Manifest;
 import  	android.content.pm.PackageManager;
 import  	android.support.v4.content.ContextCompat;
 import  	android.support.v4.app.ActivityCompat;
 public class FileUpload extends AppCompatActivity {
 
+    String TAG = "FileUpload";
     ProgressBar pb;
     Button btn_upload;
     TextView _status;
     String PathHolder = "newTest.jpg";
+
+    String selectedImagePath;
 
 //    AmazonS3Client s3;
 //    BasicAWSCredentials credentials;
@@ -66,6 +73,7 @@ public class FileUpload extends AppCompatActivity {
     AmazonS3 s3;
     private ImageView imageView;
     Uri PathUri;
+    File file;
 
     public void requestPermissions() {
         // Here, thisActivity is the current activity
@@ -111,7 +119,6 @@ public class FileUpload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadData(PathHolder);
-                System.out.println("hello");
             }
         });
         intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -120,18 +127,40 @@ public class FileUpload extends AppCompatActivity {
 
     }
 
-            @Override
+
+
+    @Override
             protected void onActivityResult(int requestCode, int resultCode, Intent data) {
                 // TODO Auto-generated method stub
                 switch(requestCode){
                     case 7:
                         if(resultCode==RESULT_OK){
                             PathUri = data.getData();
+                            String filePath = data.getData().getPath();
+
+                            Uri selectedImageUri = data.getData();
+
+                            //MEDIA GALLERY
+                            selectedImagePath = ImageFilePath.getPath(getApplicationContext(), selectedImageUri);
+                            Log.i("Image File Path", "path = "+selectedImagePath);
+                            Toast.makeText(FileUpload.this, "path = " + selectedImagePath , Toast.LENGTH_LONG).show();
+
+
+//                            String path = getContentResolver().getType(PathUri);
+                              //String path = PathUri.toString();
+                              //file = new File(PathUri.toString());
+                              //PathHolder = file.getAbsolutePath();
+                            //String path = getRealPathFromURI(PathUri);
+                            //Toast.makeText(FileUpload.this, "path = " +path , Toast.LENGTH_LONG).show();
+
+
                             imageView.setImageURI(PathUri);
-                            PathHolder = getRealPathFromURI(PathUri);
-                            PathUri = data.getData();
+
+
+                            //PathHolder = getRealPathFromURI(PathUri);
+//                            PathUri = data.getData();
                             imageView.setImageURI(PathUri);
-                            //Toast.makeText(FileUpload.this, PathHolder , Toast.LENGTH_LONG).show();
+                            //Toast.makeText(FileUpload.this, realPath , Toast.LENGTH_LONG).show();
 //                            intent = new Intent(MainActivity.class);
 //                            Intent intent1 = new Intent(intent.this, MainActivity.class);
 //                            startActivity(intent);
@@ -142,14 +171,30 @@ public class FileUpload extends AppCompatActivity {
             }
 
 
-    private String getRealPathFromURI(Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
+
+//    private String getRealPathFromURI(Uri contentUri) {
+//        String[] proj = { MediaStore.Images.Media.DATA };
+//        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
+//        Cursor cursor = loader.loadInBackground();
+//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//        cursor.moveToFirst();
+//        String result = cursor.getString(column_index);
+//        cursor.close();
+//        return result;
+//    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result = null;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
         return result;
     }
 
@@ -197,9 +242,13 @@ public class FileUpload extends AppCompatActivity {
                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
                         .build();
         System.out.println(getPublicAlbumStorageDir("Pictures"));
-        System.out.println(getRealPathFromURI(PathUri)+"!!!!!!!!!!!!!!!");
+        //System.out.println(getRealPathFromURI(PathUri)+"!!!!!!!!!!!!!!!");
 
-        File file = new File("/sdcard/Download/1p74ap.jpg");
+        //File file = new File("/sdcard/Download/1p74ap.jpg");
+        //File file = new File("/storage/742B-E957/DCIM/Camera/20170815_132902.jpg");
+        File file = new File(selectedImagePath);
+        String fileName = file.getName();
+
         if (file == null) {
             Toast.makeText(this, "Could not find the filepath of  the selected file", Toast.LENGTH_LONG).show();
             // to make sure that file is not emapty or null
@@ -208,9 +257,11 @@ public class FileUpload extends AppCompatActivity {
         TransferObserver uploadObserver =
                 transferUtility.upload(
                         "pierandroid-userfiles-mobilehub-318679301/public",
-                        "1p74ap.jpg",
+                        fileName,
                         file);
-            //        "s3Folder/s3Key.txt",
+                //"1p74ap.jpg",
+                //"20170815_132902.jpg",
+                //"s3Folder/s3Key.txt",
 
         uploadObserver.setTransferListener(new TransferListener() {
 
@@ -218,6 +269,7 @@ public class FileUpload extends AppCompatActivity {
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
                     System.out.println("hello");
+
                 }
             }
 
@@ -240,6 +292,8 @@ public class FileUpload extends AppCompatActivity {
         // TransferListener, you can directly check the transfer state as shown here.
         if (TransferState.COMPLETED == uploadObserver.getState()) {
             System.out.println("COMPLETE");
+            Toast.makeText(this, "upload complete", Toast.LENGTH_LONG).show();
+
         }
     }
 
