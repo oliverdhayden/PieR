@@ -12,7 +12,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-public class ImageFilePath
+public class FilePathUtil
 {
 
 

@@ -9,22 +9,24 @@
     android:background="@drawable/bg1">
 
     <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:id="@+id/progressBar"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:id="@+id/btn_upload"/>
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:progress="0" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/txt_progress"/>
-    <ImageView
+        android:id="@+id/progressBarText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_launcher"
-        android:id="@+id/imageView"
-        />
+        android:text="0/100" />
+
+
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload" />
 
 </android.widget.LinearLayout>

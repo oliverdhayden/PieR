@@ -1,8 +1,6 @@
 
 package com.groupl.project.pier;
 import android.app.ProgressDialog;
-import android.os.Build;
-import android.os.Environment;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -12,28 +10,14 @@ import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
-import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
 import com.amazonaws.services.s3.AmazonS3;
 import android.support.v4.content.ContextCompat;
-import android.content.Context;
-import android.database.Cursor;
-import android.content.CursorLoader;
-import android.provider.MediaStore;
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
-import android.database.Cursor;
 // Following imports establish connection to AWS Mobile Services
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.event.ProgressEvent;
-import com.amazonaws.mobile.config.AWSConfiguration;
-import com.amazonaws.mobileconnectors.s3.transferutility.*;
 import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.services.s3.AmazonS3Client;
 // Following imports handle uploading a file to S3 Bucket
-import android.app.Activity;
 
 
 import android.util.Log;
@@ -43,33 +27,33 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
 import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
-import com.amazonaws.services.s3.AmazonS3Client;
-import android.widget.ImageView;
+
 
 import java.io.File;
-import java.io.InputStream;
-import java.net.URISyntaxException;
 
 import  	android.Manifest;
 import  	android.content.pm.PackageManager;
-import  	android.support.v4.content.ContextCompat;
 import  	android.support.v4.app.ActivityCompat;
 public class FileUpload extends AppCompatActivity {
 
     String TAG = "FileUpload";
-    ProgressBar pb;
-    Button btn_upload;
-    TextView _status;
     String PathHolder = "newTest.jpg";
     String identityID = "this failed";
-    String selectedImagePath;
+    String filePath;
     ProgressDialog dialog;
-    int percentDone=0;
+
+
+
+    int percentDone = 0;
+    ProgressBar progressBar;
+    TextView progressText;
+    Button buttonUpload;
+
+
 //    AmazonS3Client s3;
 //    BasicAWSCredentials credentials;
 //    TransferUtility transferUtility;
@@ -80,7 +64,6 @@ public class FileUpload extends AppCompatActivity {
 //    String path = "someFilePath.png";
     Intent intent = null;
     AmazonS3 s3;
-    private ImageView imageView;
     Uri PathUri;
     File file;
 
@@ -119,14 +102,17 @@ public class FileUpload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
-        //pb = (ProgressBar) findViewById(R.id.progressBar);
-        btn_upload = (Button) findViewById(R.id.btn_upload);
-        _status = (TextView) findViewById(R.id.txt_progress);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
+
+        buttonUpload = findViewById(R.id.btn_upload);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressText = findViewById(R.id.progressBarText);
+
+
+        buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadData(PathHolder);
+                uploadData(filePath);
             }
         });
         requestPermissions();
@@ -145,22 +131,22 @@ public class FileUpload extends AppCompatActivity {
                 switch(requestCode){
                     case 7:
                         if(resultCode==RESULT_OK){
+                            //gets String Path of selected file
                             PathUri = data.getData();
-                            String filePath = data.getData().getPath();
-                            Uri selectedImageUri = data.getData();
-                            //MEDIA GALLERY
-                            selectedImagePath = ImageFilePath.getPath(getApplicationContext(), selectedImageUri);
-                            Log.i("Image File Path", "path = "+selectedImagePath);
-                            Toast.makeText(FileUpload.this, "path = " + selectedImagePath , Toast.LENGTH_LONG).show();
-                            imageView.setImageURI(PathUri);
-                            PathHolder = PathUri.toString();
-                            PathUri = data.getData();
-                            imageView.setImageURI(PathUri);
-                            Toast.makeText(FileUpload.this, PathHolder , Toast.LENGTH_LONG).show();
-//                            intent = new Intent(MainActivity.class);
-//                            Intent intent1 = new Intent(intent.this, MainActivity.class);
-//                            startActivity(intent);
-                           //uploadData(PathHolder); //COMMENT THIS TO STOP CRASHING
+                            filePath = FilePathUtil.getPath(getApplicationContext(), PathUri);
+
+
+                            //check the extention is correct
+                            String extension = FileExtentionUtil.getExtensionOfFile(new File(filePath));
+                            String csv = "csv";
+                            //if incorrect extension restart the file manager
+                            if(!extension.equals(csv)){
+                                Toast.makeText(this, "The chosen file has the extension "+extension + " which is not a CSV file, please choose another file." , Toast.LENGTH_LONG).show();
+                                intent = new Intent(Intent.ACTION_GET_CONTENT);
+                                intent.setType("*/*");
+                                startActivityForResult(intent, 7);
+                            }
+                            percentDone = 0;
                         }
                         break;
                 }
@@ -202,18 +188,18 @@ public class FileUpload extends AppCompatActivity {
                         .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
                         .build();
-        File file = new File(selectedImagePath);
+        File file = new File(path);
         String fileName = file.getName();
         if (file == null) {
             Toast.makeText(this, "Could not find the filepath of  the selected file", Toast.LENGTH_LONG).show();
             // to make sure that file is not emapty or null
             return;
         }
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Uploading File");
-        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        dialog.setMax(100);
-        dialog.show();
+//        dialog = new ProgressDialog(this);
+//        dialog.setMessage("Uploading File");
+//        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//        dialog.setMax(100);
+//        dialog.show();
         TransferObserver uploadObserver =
                 transferUtility.upload(
                         "pierandroid-userfiles-mobilehub-318679301/public/"+identityID,
@@ -225,7 +211,7 @@ public class FileUpload extends AppCompatActivity {
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
                     Toast.makeText(FileUpload.this, "Upload Completed" , Toast.LENGTH_LONG).show();
-                    dialog.hide();
+                    //dialog.hide();
                 }
             }
 
@@ -233,16 +219,22 @@ public class FileUpload extends AppCompatActivity {
             public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
                 float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
                 percentDone = (int)percentDonef;
-                dialog.setProgress(percentDone);
-                System.out.println(dialog.getProgress());
+
+                //dialog.setProgress(percentDone);
+                progressBar.setProgress(percentDone);
+                progressText.setText(percentDone+"/"+progressBar.getMax());
+
+                //System.out.println(dialog.getProgress());
                 Log.i(TAG, "onProgressChanged:" + "ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
                 Log.d(TAG, "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
             }
 
             @Override
             public void onError(int id, Exception ex) {
+
                 System.out.println(id+ " "+ex);
                 Toast.makeText(FileUpload.this, "error uploading" , Toast.LENGTH_LONG).show();
+
 
             }
 
