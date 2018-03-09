@@ -1,11 +1,18 @@
 
 package com.groupl.project.pier;
+import android.app.ProgressDialog;
 import android.os.Build;
 import android.os.Environment;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import java.util.*;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserSession;
 import com.amazonaws.services.s3.AmazonS3;
 import android.support.v4.content.ContextCompat;
 import android.content.Context;
@@ -13,6 +20,7 @@ import android.database.Cursor;
 import android.content.CursorLoader;
 import android.provider.MediaStore;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -58,9 +66,10 @@ public class FileUpload extends AppCompatActivity {
     Button btn_upload;
     TextView _status;
     String PathHolder = "newTest.jpg";
-
+    String identityID = "this failed";
     String selectedImagePath;
-
+    ProgressDialog dialog;
+    int percentDone=0;
 //    AmazonS3Client s3;
 //    BasicAWSCredentials credentials;
 //    TransferUtility transferUtility;
@@ -110,8 +119,7 @@ public class FileUpload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
-        pb = (ProgressBar) findViewById(R.id.progressBar);
-
+        //pb = (ProgressBar) findViewById(R.id.progressBar);
         btn_upload = (Button) findViewById(R.id.btn_upload);
         _status = (TextView) findViewById(R.id.txt_progress);
         imageView = (ImageView) findViewById(R.id.imageView);
@@ -121,6 +129,8 @@ public class FileUpload extends AppCompatActivity {
                 uploadData(PathHolder);
             }
         });
+        requestPermissions();
+        credentialsProvider();
         intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         startActivityForResult(intent, 7);
@@ -137,25 +147,12 @@ public class FileUpload extends AppCompatActivity {
                         if(resultCode==RESULT_OK){
                             PathUri = data.getData();
                             String filePath = data.getData().getPath();
-
                             Uri selectedImageUri = data.getData();
-
                             //MEDIA GALLERY
                             selectedImagePath = ImageFilePath.getPath(getApplicationContext(), selectedImageUri);
                             Log.i("Image File Path", "path = "+selectedImagePath);
                             Toast.makeText(FileUpload.this, "path = " + selectedImagePath , Toast.LENGTH_LONG).show();
-
-
-//                            String path = getContentResolver().getType(PathUri);
-                              //String path = PathUri.toString();
-                              //file = new File(PathUri.toString());
-                              //PathHolder = file.getAbsolutePath();
-                            //String path = getRealPathFromURI(PathUri);
-                            //Toast.makeText(FileUpload.this, "path = " +path , Toast.LENGTH_LONG).show();
-
-
                             imageView.setImageURI(PathUri);
-
                             PathHolder = PathUri.toString();
                             PathUri = data.getData();
                             imageView.setImageURI(PathUri);
@@ -170,112 +167,74 @@ public class FileUpload extends AppCompatActivity {
             }
 
 
+    public void credentialsProvider() {
+        AWSConfiguration a = new AWSConfiguration(this);
+        CognitoUserPool userPool = new CognitoUserPool(this,a);
+        CognitoUser user = userPool.getCurrentUser();
+        // Implement callback handler for getting details
+        GetDetailsHandler getDetailsHandler = new GetDetailsHandler() {
+            @Override
+            public void onSuccess(CognitoUserDetails cognitoUserDetails) {
+                // The user detail are in cognitoUserDetails
+                Map userAtts = new HashMap();
+                userAtts = cognitoUserDetails.getAttributes().getAttributes();
+                identityID = userAtts.get("sub").toString();
+                System.out.println(identityID);
+            }
 
-//    private String getRealPathFromURI(Uri contentUri) {
-//        String[] proj = { MediaStore.Images.Media.DATA };
-//        CursorLoader loader = new CursorLoader(this, contentUri, proj, null, null, null);
-//        Cursor cursor = loader.loadInBackground();
-//        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        String result = cursor.getString(column_index);
-//        cursor.close();
-//        return result;
-//    }
+            @Override
+            public void onFailure(Exception exception) {
+               System.out.println(exception);
+            }
+        };
 
-    private String getRealPathFromURI(Uri contentURI) {
-        String result = null;
-        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+// Fetch the user details
+        user.getDetailsInBackground(getDetailsHandler);
 
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            result = cursor.getString(idx);
-            cursor.close();
-        }
-        return result;
     }
-
-
-    public void credentialsProvider(){
-
-        // Initialize the Amazon Cognito credentials provider
-        CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
-                getApplicationContext(),
-                "eu-west-2_L2N7BBzdI", // Identity pool ID
-                Regions.EU_WEST_2 // Region
-        );
-        setAmazonS3Client(credentialsProvider);
-    }
-    public void setAmazonS3Client(CognitoCachingCredentialsProvider credentialsProvider){
-        // Create an S3 client
-        s3 = new AmazonS3Client(credentialsProvider);
-        // Set the region of your S3 bucket
-        s3.setRegion(Region.getRegion(Regions.EU_WEST_2));
-    }
-
-
-    public File getPublicAlbumStorageDir(String albumName) {
-        // Get the directory for the user's public pictures directory.
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), albumName);
-        if (!file.mkdirs()){
-            System.out.println("Directory not existy");
-        }
-        return file;
-    }
-
-
-
 
     public void uploadData(String path) {
-        requestPermissions();
         // Initialize AWSMobileClient if not initialized upon the app startup.
         // AWSMobileClient.getInstance().initialize(this).execute();
-
         TransferUtility transferUtility =
                 TransferUtility.builder()
                         .context(getApplicationContext())
                         .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                         .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
                         .build();
-        System.out.println(getPublicAlbumStorageDir("Pictures"));
-        //System.out.println(getRealPathFromURI(PathUri)+"!!!!!!!!!!!!!!!");
-
-        //File file = new File("/sdcard/Download/1p74ap.jpg");
-        //File file = new File("/storage/742B-E957/DCIM/Camera/20170815_132902.jpg");
         File file = new File(selectedImagePath);
         String fileName = file.getName();
-
         if (file == null) {
             Toast.makeText(this, "Could not find the filepath of  the selected file", Toast.LENGTH_LONG).show();
             // to make sure that file is not emapty or null
             return;
         }
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Uploading File");
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setMax(100);
+        dialog.show();
         TransferObserver uploadObserver =
                 transferUtility.upload(
-                        "pierandroid-userfiles-mobilehub-318679301/public",
+                        "pierandroid-userfiles-mobilehub-318679301/public/"+identityID,
                         fileName,
                         file);
-                //"1p74ap.jpg",
-                //"20170815_132902.jpg",
-                //"s3Folder/s3Key.txt",
-
         uploadObserver.setTransferListener(new TransferListener() {
 
             @Override
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
-                    Toast.makeText(FileUpload.this, "upload complete " , Toast.LENGTH_LONG).show();
-
+                    Toast.makeText(FileUpload.this, "Upload Completed" , Toast.LENGTH_LONG).show();
+                    dialog.hide();
                 }
             }
 
             @Override
             public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
                 float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
-                int percentDone = (int)percentDonef;
+                percentDone = (int)percentDonef;
+                dialog.setProgress(percentDone);
+                System.out.println(dialog.getProgress());
                 Log.i(TAG, "onProgressChanged:" + "ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
                 Log.d(TAG, "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
             }
@@ -294,7 +253,6 @@ public class FileUpload extends AppCompatActivity {
         if (TransferState.COMPLETED == uploadObserver.getState()) {
             System.out.println("COMPLETE");
             Toast.makeText(this, "upload complete", Toast.LENGTH_LONG).show();
-
         }
     }
 

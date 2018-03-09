@@ -48,22 +48,6 @@ public class Login extends AppCompatActivity {
                 signinUI.login(Login.this, MainActivity.class).authUIConfiguration(config).execute();
             }
         }).execute();
-
-//        CognitoUserPool userPool = new CognitoUserPool(this, "eu-west-2_L2N7BBzdI", clientId, clientSecret, clientConfiguration);
-//        CognitoUser user = userPool.getCurrentUser();
-//        GetDetailsHandler handler = new GetDetailsHandler() {
-//            @Override
-//            public void onSuccess(final CognitoUserDetails list) {
-//                // Successfully retrieved user details
-//            }
-//
-//            @Override
-//            public void onFailure(final Exception exception) {
-//                // Failed to retrieve the user details, probe exception for the cause
-//            }
-//        };
-//        user.getDetails(handler);
-
         finish();
         }
 
