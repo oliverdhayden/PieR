@@ -85,8 +85,6 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
         holder.spendingType.setText(spendingType);
         holder.spendingMoney.setText(money);
 
-
-
         return convertView;
 
 
