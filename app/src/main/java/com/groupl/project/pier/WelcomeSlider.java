@@ -16,7 +16,9 @@ public class WelcomeSlider extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getPreference(this,"firsttime")) {
+
+//        if(getPreference(this,"firsttime")) {
+            if(true){
             setContentView(R.layout.welcome_screen0);
         }
         else {

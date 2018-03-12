@@ -38,6 +38,11 @@ import java.io.File;
 import  	android.Manifest;
 import  	android.content.pm.PackageManager;
 import  	android.support.v4.app.ActivityCompat;
+//todo
+//add error retry upload button
+//on sucsesfful upload change remove upload functionallyty from button to stop multiple uploads,
+//add return to home button on complete
+//add file name chosen + change file button.
 public class FileUpload extends AppCompatActivity {
 
     String TAG = "FileUpload";

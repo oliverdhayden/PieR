@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check login
+
+
         setContentView(R.layout.activity_main);
 
         // Establishes connection to AWS Mobile
