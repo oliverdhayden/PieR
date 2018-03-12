@@ -29,11 +29,11 @@ public class SplashActivity extends AppCompatActivity {
                             startActivity(new Intent(SplashActivity.this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                         } else {
                             startActivity(new Intent(SplashActivity.this, WelcomeSlider.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                            finish();
                         }
                     }
                 }, 3000);
             }
         }).execute();
-    finish();
     }
 }
