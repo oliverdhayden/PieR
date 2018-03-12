@@ -17,6 +17,7 @@ import com.amazonaws.mobile.auth.ui.SignInUI;
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobile.client.AWSStartupHandler;
 import com.amazonaws.mobile.client.AWSStartupResult;
+import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserAttributes;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
@@ -48,6 +49,15 @@ public class Login extends AppCompatActivity {
                 signinUI.login(Login.this, MainActivity.class).authUIConfiguration(config).execute();
             }
         }).execute();
+
+        AWSConfiguration a = new AWSConfiguration(this);
+        CognitoUserPool userPool = new CognitoUserPool(this,a);
+
+        CognitoUser user = userPool.getCurrentUser();
+        String username = user.getUserId();
+
+        AccountUtils accountUtils = new AccountUtils();
+        accountUtils.userName = username;
         finish();
         }
 

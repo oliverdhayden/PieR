@@ -4,7 +4,6 @@ import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 import android.content.Intent;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -32,7 +31,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -194,10 +192,10 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Log.i(TAG, "onNavigationItemSelected: ran");
                 switch (item.getItemId()){
-                    case R.id.login:
-                        Intent login = new Intent(MainActivity.this,Login.class);
-                        Log.i(TAG, "onNavigationItemSelected: login");
-                        startActivity(login);
+                    case R.id.signOut:
+                        Intent SignOut = new Intent(MainActivity.this,SignOutActivity.class);
+                        Log.i(TAG, "onNavigationItemSelected: signOut");
+                        startActivity(SignOut);
                         break;
                     case R.id.setting:
                         Intent setting = new Intent(MainActivity.this,settingPage.class);

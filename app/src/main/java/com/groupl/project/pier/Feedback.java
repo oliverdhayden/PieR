@@ -10,10 +10,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -148,9 +148,9 @@ public class Feedback extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.login:
-                        Intent login = new Intent(Feedback.this,Login.class);
-                        startActivity(login);
+                    case R.id.signOut:
+                        Intent SignOut = new Intent(Feedback.this,SignOutActivity.class);
+                        startActivity(SignOut);
                         break;
                     case R.id.setting:
                         Intent setting = new Intent(Feedback.this,settingPage.class);

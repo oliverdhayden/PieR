@@ -25,15 +25,14 @@
         <activity
             android:name=".WelcomeSlider"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBarTranparetStatus">
+            android:theme="@style/NoActionBarTranparetStatus"></activity>
 
-        </activity>
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
 
-        <!--<category android:name="android.intent.category.LAUNCHER" />-->
-        <!--</intent-filter>-->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
         <activity
             android:name=".FullStatement"
             android:screenOrientation="portrait" />
@@ -63,12 +62,12 @@
             android:name=".WelcomePage"
             android:theme="@style/NoActionBarTranparetStatus" />
         <activity android:name=".FileUpload" />
-
         <activity
             android:name=".SplashActivity"
             android:theme="@style/NoActionBarTranparetStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -77,7 +76,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-
+        <activity android:name=".SignOutActivity"></activity>
     </application>
 
 </manifest>

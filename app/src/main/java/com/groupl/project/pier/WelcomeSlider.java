@@ -17,6 +17,8 @@ public class WelcomeSlider extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
 //        if(getPreference(this,"firsttime")) {
             if(true){
             setContentView(R.layout.welcome_screen0);
@@ -51,5 +53,15 @@ public class WelcomeSlider extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         myadapter = new SlideAdapter(this);
         viewPager.setAdapter(myadapter);
+    }
+
+    //this disables the use of the back button on the page
+    @Override
+    public void onBackPressed() {
+        if (true) {
+
+        } else {
+            super.onBackPressed();
+        }
     }
 }

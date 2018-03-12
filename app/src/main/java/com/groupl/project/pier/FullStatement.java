@@ -104,9 +104,9 @@ public class FullStatement extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.login:
-                        Intent login = new Intent(FullStatement.this,Login.class);
-                        startActivity(login);
+                    case R.id.signOut:
+                        Intent SignOut = new Intent(FullStatement.this,SignOutActivity.class);
+                        startActivity(SignOut);
                         break;
                     case R.id.setting:
                         Intent setting = new Intent(FullStatement.this,settingPage.class);

@@ -125,9 +125,9 @@ public class Tagging extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.login:
-                        Intent login = new Intent(Tagging.this,Login.class);
-                        startActivity(login);
+                    case R.id.signOut:
+                        Intent SignOut = new Intent(Tagging.this,SignOutActivity.class);
+                        startActivity(SignOut);
                         break;
                     case R.id.setting:
                         Intent setting = new Intent(Tagging.this,settingPage.class);

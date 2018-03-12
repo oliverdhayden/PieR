@@ -162,6 +162,7 @@ public class FileUpload extends AppCompatActivity {
         AWSConfiguration a = new AWSConfiguration(this);
         CognitoUserPool userPool = new CognitoUserPool(this,a);
         CognitoUser user = userPool.getCurrentUser();
+
         // Implement callback handler for getting details
         GetDetailsHandler getDetailsHandler = new GetDetailsHandler() {
             @Override
