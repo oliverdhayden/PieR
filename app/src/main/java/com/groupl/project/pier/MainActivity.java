@@ -15,7 +15,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -42,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private String[] xData = {"Mitch", "Jessica" , "Mohammad" , "Kelsey", "Sam", "Robert", "Ashley"};
     PieChart pieChart;
 
-    //for test commit
+
+
+
     //raju
     private DrawerLayout myDrawerLaout;
     private ActionBarDrawerToggle myToggle;
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         //check login
 
 
@@ -185,7 +192,9 @@ public class MainActivity extends AppCompatActivity {
 
         //raju
         navigation = (NavigationView) findViewById(R.id.navigation_view);
-
+        View headerView = navigation.getHeaderView(0);
+        TextView username = (TextView) headerView.findViewById(R.id.header_username);
+        username.setText(preference.getPreference(this,"username").toUpperCase());
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -217,6 +226,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        //set username
+
         //------------------------------code for home page which displays the summary of the spendings----------------
 
         ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
@@ -251,12 +262,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
 
     //raju - opens the menu tab
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         Log.i(TAG, "onOptionsItemSelected: ran");
         int id = item.getItemId();
         String idStr = getResources().getResourceName(id);

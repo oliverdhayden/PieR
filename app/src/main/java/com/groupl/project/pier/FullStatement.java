@@ -13,6 +13,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
         import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by ollie on 28/01/2018.
@@ -98,7 +100,9 @@ public class FullStatement extends AppCompatActivity {
         });
         //raju
         navigation = (NavigationView) findViewById(R.id.navigation_view);
-
+        View headerView = navigation.getHeaderView(0);
+        TextView username = (TextView) headerView.findViewById(R.id.header_username);
+        username.setText(preference.getPreference(this,"username").toUpperCase());
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
