@@ -139,7 +139,6 @@ public class FileUpload extends AppCompatActivity {
                             //gets String Path of selected file
                             PathUri = data.getData();
                             filePath = FilePathUtil.getPath(getApplicationContext(), PathUri);
-                            Log.i(TAG, "Path:" + filePath);
                             File file = new File(filePath);
                             //check the extention is correct
                             String extension = FileExtentionUtil.getExtensionOfFile(file);
@@ -201,6 +200,23 @@ public class FileUpload extends AppCompatActivity {
             // to make sure that file is not emapty or null
             return;
         }
+
+
+        // ----------------------- BLOCK UPLOAD IF NOT AN CSV FILE ----------------------------------------
+        //check the extention is correct
+        String extension = FileExtentionUtil.getExtensionOfFile(file);
+        String csv = "csv";
+        //if incorrect extension restart the file manager
+        if(!extension.equals(csv)){
+            Toast.makeText(this, "Please select an CSV type file!!" , Toast.LENGTH_LONG).show();
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            startActivityForResult(intent, 7);
+            return;
+        }
+
+
+
 //        dialog = new ProgressDialog(this);
 //        dialog.setMessage("Uploading File");
 //        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
