@@ -146,7 +146,7 @@ public class FileUpload extends AppCompatActivity {
                             String csv = "csv";
                             //if incorrect extension restart the file manager
                             if(!extension.equals(csv)){
-                                Toast.makeText(this, "The chosen file has the extension "+extension + " which is not a " +csv+ " file, please choose another file." , Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, "The chosen file has the extension "+extension + " which is not a csv file, please choose another file." , Toast.LENGTH_LONG).show();
                                 intent = new Intent(Intent.ACTION_GET_CONTENT);
                                 intent.setType("*/*");
                                 startActivityForResult(intent, 7);
