@@ -54,10 +54,14 @@ public class Login extends AppCompatActivity {
         CognitoUserPool userPool = new CognitoUserPool(this,a);
 
         CognitoUser user = userPool.getCurrentUser();
-        String username = user.getUserId();
 
-//        AccountUtils accountUtils = new AccountUtils();
-//        accountUtils.userName = username;
+        // set username
+        preference.setPreference(this, "username", user.getUserId());
+
+
+
+//      AccountUtils accountUtils = new AccountUtils();
+//      accountUtils.userName = username;
         finish();
         }
 

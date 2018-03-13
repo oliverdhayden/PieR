@@ -139,14 +139,14 @@ public class FileUpload extends AppCompatActivity {
                             //gets String Path of selected file
                             PathUri = data.getData();
                             filePath = FilePathUtil.getPath(getApplicationContext(), PathUri);
-
-
+                            Log.i(TAG, "Path:" + filePath);
+                            File file = new File(filePath);
                             //check the extention is correct
-                            String extension = FileExtentionUtil.getExtensionOfFile(new File(filePath));
+                            String extension = FileExtentionUtil.getExtensionOfFile(file);
                             String csv = "csv";
                             //if incorrect extension restart the file manager
                             if(!extension.equals(csv)){
-                                Toast.makeText(this, "The chosen file has the extension "+extension + " which is not a CSV file, please choose another file." , Toast.LENGTH_LONG).show();
+                                Toast.makeText(this, "The chosen file has the extension "+extension + " which is not a " +csv+ " file, please choose another file." , Toast.LENGTH_LONG).show();
                                 intent = new Intent(Intent.ACTION_GET_CONTENT);
                                 intent.setType("*/*");
                                 startActivityForResult(intent, 7);
