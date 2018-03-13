@@ -150,6 +150,9 @@ public class FileUpload extends AppCompatActivity {
                                 intent.setType("*/*");
                                 startActivityForResult(intent, 7);
                             }
+                            // ------------------------ SHOW SELECTED FILE NAME -----------------------------------------------
+                            TextView filename = (TextView) findViewById(R.id.filename);
+                            filename.setText(file.getName());
                             percentDone = 0;
                         }
                         break;
