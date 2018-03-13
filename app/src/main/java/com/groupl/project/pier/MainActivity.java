@@ -18,12 +18,14 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -39,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String TAG = "Main Activity";
     private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
-    private String[] xData = {"Mitch", "Jessica" , "Mohammad" , "Kelsey", "Sam", "Robert", "Ashley"};
+    private String[] xData = {"Rent", "Transport" , "Bills" , "Shopping", "Eating Out", "General", "test"};
+
+
     PieChart pieChart;
 
     //for test commit
@@ -143,24 +147,31 @@ public class MainActivity extends AppCompatActivity {
         pieChart.setUsePercentValues(true);
         //pieChart.setHoleColor(Color.BLUE);
         //pieChart.setCenterTextColor(Color.BLACK);
-        pieChart.setHoleRadius(25f);
-        pieChart.setTransparentCircleAlpha(0);
+
+        pieChart.setHoleRadius(58f);
+        pieChart.setTransparentCircleRadius(61f);
+
+        //pieChart.setTransparentCircleAlpha(0);
         //pieChart.setCenterText("Super Cool Chart");
         //pieChart.setCenterTextSize(0);
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
         pieChart.getLegend().setEnabled(false);
 
+
         addDataSet(pieChart);
+        //pieChart.setDrawSliceText(false);
+        pieChart.setDrawEntryLabels(true);
+        pieChart.invalidate();
 
         pieChart.animateX(700);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Log.d(TAG, "onValueSelected: Value select from chart.");
-                Log.d(TAG, "onValueSelected: " + e.toString());
-                Log.d(TAG, "onValueSelected: " + h.toString());
+//                Log.d(TAG, "onValueSelected: Value select from chart.");
+//                Log.d(TAG, "onValueSelected: " + e.toString());
+//                Log.d(TAG, "onValueSelected: " + h.toString());
 
 //                int pos1 = e.toString().indexOf("(sum): ");
 //                String sales = e.toString().substring(pos1 + 7);
@@ -275,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> xEntries = new ArrayList<>();
 
         for(int i = 0; i< yData.length; i++){
-            yEntries.add(new PieEntry(yData[i], i));
+            yEntries.add(new PieEntry(yData[i], xData[i]));
         }
 
         for(int i = 0; i< xData.length; i++){
@@ -286,6 +297,10 @@ public class MainActivity extends AppCompatActivity {
         PieDataSet pieDataSet = new PieDataSet(yEntries,"");
         pieDataSet.setSliceSpace(2);
         pieDataSet.setValueTextSize(12);
+        //pieDataSet.setDrawValues(false); //this turns the percents off
+
+
+
 
         //add colors to dataset
         ArrayList<Integer> colors = new ArrayList<>();
@@ -332,9 +347,9 @@ public class MainActivity extends AppCompatActivity {
         pieDataSet.setColors(colors);
 
         //add legend to chart
-//        Legend legend = pieChart.getLegend();
-//        legend.setForm(Legend.LegendForm.CIRCLE);
-//        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
+        //Legend legend = pieChart.getLegend();
+        //legend.setForm(Legend.LegendForm.CIRCLE);
+        //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
