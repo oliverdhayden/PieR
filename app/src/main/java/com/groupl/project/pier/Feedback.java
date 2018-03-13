@@ -164,6 +164,9 @@ public class Feedback extends AppCompatActivity {
                         Intent about = new Intent(Feedback.this,aboutUS.class);
                         startActivity(about);
                         break;
+                    case R.id.upload:
+                        Intent upload = new Intent(Feedback.this,FileUpload.class);
+                        startActivity(upload);
                 }
                 return false;
             }
