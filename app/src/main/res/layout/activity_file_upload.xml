@@ -8,11 +8,28 @@
     android:orientation="vertical"
     android:background="@drawable/bg1">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Thank you for selecting the file!"
+        android:textSize="25sp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="More data you feed better prediction will PieR give."
+        android:layout_marginBottom="30dp"/>
+
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progressDrawable="@drawable/custom_pogressbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:max="100"
         android:progress="0" />
 
@@ -20,13 +37,19 @@
         android:id="@+id/progressBarText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
         android:text="0/100" />
 
 
     <Button
+        android:layout_gravity="right"
         android:id="@+id/btn_upload"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_orange"
+        android:textColor="@color/white"
+        android:layout_marginRight="10dp"
         android:text="Upload" />
 
 </android.widget.LinearLayout>
