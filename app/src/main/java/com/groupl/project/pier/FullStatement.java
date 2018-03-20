@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
         import android.view.MenuItem;
 import android.view.View;
@@ -120,6 +121,9 @@ public class FullStatement extends AppCompatActivity {
                         Intent about = new Intent(FullStatement.this,aboutUS.class);
                         startActivity(about);
                         break;
+                    case R.id.upload:
+                        Intent upload = new Intent(FullStatement.this,FileUpload.class);
+                        startActivity(upload);
                 }
                 return false;
             }

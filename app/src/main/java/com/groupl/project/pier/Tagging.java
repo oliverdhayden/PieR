@@ -141,6 +141,9 @@ public class Tagging extends AppCompatActivity {
                         Intent about = new Intent(Tagging.this,aboutUS.class);
                         startActivity(about);
                         break;
+                    case R.id.upload:
+                        Intent upload = new Intent(Tagging.this,FileUpload.class);
+                        startActivity(upload);
                 }
                 return false;
             }
