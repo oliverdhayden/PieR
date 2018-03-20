@@ -172,8 +172,8 @@ public class FileUpload extends AppCompatActivity {
                 // The user detail are in cognitoUserDetails
                 Map userAtts = new HashMap();
                 userAtts = cognitoUserDetails.getAttributes().getAttributes();
-                identityID = userAtts.get("sub").toString();
-                System.out.println(identityID);
+                //identityID = userAtts.get("sub").toString();
+                //System.out.println(identityID);
             }
 
             @Override
@@ -225,9 +225,11 @@ public class FileUpload extends AppCompatActivity {
 //        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 //        dialog.setMax(100);
 //        dialog.show();
+
+        String userName = preference.getPreference(this,"username");
         TransferObserver uploadObserver =
                 transferUtility.upload(
-                        "pierandroid-userfiles-mobilehub-318679301/public/"+identityID,
+                        "pierandroid-userfiles-mobilehub-318679301/public/"+userName,
                         "newest_statement.csv",
                         file);
         uploadObserver.setTransferListener(new TransferListener() {
