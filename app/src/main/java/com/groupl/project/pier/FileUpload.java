@@ -209,7 +209,7 @@ public class FileUpload extends AppCompatActivity {
         TransferObserver uploadObserver =
                 transferUtility.upload(
                         "pierandroid-userfiles-mobilehub-318679301/public/"+identityID,
-                        fileName,
+                        "newest_statement.csv",
                         file);
         uploadObserver.setTransferListener(new TransferListener() {
 

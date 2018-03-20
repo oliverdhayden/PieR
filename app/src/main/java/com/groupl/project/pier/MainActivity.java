@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.*;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ViewPortHandler;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private String TAG = "Main Activity";
     private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
-    private String[] xData = {"Rent", "Transport" , "Bills" , "Shopping", "Eating Out", "General", "test"};
+    private String[] xData = {"Rent", "Bills" , "Transport" , "Shopping", "Eating Out", "General", "test"};
 
 
     PieChart pieChart;
@@ -366,6 +367,7 @@ public class MainActivity extends AppCompatActivity {
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
+
         pieChart.setData(pieData);
         pieChart.invalidate();
     }
