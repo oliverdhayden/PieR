@@ -28,6 +28,8 @@ import static com.amazonaws.util.ClassLoaderHelper.getResource;
 
 public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
 
+    public static String valueOfRent;
+    public static String rentIcon;
     private Context mContext;
     private int mResource;
 
@@ -85,9 +87,12 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
         holder.spendingType.setText(spendingType);
         holder.spendingMoney.setText(money);
 
+
         // change colour of the category texts
         if(spendingType.toLowerCase().equals("rent")){
-            holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.b3));
+            holder.spendingType.setBackgroundColor(convertView.getResources().getColor(R.color.b3));
+            holder.spendingMoney.setBackgroundColor(convertView.getResources().getColor(R.color.b3));
+            holder.img.setBackgroundColor(convertView.getResources().getColor(R.color.b3));
         }
         if(spendingType.toLowerCase().equals("transport")){
             holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.indian_red));
@@ -106,6 +111,8 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
         }
         if(spendingType.toLowerCase().equals("general")){
             holder.spendingType.setTextColor(convertView.getResources().getColor(R.color.sandy_brown));
+            holder.spendingMoney.setBackgroundColor(convertView.getResources().getColor(R.color.sandy_brown));
+            holder.img.setBackgroundColor(convertView.getResources().getColor(R.color.sandy_brown));
         }
 
         return convertView;
