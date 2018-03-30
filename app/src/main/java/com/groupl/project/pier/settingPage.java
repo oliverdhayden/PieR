@@ -92,7 +92,6 @@ public class settingPage extends AppCompatActivity {
 
     // ---------------------- CHECK FILE ---------------------------
     void checkFile() {
-        boolean[] check = {false};
         ObjectListing allInBucket;
         final String userName = preference.getPreference(this, "username");
         new Thread(new Runnable() {
@@ -102,15 +101,13 @@ public class settingPage extends AppCompatActivity {
 
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
                 S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
-                Log.i() S3_CLIENT.doesObjectExist("pierandroid-userfiles-mobilehub-318679301","/public/"+userName+"/global_statement.csv")
+                boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv");
+                Log.d("CHECK_IF_EXIST"," -> "+ check);
                 Log.d("username",userName);
 
             }
         }).start();
 
-        for(int i = 0; i < check.length; i++){
-            Log.d("CHECK_IF_EXIST"," -> "+check[i]);
-        }
     }
 
 
