@@ -226,11 +226,15 @@ public class FileUpload extends AppCompatActivity {
 //        dialog.setMax(100);
 //        dialog.show();
 
+        //old bucket name = "pierandroid-userfiles-mobilehub-318679301/public/"+userName
+        //new bucket "pierandroid-userfiles-mobilehub-318679301/public/incoming"
+        //old key "newest_statement.csv"
+        //new key userName+".csv"
         String userName = preference.getPreference(this,"username");
         TransferObserver uploadObserver =
                 transferUtility.upload(
-                        "pierandroid-userfiles-mobilehub-318679301/public/"+userName,
-                        "newest_statement.csv",
+                        "pierandroid-userfiles-mobilehub-318679301/public/incoming",
+                        userName+".csv",
                         file);
         uploadObserver.setTransferListener(new TransferListener() {
 
