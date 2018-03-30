@@ -1,6 +1,9 @@
 package com.groupl.project.pier;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 import android.content.Intent;
@@ -61,8 +64,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AWSConfiguration a = new AWSConfiguration(this);
+        CognitoUserPool userPool = new CognitoUserPool(this,a);
 
-
+        CognitoUser user = userPool.getCurrentUser();
+        preference.setPreference(this, "username", user.getUserId());
         //check login
 
 
