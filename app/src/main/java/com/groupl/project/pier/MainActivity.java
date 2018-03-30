@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         preference.setPreference(this, "username", user.getUserId());
         //check login
 
-
         setContentView(R.layout.activity_main);
 
         // Establishes connection to AWS Mobile

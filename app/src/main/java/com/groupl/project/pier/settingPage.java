@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.amazonaws.http.HttpClient;
 import com.amazonaws.http.HttpResponse;
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ListObjectsV2Result;
@@ -94,7 +95,10 @@ public class settingPage extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
+                //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+
+                AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
+                S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
                 check[0] = S3_CLIENT.doesObjectExist("pierandroid-userfiles-mobilehub-318679301/public/"+userName,"newest_statement.csv");
                 Log.d("username",userName);
 
