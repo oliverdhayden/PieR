@@ -1,6 +1,9 @@
 package com.groupl.project.pier;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 import android.content.Intent;
@@ -61,8 +64,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AWSConfiguration a = new AWSConfiguration(this);
+        CognitoUserPool userPool = new CognitoUserPool(this,a);
 
-
+        CognitoUser user = userPool.getCurrentUser();
+        preference.setPreference(this, "username", user.getUserId());
         //check login
 
 
@@ -243,7 +249,9 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------code for home page which displays the summary of the spendings----------------
 
         ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
-
+        String[] money = {"£120", "£1470", "£235", "£130", "£200", "£49", "£68"};
+        HomePageListAdapter.valueOfRent = money[1];
+        HomePageListAdapter.rentIcon = "drawable://" + R.drawable.groceries;
         HomePageListItem l1 = new HomePageListItem("Groceries","£120", "drawable://" + R.drawable.groceries);
         HomePageListItem l2 = new HomePageListItem("Rent","£1470", "drawable://" + R.drawable.rent);
         HomePageListItem l3 = new HomePageListItem("Transport","£235", "drawable://" + R.drawable.transportation);

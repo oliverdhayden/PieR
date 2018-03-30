@@ -28,6 +28,8 @@ import static com.amazonaws.util.ClassLoaderHelper.getResource;
 
 public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
 
+    public static String valueOfRent;
+    public static String rentIcon;
     private Context mContext;
     private int mResource;
 
@@ -84,6 +86,7 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
 
         holder.spendingType.setText(spendingType);
         holder.spendingMoney.setText(money);
+
 
         return convertView;
 
