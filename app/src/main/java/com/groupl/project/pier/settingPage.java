@@ -90,7 +90,6 @@ public class settingPage extends AppCompatActivity {
 
     // ---------------------- CHECK FILE ---------------------------
     void checkFile() {
-        final boolean[] check = {false};
         final String userName = preference.getPreference(this, "username");
         new Thread(new Runnable() {
             @Override
@@ -99,14 +98,12 @@ public class settingPage extends AppCompatActivity {
 
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
                 S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
-                check[0] = S3_CLIENT.doesObjectExist("pierandroid-userfiles-mobilehub-318679301/public/"+userName,"newest_statement.csv");
+                boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv");
+                Log.d("CHECK_IF_EXIST"," -> "+ check);
                 Log.d("username",userName);
 
             }
         }).start();
-        for(int i = 0; i < check.length; i++){
-            Log.d("CHECK_IF_EXIST"," -> "+check[i]);
-        }
     }
 
 
