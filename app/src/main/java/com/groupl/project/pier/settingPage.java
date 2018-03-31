@@ -98,13 +98,11 @@ public class settingPage extends AppCompatActivity {
             @Override
             public void run() {
                 //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
-
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
                 S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
                 boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv");
                 Log.d("CHECK_IF_EXIST"," -> "+ check);
                 Log.d("username",userName);
-
             }
         }).start();
 
