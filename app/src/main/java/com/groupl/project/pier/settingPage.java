@@ -1,7 +1,13 @@
 package com.groupl.project.pier;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +20,10 @@ import android.widget.Toast;
 import com.amazonaws.http.HttpClient;
 import com.amazonaws.http.HttpResponse;
 import com.amazonaws.mobile.client.AWSMobileClient;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferObserver;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferState;
+import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
@@ -21,6 +31,7 @@ import com.amazonaws.services.s3.model.ListObjectsV2Result;
 import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +47,6 @@ public class settingPage extends AppCompatActivity {
         setContentView(R.layout.activity_setting_page);
 
         // ************ RUN METHOD TO CHECK FILE *********************
-
         checkFile();
 
 
@@ -92,17 +102,76 @@ public class settingPage extends AppCompatActivity {
 
     // ---------------------- CHECK FILE ---------------------------
     void checkFile() {
-        ObjectListing allInBucket;
+        // ------- ASK PERMISSION TO EDIT FILES -------------------
+        ActivityCompat.requestPermissions(settingPage.this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                1);
+
         final String userName = preference.getPreference(this, "username");
+        String folderName = "PierData";
+        // CREATE FOLDER TO STORE THE CSV
+        File dir = new File(Environment.getExternalStorageDirectory(), folderName);
+        if (!dir.exists()){
+            dir.mkdirs();
+            Log.d("Directory", "created");
+        } else
+        {
+            Log.d("Folder ->", "not created");
+        }
+        // FILE TO STORE THE CSV INFO
+        final File fileDown = new File(dir, "infoFile.csv");
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //AmazonS3 s3Client = AmazonS3ClientBuilder.standard().withRegion(Regions.US_EAST_1).build();
+
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
                 S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
+                // CHECK IF FILE EXIST
                 boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv");
                 Log.d("CHECK_IF_EXIST"," -> "+ check);
-                Log.d("username",userName);
+
+                // IF EXIST DOWNLOAD
+                if (check){
+                    TransferUtility transferUtility =
+                            TransferUtility.builder()
+                                    .context(getApplicationContext())
+                                    .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
+                                    .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
+                                    .build();
+                    TransferObserver downloadObserver = transferUtility.download("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv", fileDown);
+
+                    // Log.d("FilePath",fileDown.getAbsolutePath());
+
+                    // Attach a listener to the observer to get notified of the
+                    // updates in the state and the progress
+                    downloadObserver.setTransferListener(new TransferListener() {
+
+                        @Override
+                        public void onStateChanged(int id, TransferState state) {
+                            if (TransferState.COMPLETED == state) {
+                                // Handle a completed upload.
+                            }
+                        }
+
+                        @Override
+                        public void onProgressChanged(int id, long bytesCurrent, long bytesTotal) {
+                            float percentDonef = ((float)bytesCurrent/(float)bytesTotal) * 100;
+                            int percentDone = (int)percentDonef;
+
+                            Log.d("Download ->", "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
+                        }
+
+                        @Override
+                        public void onError(int id, Exception ex) {
+                            Log.d("ErrorDownload", "error id:" + id + "error->"+ex );
+                        }
+
+                    });
+                }else {
+                    // if file doesent exist check again
+                    checkFile();
+                }
+
             }
         }).start();
 
