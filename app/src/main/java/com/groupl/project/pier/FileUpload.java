@@ -3,13 +3,19 @@ package com.groupl.project.pier;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.*;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
+import com.amazonaws.mobileconnectors.lambdainvoker.LambdaFunctionException;
+import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import android.support.v4.content.ContextCompat;
 
@@ -107,6 +113,54 @@ public class FileUpload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
+
+        //-----------------------------code for taking data from aws lambda----------------------------------------
+        // Create an instance of CognitoCachingCredentialsProvider
+        CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
+                this.getApplicationContext(), "eu-west-2:cecfc1a1-8002-4a00-a2a4-a38e9e0aa4ec", Regions.EU_WEST_2);
+
+// Create LambdaInvokerFactory, to be used to instantiate the Lambda proxy.
+        LambdaInvokerFactory factory = LambdaInvokerFactory.builder() .context(this.getApplicationContext()) .region(Regions.EU_WEST_2) .credentialsProvider(cognitoProvider) .build();
+
+// Create the Lambda proxy object with a default Json data binder.
+// You can provide your own data binder by implementing
+// LambdaDataBinder.
+        final MyInterface myInterface = factory.build(MyInterface.class);
+
+// The Lambda function invocation results in a network call.
+// Make sure it is not called from the main thread.
+        final Button button = findViewById(R.id.buton_id);
+        //final TextView textView = findViewById(R.id.textView_id);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                RequestClass request = new RequestClass("Liviu", "Nedelcu", "pierandroid-userfiles-mobilehub-318679301", "statement.csv");
+                new AsyncTask<RequestClass, Void, ResponseClass>() {
+                    @Override
+                    protected ResponseClass doInBackground(RequestClass... params) {
+                        // invoke "echo" method. In case it fails, it will throw a
+                        // LambdaFunctionException.
+                        try {
+                            return myInterface.lambdaBackendNodeJsTutorial(params[0]);
+                        } catch (LambdaFunctionException lfe) {
+                            Log.e("Tag", lfe.getDetails(), lfe);
+                            return null;
+                        }
+                    }
+
+                    @Override
+                    protected void onPostExecute(ResponseClass result) {
+                        if (result == null) {
+                            return;
+                        }
+                        // Do a toast
+                        String paid = stringOfTotalSpendings(result.getGreetings());
+                        // textView.setText(result.getGreetings());
+                        Toast.makeText(FileUpload.this, paid, Toast.LENGTH_LONG).show();
+                    }
+                }.execute(request);
+            }
+        });
 
         buttonUpload = findViewById(R.id.btn_upload);
 
@@ -277,6 +331,28 @@ public class FileUpload extends AppCompatActivity {
             System.out.println("COMPLETE");
             Toast.makeText(this, "upload complete", Toast.LENGTH_LONG).show();
         }
+    }
+    //this method analize the data from the csv file and returns a string with the value of every spending type separated by a comma
+    public static String stringOfTotalSpendings(String data) {
+        int countComma = 0;
+        int step = 11;
+        String paid = "";
+        for(int i=0; i<data.length(); i++) {
+            if(data.charAt(i) == ',') {
+                countComma++;
+                if(countComma == step) {
+                    while(data.charAt(i+1) != ',') {
+                        paid = paid + data.charAt(i + 1);
+                        i++;
+                    }
+                    step += 6;
+                    if(step+100 < data.length()) {
+                        paid = paid + ',';
+                    }
+                }
+            }
+        }
+        return paid;
     }
 
 }

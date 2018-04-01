@@ -7,6 +7,7 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +43,10 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
+import com.amazonaws.mobileconnectors.lambdainvoker.LambdaFunctionException;
+import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
+import com.amazonaws.regions.Regions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,13 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private String TAG = "Main Activity";
     private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
     private String[] xData = {"Rent", "Bills" , "Transport" , "Shopping", "Eating Out", "General", "test"};
-
-
     PieChart pieChart;
-
-
-
-
     //raju
     private DrawerLayout myDrawerLaout;
     private ActionBarDrawerToggle myToggle;
@@ -245,7 +245,11 @@ public class MainActivity extends AppCompatActivity {
         });
         //set username
 
+
+
+
         //------------------------------code for home page which displays the summary of the spendings----------------
+
 
         ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
         String[] money = {"£120", "£1470", "£235", "£130", "£200", "£49", "£68"};
@@ -378,4 +382,7 @@ public class MainActivity extends AppCompatActivity {
         pieChart.setData(pieData);
         pieChart.invalidate();
     }
+
+
 }
+
