@@ -35,11 +35,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.Scanner;
 
 import javax.xml.parsers.SAXParserFactory;
 
 public class settingPage extends AppCompatActivity {
+    String TAG = "settingPage";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,24 @@ public class settingPage extends AppCompatActivity {
         WelcomeSlider.setPreference(true, "firsttime", this);
         Toast.makeText(settingPage.this, "First Time Resetted", Toast.LENGTH_SHORT).show();
     }
+
+    public void testFileAccess(View view)throws Exception{
+//        File csv = new File(Environment.getExternalStorageDirectory(),"PierData/infoFile.csv");
+//        Scanner scanner = new Scanner(csv);
+//        for(int i = 0; i<10; i++){
+//            if(scanner.hasNext()){
+//                Log.i(TAG, "testFileAccess: "+scanner.next() );
+//            }
+//        }
+        UserStatement user = new UserStatement();
+        preference.setPreferenceObject(this,"userStatement",user);
+    }
+
+    public void testGetSharedPrefObj(View view)throws Exception{
+        UserStatement user = preference.getPreferenceObject(this,"userStatement");
+        Log.i(TAG, "testGetSharedPrefObj: " +user.name);
+    }
+
 
 
     // ---------------------- CHECK FILE ---------------------------
@@ -169,7 +190,8 @@ public class settingPage extends AppCompatActivity {
                     });
                 }else {
                     // if file doesent exist check again
-                    checkFile();
+                    //commented else check file out, danger of infinate loop
+                    // checkFile();
                 }
 
             }

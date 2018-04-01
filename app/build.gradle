@@ -57,4 +57,6 @@ dependencies {
     // Sign in UI Library
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true; }
+    //Gson allows objects to be stored in shared preferences
+    implementation 'com.google.code.gson:gson:2.8.2'
 }

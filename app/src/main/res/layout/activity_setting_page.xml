@@ -137,6 +137,17 @@
             android:text="Reset Fisrst Time"
             android:onClick="reset"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test file access"
+            android:onClick="testFileAccess"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test get shared pref object"
+            android:onClick="testGetSharedPrefObj"/>
+
 
     </LinearLayout>
 
