@@ -33,16 +33,24 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 public class settingPage extends AppCompatActivity {
     String TAG = "settingPage";
+
+    //----------------- DATABASE ---------------------
+    DatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +169,7 @@ public class settingPage extends AppCompatActivity {
                                     .build();
                     TransferObserver downloadObserver = transferUtility.download("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv", fileDown);
 
-                    // Log.d("FilePath",fileDown.getAbsolutePath());
+                    Log.d("FilePath",fileDown.getAbsolutePath());
 
                     // Attach a listener to the observer to get notified of the
                     // updates in the state and the progress
@@ -170,7 +178,8 @@ public class settingPage extends AppCompatActivity {
                         @Override
                         public void onStateChanged(int id, TransferState state) {
                             if (TransferState.COMPLETED == state) {
-                                // Handle a completed upload.
+                                Toast.makeText(settingPage.this,"Download Completed", Toast.LENGTH_SHORT).show();
+                                parseCSV(fileDown.getAbsolutePath());
                             }
                         }
 
@@ -197,6 +206,54 @@ public class settingPage extends AppCompatActivity {
             }
         }).start();
 
+
+    }
+
+    //***********************  DATABASE ADD DATA  ********************************
+
+    public void AddData(String Day, String Month, String Year, String Description, String Category, String Value, String Balance) {
+        boolean insertData = mDatabaseHelper.addData(Day, Month, Year, Description, Category, Value, Balance);
+
+        if (insertData){
+            Log.d("Database", "Data inserted");
+        } else {
+            Log.e("DatabaseError","Data not inserted");
+        }
+    }
+
+
+    private  void toastMethod(String message) {
+        Toast.makeText(this, message,Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void parseCSV(String url) {
+        String next[] = {};
+        List<String[]> list = new ArrayList<String[]>();
+        try {
+            CSVReader reader = new CSVReader(new FileReader(url));// file to parse
+            for(;;) {
+                next = reader.readNext();
+                if(next != null) {
+                    list.add(next);
+                } else {
+                    break;
+                }
+            }
+            for (int i =1; i < list.size(); i++){
+
+                Log.d("Day",list.get(i)[0]);
+                Log.d("Month",list.get(i)[1]);
+                Log.d("Year",list.get(i)[2]);
+                Log.d("Desc",list.get(i)[3]);
+                Log.d("Category",list.get(i)[4]);
+                Log.d("Value",list.get(i)[5]);
+                Log.d("Balance",list.get(i)[6]);
+                AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

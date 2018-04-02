@@ -59,4 +59,5 @@ dependencies {
     implementation('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true; }
     //Gson allows objects to be stored in shared preferences
     implementation 'com.google.code.gson:gson:2.8.2'
+    implementation files('lib/opencsv-2.3.jar')
 }
