@@ -36,6 +36,6 @@ public class preference {
 
     static public String getPreference(Context context, String optionName){
         SharedPreferences prefs = context.getSharedPreferences("Preference", Context.MODE_PRIVATE);
-        return prefs.getString(optionName, "Not logged in");
+        return prefs.getString(optionName, "N/A");
     }
 }

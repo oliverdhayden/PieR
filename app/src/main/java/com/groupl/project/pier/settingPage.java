@@ -49,6 +49,8 @@ import au.com.bytecode.opencsv.CSVReader;
 public class settingPage extends AppCompatActivity {
     String TAG = "settingPage";
 
+    int groceries =0, rent = 0, transport = 0, bills = 0, shopping = 0, eatingOut = 0, general =0;
+
     //----------------- DATABASE ---------------------
     DatabaseHelper mDatabaseHelper;
 
@@ -240,17 +242,51 @@ public class settingPage extends AppCompatActivity {
                     break;
                 }
             }
-            for (int i =1; i < list.size(); i++){
 
-                Log.d("Day",list.get(i)[0]);
-                Log.d("Month",list.get(i)[1]);
-                Log.d("Year",list.get(i)[2]);
-                Log.d("Desc",list.get(i)[3]);
-                Log.d("Category",list.get(i)[4]);
-                Log.d("Value",list.get(i)[5]);
-                Log.d("Balance",list.get(i)[6]);
-                //AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+            for (int i =1; i < list.size(); i++){
+//                Log.d("Day",list.get(list.size()-1)[0]);
+//                Log.d("Month",list.get(list.size()-1)[1]);
+//                Log.d("Year",list.get(list.size()-1)[2]);
+//                Log.d("Desc",list.get(list.size()-1)[3]);
+//                Log.d("Category",list.get(list.size()-1)[4]);
+//                Log.d("Value",list.get(list.size()-1)[5]);
+//                Log.d("Balance",list.get(list.size()-1)[6]);
+//                //AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+
+                // if its the last month of the last year
+                if((list.get(i)[2]).equals(list.get(list.size()-1)[2]) && (list.get(i)[1]).equals(list.get(list.size()-1)[1])) {
+                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
+                        groceries += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("general")) {
+                        general += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("eating out")) {
+                        eatingOut += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("transport")) {
+                        transport += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("rent")) {
+                        rent += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("bills")) {
+                        bills += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("shopping")) {
+                        shopping += Integer.parseInt(list.get(i)[5]);
+                    }
+
+                }
+
             }
+            preference.setPreference(this,"groceries",String.valueOf(groceries));
+            preference.setPreference(this,"general",String.valueOf(general));
+            preference.setPreference(this,"eatingOut",String.valueOf(eatingOut));
+            preference.setPreference(this,"transport",String.valueOf(transport));
+            preference.setPreference(this,"rent",String.valueOf(rent));
+            preference.setPreference(this,"bills",String.valueOf(bills));
+            preference.setPreference(this,"shopping",String.valueOf(shopping));
         } catch (IOException e) {
             e.printStackTrace();
         }
