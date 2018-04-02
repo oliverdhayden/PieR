@@ -170,6 +170,8 @@ public class MainActivity extends AppCompatActivity {
         pieChart.setUsePercentValues(true);
         //pieChart.setHoleColor(Color.BLUE);
         pieChart.setCenterTextColor(R.color.black);
+        pieChart.setEntryLabelColor(R.color.black);
+        pieChart.setEntryLabelTextSize(15);
 
         pieChart.setHoleRadius(58f);
         pieChart.setTransparentCircleRadius(61f);
