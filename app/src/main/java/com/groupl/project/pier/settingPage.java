@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -47,8 +49,9 @@ import javax.xml.parsers.SAXParserFactory;
 import au.com.bytecode.opencsv.CSVReader;
 
 public class settingPage extends AppCompatActivity {
-    String TAG = "settingPage";
 
+    String TAG = "settingPage";
+    List<String[]> list = new ArrayList<String[]>();
     int groceries =0, rent = 0, transport = 0, bills = 0, shopping = 0, eatingOut = 0, general =0;
 
     //----------------- DATABASE ---------------------
@@ -61,6 +64,11 @@ public class settingPage extends AppCompatActivity {
 
         // ************ RUN METHOD TO CHECK FILE *********************
         checkFile();
+
+
+
+
+
 
 
         CompoundButton.OnCheckedChangeListener multiSwitch = new CompoundButton.OnCheckedChangeListener() {
@@ -211,28 +219,11 @@ public class settingPage extends AppCompatActivity {
 
     }
 
-    //***********************  DATABASE ADD DATA  ********************************
-
-    public void AddData(String Day, String Month, String Year, String Description, String Category, String Value, String Balance) {
-        boolean insertData = mDatabaseHelper.addData(Day, Month, Year, Description, Category, Value, Balance);
-
-        if (insertData){
-            Log.d("Database", "Data inserted");
-        } else {
-            Log.e("DatabaseError","Data not inserted");
-        }
-    }
-
-
-    private  void toastMethod(String message) {
-        Toast.makeText(this, message,Toast.LENGTH_SHORT).show();
-    }
-
-
     public void parseCSV(String url) {
         String next[] = {};
-        List<String[]> list = new ArrayList<String[]>();
+
         try {
+            //************ PARSE CVS TO ARRAYLIST *****************
             CSVReader reader = new CSVReader(new FileReader(url));// file to parse
             for(;;) {
                 next = reader.readNext();
@@ -243,6 +234,7 @@ public class settingPage extends AppCompatActivity {
                 }
             }
 
+            // ******************* SAVE TO PREFERENCE ************
             for (int i =1; i < list.size(); i++){
 //                Log.d("Day",list.get(list.size()-1)[0]);
 //                Log.d("Month",list.get(list.size()-1)[1]);
@@ -251,7 +243,10 @@ public class settingPage extends AppCompatActivity {
 //                Log.d("Category",list.get(list.size()-1)[4]);
 //                Log.d("Value",list.get(list.size()-1)[5]);
 //                Log.d("Balance",list.get(list.size()-1)[6]);
-//                //AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+
+
+
+                //add data to the database
 
                 // if its the last month of the last year
                 if((list.get(i)[2]).equals(list.get(list.size()-1)[2]) && (list.get(i)[1]).equals(list.get(list.size()-1)[1])) {
@@ -287,10 +282,52 @@ public class settingPage extends AppCompatActivity {
             preference.setPreference(this,"rent",String.valueOf(rent));
             preference.setPreference(this,"bills",String.valueOf(bills));
             preference.setPreference(this,"shopping",String.valueOf(shopping));
+
+            // *************** CREATE SIMPLE DATABASE ***********
+
+            try {
+                // create a tabase if not exist, if does make it accessable
+                SQLiteDatabase pierDatabase = settingPage.this.openOrCreateDatabase("Statement",MODE_PRIVATE,null);
+                // create table
+                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
+                // cleare data from table only for demo purpose
+                pierDatabase.execSQL("DELETE FROM  statement");
+                for (int i =1; i < list.size(); i++) {
+                    String desc = list.get(i)[3];
+                    if (desc.toLowerCase().equals("scott's restaurant")){
+                        desc = "Scotts Restaurant";
+                    }
+                    // add data to the database
+                    pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('"+list.get(i)[0]+"','"+list.get(i)[1]+"','"+list.get(i)[2]+"','"+desc+"','"+list.get(i)[4]+"','"+list.get(i)[5]+"','"+list.get(i)[6]+"')");
+                }
+
+//                Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement", null);
+//
+//                int dayIndex = cursor.getColumnIndex("day");
+//                int monthIndex = cursor.getColumnIndex("month");
+//                int yearindex = cursor.getColumnIndex("year");
+//
+//
+//                cursor.moveToFirst();
+//                while (cursor!=null){
+//                    Log.i("day", cursor.getString(dayIndex));
+//                    Log.i("month", cursor.getString(monthIndex));
+//                    Log.i("year", cursor.getString(yearindex));
+//
+//                    cursor.moveToNext();
+//                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.i("Array size",String.valueOf(list.size()));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
 
 

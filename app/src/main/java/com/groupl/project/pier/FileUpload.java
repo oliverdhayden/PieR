@@ -114,6 +114,12 @@ public class FileUpload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
 
+        // ------- ASK PERMISSION TO EDIT FILES -------------------
+        ActivityCompat.requestPermissions(FileUpload.this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                1);
+
+
         //-----------------------------code for taking data from aws lambda----------------------------------------
         // Create an instance of CognitoCachingCredentialsProvider
         CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(

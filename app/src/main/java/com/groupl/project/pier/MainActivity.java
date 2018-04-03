@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String TAG = "Main Activity";
-    private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
+    private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 56};
     private String[] xData = {"Rent", "Bills" , "Transport" , "Shopping", "Eating Out", "General", "Groceries"};
     PieChart pieChart;
     //raju
