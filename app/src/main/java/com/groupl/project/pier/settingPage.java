@@ -271,6 +271,15 @@ public class settingPage extends AppCompatActivity {
 
                 }
 
+                Log.d("Day",list.get(i)[0]);
+                Log.d("Month",list.get(i)[1]);
+                Log.d("Year",list.get(i)[2]);
+                Log.d("Desc",list.get(i)[3]);
+                Log.d("Category",list.get(i)[4]);
+                Log.d("Value",list.get(i)[5]);
+                Log.d("Balance",list.get(i)[6]);
+       //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+
             }
             preference.setPreference(this,"groceries",String.valueOf(groceries));
             preference.setPreference(this,"general",String.valueOf(general));

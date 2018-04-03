@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -27,6 +28,7 @@ public class Previous2Month extends Fragment {
     private ListView mListView;
     private ImageButton goToPrevious1Month;
     private ImageButton goToPrevious3Month;
+    private TextView previous2MonthTV;
 
     @Nullable
     @Override
@@ -36,6 +38,7 @@ public class Previous2Month extends Fragment {
         mListView = (ListView) view.findViewById(R.id.ListView);
         goToPrevious1Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious1);
         goToPrevious3Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious3);
+        previous2MonthTV = (TextView)view.findViewById(R.id.previous2MonthTextView);
 
         // UNIVERSAL IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -78,6 +81,8 @@ public class Previous2Month extends Fragment {
         //getActivity() is the context for fragment, so in fragments use getActivity() insted of this
         MonthListItemAdapter adapter = new MonthListItemAdapter(getActivity(), R.layout.adapter_view_layout, MontlyList);
         mListView.setAdapter(adapter);
+
+        previous2MonthTV.setText("February \n 2018");
 
         goToPrevious1Month.setOnClickListener(new View.OnClickListener() {
             @Override
