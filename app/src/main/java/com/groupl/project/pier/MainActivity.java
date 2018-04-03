@@ -52,9 +52,19 @@ public class MainActivity extends AppCompatActivity {
 
     public static PinpointManager pinpointManager;
 
+    //******* GET DATA BACK FORM PREFERENCE ********
+//    String groceries = preference.getPreference(this,"groceries");
+//    String general = preference.getPreference(this,"general");
+//    String rent = preference.getPreference(this,"rent");
+//    String eatingOut = preference.getPreference(this,"eatingOut");
+//    String shopping = preference.getPreference(this,"shopping");
+//    String bills = preference.getPreference(this,"bills");
+//    String transport = preference.getPreference(this,"transport");
+
+
     private String TAG = "Main Activity";
     private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
-    private String[] xData = {"Rent", "Bills" , "Transport" , "Shopping", "Eating Out", "General", "test"};
+    private String[] xData = {"Rent", "Bills" , "Transport" , "Shopping", "Eating Out", "General", "Groceries"};
     PieChart pieChart;
     //raju
     private DrawerLayout myDrawerLaout;
@@ -159,7 +169,9 @@ public class MainActivity extends AppCompatActivity {
         pieChart.setRotationEnabled(true);
         pieChart.setUsePercentValues(true);
         //pieChart.setHoleColor(Color.BLUE);
-        //pieChart.setCenterTextColor(Color.BLACK);
+        pieChart.setCenterTextColor(R.color.black);
+        pieChart.setEntryLabelColor(R.color.black);
+        pieChart.setEntryLabelTextSize(15);
 
         pieChart.setHoleRadius(58f);
         pieChart.setTransparentCircleRadius(61f);
@@ -250,18 +262,17 @@ public class MainActivity extends AppCompatActivity {
 
         //------------------------------code for home page which displays the summary of the spendings----------------
 
-
         ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
         String[] money = {"£120", "£1470", "£235", "£130", "£200", "£49", "£68"};
         HomePageListAdapter.valueOfRent = money[1];
         HomePageListAdapter.rentIcon = "drawable://" + R.drawable.groceries;
-        HomePageListItem l1 = new HomePageListItem("Groceries","£120", "drawable://" + R.drawable.groceries);
-        HomePageListItem l2 = new HomePageListItem("Rent","£1470", "drawable://" + R.drawable.rent);
-        HomePageListItem l3 = new HomePageListItem("Transport","£235", "drawable://" + R.drawable.transportation);
-        HomePageListItem l4 = new HomePageListItem("Bills","£130", "drawable://" + R.drawable.bills);
-        HomePageListItem l5 = new HomePageListItem("Shopping","£200", "drawable://" + R.drawable.shopping);
-        HomePageListItem l7 = new HomePageListItem("Eating Out","£49", "drawable://" + R.drawable.food);
-        HomePageListItem l8 = new HomePageListItem("General","£68", "drawable://" + R.drawable.general);
+        HomePageListItem l1 = new HomePageListItem("Groceries","£" + preference.getPreference(this,"groceries"), "drawable://" + R.drawable.groceries);
+        HomePageListItem l2 = new HomePageListItem("Rent","£" + preference.getPreference(this,"rent"), "drawable://" + R.drawable.rent);
+        HomePageListItem l3 = new HomePageListItem("Transport","£" + preference.getPreference(this,"transport"), "drawable://" + R.drawable.transportation);
+        HomePageListItem l4 = new HomePageListItem("Bills","£" + preference.getPreference(this,"bills"), "drawable://" + R.drawable.bills);
+        HomePageListItem l5 = new HomePageListItem("Shopping","£" + preference.getPreference(this,"shopping"), "drawable://" + R.drawable.shopping);
+        HomePageListItem l7 = new HomePageListItem("Eating Out","£" + preference.getPreference(this,"eatingOut"), "drawable://" + R.drawable.food);
+        HomePageListItem l8 = new HomePageListItem("General","£" + preference.getPreference(this,"general"), "drawable://" + R.drawable.general);
 
         ArrayList<HomePageListItem> breakdownList = new ArrayList<>();
         breakdownList.add(l1);
