@@ -93,7 +93,7 @@ public class Previous4Month extends Fragment {
 
                 while (cursor != null) {
                     DayOfTheMonthListItem item = new DayOfTheMonthListItem("drawable://" + R.drawable.general, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
-                    ;
+
                     if (cursor.getString(category).toLowerCase().equals("groceries")) {
                         item = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                     }
