@@ -26,14 +26,14 @@ import java.util.Calendar;
  * Created by alexandra on 14/02/2018.
  */
 
-public class Previous3Month extends Fragment {
+public class Previous5Month extends Fragment {
 
     private ListView mListView;
+    private ImageButton goToCurrentMonth;
     private ImageButton goToPrevious4Month;
-    private ImageButton goToPrevious2Month;
     Calendar c = Calendar.getInstance();
     //previous month
-    int month = c.get(Calendar.MONTH)-3;
+    int month = c.get(Calendar.MONTH)-5;
     String[] fullMonthArray = new String[]{"sdafsdf", "January", "February","March","April","May","June","July","August","September","October","November","December"};
     private TextView currentMonthChange;
 
@@ -57,8 +57,8 @@ public class Previous3Month extends Fragment {
             currentMonthChange = (TextView) view.findViewById(R.id.currentMonthTextView);
 
             mListView = (ListView) view.findViewById(R.id.ListView);
+            goToCurrentMonth = (ImageButton) view.findViewById(R.id.btnGoToCurrentMonth);
             goToPrevious4Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious4);
-            goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
 
             // UNIVERSAL IMAGE LOADER SETUP
             DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -125,14 +125,14 @@ public class Previous3Month extends Fragment {
             MonthListItemAdapter adapter = new MonthListItemAdapter(getActivity(), R.layout.adapter_view_layout, MontlyList);
             mListView.setAdapter(adapter);
 
-            goToPrevious4Month.setOnClickListener(new View.OnClickListener() {
+            goToCurrentMonth.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //this will give us acces to every method inside of the main activity
                     ((FullStatement) getActivity()).setViewPager(0);
                 }
             });
-            goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
+            goToPrevious4Month.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //this will give us acces to every method inside of the main activity

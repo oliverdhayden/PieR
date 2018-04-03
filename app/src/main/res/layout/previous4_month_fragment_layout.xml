@@ -12,32 +12,35 @@
         android:weightSum="100">
 
         <ImageButton
+            android:id="@+id/btnGoToPrevious3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="20"
+            android:src="@drawable/left_arrow"
             android:background="@color/white"
-            android:contentDescription="@string/left_arrow" />
+            android:contentDescription="@string/left_arrow"
+            android:layout_weight="20"/>
 
         <TextView
-            android:id="@+id/currentMonthTextView"
+            android:id="@+id/previous4MonthTextView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="60"
-            android:background="@color/white"
-            android:fontFamily="@font/open_sans_semibold"
+            android:text="@string/october"
             android:gravity="center"
-            android:text="@string/february"
+            android:background="@color/white"
+            android:textSize="20sp"
+            android:fontFamily="@font/open_sans_semibold"
             android:textColor="@color/light_black"
-            android:textSize="20sp" />
+            />
 
         <ImageButton
-            android:id="@+id/btnGoToPrevious1"
+            android:id="@+id/btnGoToPrevious5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="20"
+            android:src="@drawable/rigth_arrow"
             android:background="@color/white"
             android:contentDescription="@string/right_arrow"
-            android:src="@drawable/rigth_arrow" />
+            android:layout_weight="20"/>
 
     </LinearLayout>
 

@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -33,7 +35,9 @@ import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -42,8 +46,13 @@ import java.util.Scanner;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 public class settingPage extends AppCompatActivity {
+
     String TAG = "settingPage";
+    List<String[]> list = new ArrayList<String[]>();
+    int groceries =0, rent = 0, transport = 0, bills = 0, shopping = 0, eatingOut = 0, general =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,11 @@ public class settingPage extends AppCompatActivity {
 
         // ************ RUN METHOD TO CHECK FILE *********************
         checkFile();
+
+
+
+
+
 
 
         CompoundButton.OnCheckedChangeListener multiSwitch = new CompoundButton.OnCheckedChangeListener() {
@@ -153,7 +167,7 @@ public class settingPage extends AppCompatActivity {
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
                 S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
                 // CHECK IF FILE EXIST
-                boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv");
+                boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"last_six_months.csv");
                 Log.d("CHECK_IF_EXIST"," -> "+ check);
 
                 // IF EXIST DOWNLOAD
@@ -164,9 +178,9 @@ public class settingPage extends AppCompatActivity {
                                     .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                                     .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
                                     .build();
-                    TransferObserver downloadObserver = transferUtility.download("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv", fileDown);
+                    TransferObserver downloadObserver = transferUtility.download("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"last_six_months.csv", fileDown);
 
-                    // Log.d("FilePath",fileDown.getAbsolutePath());
+                    Log.d("FilePath",fileDown.getAbsolutePath());
 
                     // Attach a listener to the observer to get notified of the
                     // updates in the state and the progress
@@ -175,7 +189,8 @@ public class settingPage extends AppCompatActivity {
                         @Override
                         public void onStateChanged(int id, TransferState state) {
                             if (TransferState.COMPLETED == state) {
-                                // Handle a completed upload.
+                                Toast.makeText(settingPage.this,"Download Completed", Toast.LENGTH_SHORT).show();
+                                parseCSV(fileDown.getAbsolutePath());
                             }
                         }
 
@@ -202,7 +217,114 @@ public class settingPage extends AppCompatActivity {
             }
         }).start();
 
+
     }
+
+    public void parseCSV(String url) {
+        String next[] = {};
+
+        try {
+            //************ PARSE CVS TO ARRAYLIST *****************
+            CSVReader reader = new CSVReader(new FileReader(url));// file to parse
+            for(;;) {
+                next = reader.readNext();
+                if(next != null) {
+                    list.add(next);
+                } else {
+                    break;
+                }
+            }
+
+            // ******************* SAVE TO PREFERENCE ************
+            for (int i =1; i < list.size(); i++){
+//                Log.d("Day",list.get(list.size()-1)[0]);
+//                Log.d("Month",list.get(list.size()-1)[1]);
+//                Log.d("Year",list.get(list.size()-1)[2]);
+//                Log.d("Desc",list.get(list.size()-1)[3]);
+//                Log.d("Category",list.get(list.size()-1)[4]);
+//                Log.d("Value",list.get(list.size()-1)[5]);
+//                Log.d("Balance",list.get(list.size()-1)[6]);
+
+
+
+                //add data to the database
+
+                // if its the last month of the last year
+                if((list.get(i)[2]).equals(list.get(list.size()-1)[2]) && (list.get(i)[1]).equals(list.get(list.size()-1)[1])) {
+                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
+                        groceries += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("general")) {
+                        general += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("eating out")) {
+                        eatingOut += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("transport")) {
+                        transport += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("rent")) {
+                        rent += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("bills")) {
+                        bills += Integer.parseInt(list.get(i)[5]);
+                    }
+                    if ((list.get(i)[4]).toLowerCase().equals("shopping")) {
+                        shopping += Integer.parseInt(list.get(i)[5]);
+                    }
+
+                }
+
+                Log.d("Day",list.get(i)[0]);
+                Log.d("Month",list.get(i)[1]);
+                Log.d("Year",list.get(i)[2]);
+                Log.d("Desc",list.get(i)[3]);
+                Log.d("Category",list.get(i)[4]);
+                Log.d("Value",list.get(i)[5]);
+                Log.d("Balance",list.get(i)[6]);
+       //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+
+            }
+            preference.setPreference(this,"groceries",String.valueOf(groceries));
+            preference.setPreference(this,"general",String.valueOf(general));
+            preference.setPreference(this,"eatingOut",String.valueOf(eatingOut));
+            preference.setPreference(this,"transport",String.valueOf(transport));
+            preference.setPreference(this,"rent",String.valueOf(rent));
+            preference.setPreference(this,"bills",String.valueOf(bills));
+            preference.setPreference(this,"shopping",String.valueOf(shopping));
+
+            // *************** CREATE SIMPLE DATABASE ***********
+
+            try {
+                // create a tabase if not exist, if does make it accessable
+                SQLiteDatabase pierDatabase = settingPage.this.openOrCreateDatabase("Statement",MODE_PRIVATE,null);
+                // create table
+                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
+                // cleare data from table only for demo purpose
+                pierDatabase.execSQL("DELETE FROM  statement");
+                for (int i = 1; i < list.size(); i++) {
+                    //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
+                        String desc = list.get(i)[3];
+                        if (desc.toLowerCase().equals("scott's restaurant")){
+                            desc = "Scotts Restaurant";
+                        }
+                        // add data to the database
+                        pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('"+list.get(i)[0]+"','"+list.get(i)[1]+"','"+list.get(i)[2]+"','"+desc+"','"+list.get(i)[4]+"','"+list.get(i)[5]+"','"+list.get(i)[6]+"')");
+                    //}
+                }
+                Log.i("Database", "all data added");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Log.i("Array size",String.valueOf(list.size()));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 

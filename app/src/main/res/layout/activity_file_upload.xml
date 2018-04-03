@@ -71,5 +71,15 @@
         android:textColor="@color/white"
         android:layout_marginRight="10dp"
         android:text="Upload" />
+    <Button
+        android:layout_gravity="right"
+        android:id="@+id/buton_id"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:background="@drawable/button_orange"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Refresh" />
 
 </android.widget.LinearLayout>

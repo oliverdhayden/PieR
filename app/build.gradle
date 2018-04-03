@@ -29,6 +29,10 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.amazonaws:aws-android-sdk-core:2.6.+'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.6.+'
+    implementation 'com.amazonaws:aws-android-sdk-ddb:2.6.+'
+    implementation 'com.amazonaws:aws-android-sdk-lambda:2.6.+'
     implementation 'com.android.support:design:26.1.0'
     //nav bar
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
@@ -55,4 +59,5 @@ dependencies {
     implementation('com.amazonaws:aws-android-sdk-auth-ui:2.6.+@aar') { transitive = true; }
     //Gson allows objects to be stored in shared preferences
     implementation 'com.google.code.gson:gson:2.8.2'
+    implementation files('lib/opencsv-2.3.jar')
 }

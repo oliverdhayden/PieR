@@ -30,7 +30,7 @@ public class SlideAdapter extends PagerAdapter {
     public String[] lst_description ={
             "Catagorise your spending to keep tabs on where your hard earned money ends up.",
             "Using machine learning techniques, our app will create a predictive model based on your income and expenditure so you don\\'t have to worry about working out if you can afford to get the next round in.",
-            "We also offer a range of additional plugins that show you where and how you can save on everything from groceries to rent."
+            "We also offer a range of additional plugins that show you where and how you can save on everything from grocerie to rent."
     };
     // list of background colors
     public int[] lst_bgcolor = {

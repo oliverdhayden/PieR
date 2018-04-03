@@ -3,13 +3,19 @@ package com.groupl.project.pier;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import java.util.*;
+
+import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
+import com.amazonaws.mobileconnectors.lambdainvoker.LambdaFunctionException;
+import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import android.support.v4.content.ContextCompat;
 
@@ -45,6 +51,7 @@ import  	android.support.v4.app.ActivityCompat;
 //add file name chosen + change file button.
 public class FileUpload extends AppCompatActivity {
 
+    public static boolean uploadButtonWasPressed = false;
     String TAG = "FileUpload";
     String PathHolder = "newTest.jpg";
     String identityID = "this failed";
@@ -108,6 +115,11 @@ public class FileUpload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
 
+        // ------- ASK PERMISSION TO EDIT FILES -------------------
+        ActivityCompat.requestPermissions(FileUpload.this,
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                1);
+
         buttonUpload = findViewById(R.id.btn_upload);
 
         progressBar = findViewById(R.id.progressBar);
@@ -117,6 +129,7 @@ public class FileUpload extends AppCompatActivity {
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                uploadButtonWasPressed = true;
                 uploadData(filePath);
             }
         });
@@ -277,6 +290,28 @@ public class FileUpload extends AppCompatActivity {
             System.out.println("COMPLETE");
             Toast.makeText(this, "upload complete", Toast.LENGTH_LONG).show();
         }
+    }
+    //this method analize the data from the csv file and returns a string with the value of every spending type separated by a comma
+    public static String stringOfTotalSpendings(String data) {
+        int countComma = 0;
+        int step = 11;
+        String paid = "";
+        for(int i=0; i<data.length(); i++) {
+            if(data.charAt(i) == ',') {
+                countComma++;
+                if(countComma == step) {
+                    while(data.charAt(i+1) != ',') {
+                        paid = paid + data.charAt(i + 1);
+                        i++;
+                    }
+                    step += 6;
+                    if(step+100 < data.length()) {
+                        paid = paid + ',';
+                    }
+                }
+            }
+        }
+        return paid;
     }
 
 }

@@ -17,10 +17,12 @@
     <string name="day_of_the_month">23</string>
     <string name="month">JAN</string>
 
-    <string name="november">November \n 2017</string>
-    <string name="december">December \n 2017</string>
-    <string name="january">January \n 2018</string>
-    <string name="february">February \n 2018</string>
+    <string name="november">N/A</string>
+    <string name="december">N/A </string>
+    <string name="january">N/A</string>
+    <string name="february">N/A</string>
+    <string name="october">N/A</string>
+    <string name="september">N/A</string>
 
     <string name="amount">$30</string>
     <string name="brand">Tesco</string>

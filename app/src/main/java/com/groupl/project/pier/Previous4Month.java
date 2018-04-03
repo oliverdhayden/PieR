@@ -26,14 +26,14 @@ import java.util.Calendar;
  * Created by alexandra on 14/02/2018.
  */
 
-public class Previous3Month extends Fragment {
+public class Previous4Month extends Fragment {
 
     private ListView mListView;
-    private ImageButton goToPrevious4Month;
-    private ImageButton goToPrevious2Month;
+    private ImageButton goToPrevious3Month;
+    private ImageButton goToPrevious5Month;
     Calendar c = Calendar.getInstance();
     //previous month
-    int month = c.get(Calendar.MONTH)-3;
+    int month = c.get(Calendar.MONTH)-4;
     String[] fullMonthArray = new String[]{"sdafsdf", "January", "February","March","April","May","June","July","August","September","October","November","December"};
     private TextView currentMonthChange;
 
@@ -53,12 +53,12 @@ public class Previous3Month extends Fragment {
             SQLiteDatabase pierDatabase = getActivity().openOrCreateDatabase("Statement", android.content.Context.MODE_PRIVATE, null);
             Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = '" + month + "'", null);
 
-            View view = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
-            currentMonthChange = (TextView) view.findViewById(R.id.currentMonthTextView);
+            View view = inflater.inflate(R.layout.previous4_month_fragment_layout, container, false);
+            currentMonthChange = (TextView) view.findViewById(R.id.previous4MonthTextView);
 
             mListView = (ListView) view.findViewById(R.id.ListView);
-            goToPrevious4Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious4);
-            goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
+            goToPrevious3Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious3);
+            goToPrevious5Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious5);
 
             // UNIVERSAL IMAGE LOADER SETUP
             DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -125,14 +125,14 @@ public class Previous3Month extends Fragment {
             MonthListItemAdapter adapter = new MonthListItemAdapter(getActivity(), R.layout.adapter_view_layout, MontlyList);
             mListView.setAdapter(adapter);
 
-            goToPrevious4Month.setOnClickListener(new View.OnClickListener() {
+            goToPrevious3Month.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //this will give us acces to every method inside of the main activity
                     ((FullStatement) getActivity()).setViewPager(0);
                 }
             });
-            goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
+            goToPrevious5Month.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //this will give us acces to every method inside of the main activity
