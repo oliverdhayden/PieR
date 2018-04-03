@@ -1,5 +1,7 @@
 package com.groupl.project.pier;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by alexandra on 14/02/2018.
@@ -26,19 +29,31 @@ import java.util.ArrayList;
 public class Previous2Month extends Fragment {
 
     private ListView mListView;
-    private ImageButton goToPrevious1Month;
-    private ImageButton goToPrevious3Month;
-    private TextView previous2MonthTV;
+    private ImageButton goToCurrentMonth;
+    private ImageButton goToPrevious2Month;
+    Calendar c = Calendar.getInstance();
+    //previous month
+    int month = c.get(Calendar.MONTH)-2;
+    String[] fullMonthArray = new String[]{"sdafsdf", "January", "February","March","April","May","June","July","August","September","October","November","December"};
+    private TextView currentMonthChange;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view  = inflater.inflate(R.layout.previous2_month_fragment_layout, container, false);
+        if (month == 0){
+            month = 12;
+        }
 
-        mListView = (ListView) view.findViewById(R.id.ListView);
-        goToPrevious1Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious1);
-        goToPrevious3Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious3);
-        previous2MonthTV = (TextView)view.findViewById(R.id.previous2MonthTextView);
+        //************************* ACCESS TO THE DATABASE **************************
+        SQLiteDatabase pierDatabase = getActivity().openOrCreateDatabase("Statement",android.content.Context.MODE_PRIVATE ,null);
+        Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = '3'", null);
+
+        View view  = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
+        currentMonthChange = (TextView)view.findViewById(R.id.currentMonthTextView);
+
+        mListView = (ListView)view.findViewById(R.id.ListView);
+        goToCurrentMonth = (ImageButton) view.findViewById(R.id.btnGoToCurrentMonth);
+        goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
 
         // UNIVERSAL IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -55,52 +70,54 @@ public class Previous2Month extends Fragment {
         ImageLoader.getInstance().init(config);
         // END - UNIVERSAL IMAGE LOADER SETUP
 
-        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£22","22","DEC");
-        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£22","22","DEC");
-        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("drawable://" + R.drawable.rent, "unknown", "£22","22","DEC");
-        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£20","20","DEC");
-        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£20","19","DEC");
-        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£19","19","DEC");
-        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("drawable://" + R.drawable.bills, "British Gas", "£19","19","DEC");
-        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£18","18","DEC");
-        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£18","18","DEC");
-        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£15","15","DEC");
-
         ArrayList<DayOfTheMonthListItem> MontlyList = new ArrayList<>();
-        MontlyList.add(item1);
-        MontlyList.add(item2);
-        MontlyList.add(item3);
-        MontlyList.add(item4);
-        MontlyList.add(item5);
-        MontlyList.add(item6);
-        MontlyList.add(item7);
-        MontlyList.add(item8);
-        MontlyList.add(item9);
-        MontlyList.add(item10);
+        String[] monthArray = new String[]{"0","JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+        String monthString = monthArray[month];
+
+
+        try {
+            int description = cursor.getColumnIndex("description");
+            int category = cursor.getColumnIndex("category");
+            int value = cursor.getColumnIndex("value");
+            int day = cursor.getColumnIndex("day");
+            int year = cursor.getColumnIndex("year");
+
+
+            cursor.moveToFirst();
+
+
+            while (cursor!= null){
+                DayOfTheMonthListItem item = new DayOfTheMonthListItem("drawable://" + R.drawable.grocerie, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+                currentMonthChange.setText(fullMonthArray[month] + "\n" + cursor.getString(year));
+                MontlyList.add(item);
+                cursor.moveToNext();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         //getActivity() is the context for fragment, so in fragments use getActivity() insted of this
         MonthListItemAdapter adapter = new MonthListItemAdapter(getActivity(), R.layout.adapter_view_layout, MontlyList);
         mListView.setAdapter(adapter);
 
-        previous2MonthTV.setText("February \n 2018");
-
-        goToPrevious1Month.setOnClickListener(new View.OnClickListener() {
+        goToCurrentMonth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //this will give us acces to every method inside of the main activity
-                ((FullStatement)getActivity()).setViewPager(1);
+                ((FullStatement)getActivity()).setViewPager(0);
             }
         });
-        goToPrevious3Month.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-              //this will give us acces to every method inside of the main activity
-             ((FullStatement)getActivity()).setViewPager(3);
-              }
+        goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //this will give us acces to every method inside of the main activity
+                ((FullStatement)getActivity()).setViewPager(2);
+            }
         });
 
 
 
-    return view;
+        return view;
     }
 }

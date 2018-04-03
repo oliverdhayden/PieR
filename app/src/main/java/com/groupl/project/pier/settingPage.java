@@ -163,7 +163,7 @@ public class settingPage extends AppCompatActivity {
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
                 S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
                 // CHECK IF FILE EXIST
-                boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv");
+                boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"last_six_months.csv");
                 Log.d("CHECK_IF_EXIST"," -> "+ check);
 
                 // IF EXIST DOWNLOAD
@@ -174,7 +174,7 @@ public class settingPage extends AppCompatActivity {
                                     .awsConfiguration(AWSMobileClient.getInstance().getConfiguration())
                                     .s3Client(new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider()))
                                     .build();
-                    TransferObserver downloadObserver = transferUtility.download("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"global_statement.csv", fileDown);
+                    TransferObserver downloadObserver = transferUtility.download("/pierandroid-userfiles-mobilehub-318679301/public/"+userName,"last_six_months.csv", fileDown);
 
                     Log.d("FilePath",fileDown.getAbsolutePath());
 
@@ -247,7 +247,7 @@ public class settingPage extends AppCompatActivity {
 
                 // if its the last month of the last year
                 if((list.get(i)[2]).equals(list.get(list.size()-1)[2]) && (list.get(i)[1]).equals(list.get(list.size()-1)[1])) {
-                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
+                    if ((list.get(i)[4]).toLowerCase().equals("grocerie")) {
                         groceries += Integer.parseInt(list.get(i)[5]);
                     }
                     if ((list.get(i)[4]).toLowerCase().equals("general")) {
@@ -281,7 +281,7 @@ public class settingPage extends AppCompatActivity {
        //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
 
             }
-            preference.setPreference(this,"groceries",String.valueOf(groceries));
+            preference.setPreference(this,"grocerie",String.valueOf(groceries));
             preference.setPreference(this,"general",String.valueOf(general));
             preference.setPreference(this,"eatingOut",String.valueOf(eatingOut));
             preference.setPreference(this,"transport",String.valueOf(transport));
@@ -299,28 +299,16 @@ public class settingPage extends AppCompatActivity {
                 // cleare data from table only for demo purpose
                 pierDatabase.execSQL("DELETE FROM  statement");
                 for (int i = 1; i < list.size(); i++) {
-                    if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
+                    //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                         String desc = list.get(i)[3];
                         if (desc.toLowerCase().equals("scott's restaurant")){
                             desc = "Scotts Restaurant";
                         }
-                        Log.i("Month",list.get(i)[1]);
                         // add data to the database
                         pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('"+list.get(i)[0]+"','"+list.get(i)[1]+"','"+list.get(i)[2]+"','"+desc+"','"+list.get(i)[4]+"','"+list.get(i)[5]+"','"+list.get(i)[6]+"')");
-                    }
+                    //}
                 }
                 Log.i("Database", "all data added");
-
-                Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement", null);
-
-                int dayIndex = cursor.getColumnIndex("day");
-
-
-                cursor.moveToFirst();
-                while (cursor!=null){
-                    Log.i("day", cursor.getString(dayIndex));
-                    cursor.moveToNext();
-                }
 
             } catch (Exception e) {
                 e.printStackTrace();

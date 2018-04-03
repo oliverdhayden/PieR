@@ -47,7 +47,7 @@ public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
 
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        String[] fullMonthArray = new String[]{"sdafsdf", "January", "February","March","April","May","June","July","August","September","October","November","December"};
+
         String img = getItem(position).getImgUrl();
         String brandName = getItem(position).getBrandName();
         String dayOfTheMonth = getItem(position).getDayOfTheMonth();

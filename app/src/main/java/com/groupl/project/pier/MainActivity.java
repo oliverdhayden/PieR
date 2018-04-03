@@ -7,7 +7,6 @@ import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserPool;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointManager;
 import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -20,21 +19,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.*;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -43,17 +37,13 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.lambdainvoker.LambdaFunctionException;
-import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
-import com.amazonaws.regions.Regions;
 
 public class MainActivity extends AppCompatActivity {
 
     public static PinpointManager pinpointManager;
 
     //******* GET DATA BACK FORM PREFERENCE ********
-//    String groceries = preference.getPreference(this,"groceries");
+//    String grocerie = preference.getPreference(this,"grocerie");
 //    String general = preference.getPreference(this,"general");
 //    String rent = preference.getPreference(this,"rent");
 //    String eatingOut = preference.getPreference(this,"eatingOut");
@@ -265,8 +255,8 @@ public class MainActivity extends AppCompatActivity {
         ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
         String[] money = {"£120", "£1470", "£235", "£130", "£200", "£49", "£68"};
         HomePageListAdapter.valueOfRent = money[1];
-        HomePageListAdapter.rentIcon = "drawable://" + R.drawable.groceries;
-        HomePageListItem l1 = new HomePageListItem("Groceries","£" + preference.getPreference(this,"groceries"), "drawable://" + R.drawable.groceries);
+        HomePageListAdapter.rentIcon = "drawable://" + R.drawable.grocerie;
+        HomePageListItem l1 = new HomePageListItem("Groceries","£" + preference.getPreference(this,"grocerie"), "drawable://" + R.drawable.grocerie);
         HomePageListItem l2 = new HomePageListItem("Rent","£" + preference.getPreference(this,"rent"), "drawable://" + R.drawable.rent);
         HomePageListItem l3 = new HomePageListItem("Transport","£" + preference.getPreference(this,"transport"), "drawable://" + R.drawable.transportation);
         HomePageListItem l4 = new HomePageListItem("Bills","£" + preference.getPreference(this,"bills"), "drawable://" + R.drawable.bills);
