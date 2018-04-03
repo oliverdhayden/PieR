@@ -54,9 +54,6 @@ public class settingPage extends AppCompatActivity {
     List<String[]> list = new ArrayList<String[]>();
     int groceries =0, rent = 0, transport = 0, bills = 0, shopping = 0, eatingOut = 0, general =0;
 
-    //----------------- DATABASE ---------------------
-    DatabaseHelper mDatabaseHelper;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -292,30 +289,29 @@ public class settingPage extends AppCompatActivity {
                 pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
                 // cleare data from table only for demo purpose
                 pierDatabase.execSQL("DELETE FROM  statement");
-                for (int i =1; i < list.size(); i++) {
-                    String desc = list.get(i)[3];
-                    if (desc.toLowerCase().equals("scott's restaurant")){
-                        desc = "Scotts Restaurant";
+                for (int i = 1; i < list.size(); i++) {
+                    if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
+                        String desc = list.get(i)[3];
+                        if (desc.toLowerCase().equals("scott's restaurant")){
+                            desc = "Scotts Restaurant";
+                        }
+                        Log.i("Month",list.get(i)[1]);
+                        // add data to the database
+                        pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('"+list.get(i)[0]+"','"+list.get(i)[1]+"','"+list.get(i)[2]+"','"+desc+"','"+list.get(i)[4]+"','"+list.get(i)[5]+"','"+list.get(i)[6]+"')");
                     }
-                    // add data to the database
-                    pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('"+list.get(i)[0]+"','"+list.get(i)[1]+"','"+list.get(i)[2]+"','"+desc+"','"+list.get(i)[4]+"','"+list.get(i)[5]+"','"+list.get(i)[6]+"')");
                 }
+                Log.i("Database", "all data added");
 
-//                Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement", null);
-//
-//                int dayIndex = cursor.getColumnIndex("day");
-//                int monthIndex = cursor.getColumnIndex("month");
-//                int yearindex = cursor.getColumnIndex("year");
-//
-//
-//                cursor.moveToFirst();
-//                while (cursor!=null){
-//                    Log.i("day", cursor.getString(dayIndex));
-//                    Log.i("month", cursor.getString(monthIndex));
-//                    Log.i("year", cursor.getString(yearindex));
-//
-//                    cursor.moveToNext();
-//                }
+                Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement", null);
+
+                int dayIndex = cursor.getColumnIndex("day");
+
+
+                cursor.moveToFirst();
+                while (cursor!=null){
+                    Log.i("day", cursor.getString(dayIndex));
+                    cursor.moveToNext();
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

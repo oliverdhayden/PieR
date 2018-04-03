@@ -1,9 +1,11 @@
 package com.groupl.project.pier;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -30,10 +33,17 @@ public class Previous1Month extends Fragment {
     private ListView mListView;
     private ImageButton goToCurrentMonth;
     private ImageButton goToPrevious2Month;
+    Calendar c = Calendar.getInstance();
+    //previous month
+    int month = c.get(Calendar.MONTH);
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        //************************* ACCESS TO THE DATABASE **************************
+        SQLiteDatabase pierDatabase = getActivity().openOrCreateDatabase("Statement",android.content.Context.MODE_PRIVATE ,null);
+        Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement", null);
 
         View view  = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
 
@@ -56,28 +66,29 @@ public class Previous1Month extends Fragment {
         ImageLoader.getInstance().init(config);
         // END - UNIVERSAL IMAGE LOADER SETUP
 
-        DayOfTheMonthListItem item1 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£22","22","JAN");
-        DayOfTheMonthListItem item2 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£22","22","JAN");
-        DayOfTheMonthListItem item3 = new DayOfTheMonthListItem("drawable://" + R.drawable.rent, "unknown", "£22","22","JAN");
-        DayOfTheMonthListItem item4 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£20","20","JAN");
-        DayOfTheMonthListItem item5 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£20","19","JAN");
-        DayOfTheMonthListItem item6 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£19","19","JAN");
-        DayOfTheMonthListItem item7 = new DayOfTheMonthListItem("drawable://" + R.drawable.bills, "British Gas", "£19","19","JAN");
-        DayOfTheMonthListItem item8 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£18","18","JAN");
-        DayOfTheMonthListItem item9 = new DayOfTheMonthListItem("drawable://" + R.drawable.transportation, "Tfl", "£18","18","JAN");
-        DayOfTheMonthListItem item10 = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, "Tesco", "£15","15","JAN");
-
         ArrayList<DayOfTheMonthListItem> MontlyList = new ArrayList<>();
-        MontlyList.add(item1);
-        MontlyList.add(item2);
-        MontlyList.add(item3);
-        MontlyList.add(item4);
-        MontlyList.add(item5);
-        MontlyList.add(item6);
-        MontlyList.add(item7);
-        MontlyList.add(item8);
-        MontlyList.add(item9);
-        MontlyList.add(item10);
+        String[] monthArray = new String[]{"0","JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+        String monthString = monthArray[month];
+
+        try {
+            int description = cursor.getColumnIndex("description");
+            int category = cursor.getColumnIndex("category");
+            int value = cursor.getColumnIndex("value");
+            int day = cursor.getColumnIndex("day");
+
+
+            cursor.moveToFirst();
+
+
+            while (cursor!= null){
+                DayOfTheMonthListItem item = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+                MontlyList.add(item);
+                cursor.moveToNext();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
 
         //getActivity() is the context for fragment, so in fragments use getActivity() insted of this
         MonthListItemAdapter adapter = new MonthListItemAdapter(getActivity(), R.layout.adapter_view_layout, MontlyList);

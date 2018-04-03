@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -24,7 +25,9 @@ import java.util.List;
  */
 
 public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
-
+    Calendar c = Calendar.getInstance();
+    //previous month
+    int currentMonth = c.get(Calendar.MONTH);
     private Context mContext;
     private int mResource;
 
@@ -44,7 +47,7 @@ public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
 
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
+        String[] fullMonthArray = new String[]{"sdafsdf", "January", "February","March","April","May","June","July","August","September","October","November","December"};
         String img = getItem(position).getImgUrl();
         String brandName = getItem(position).getBrandName();
         String dayOfTheMonth = getItem(position).getDayOfTheMonth();
@@ -58,6 +61,7 @@ public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
             LayoutInflater inflater = LayoutInflater.from(mContext);
 
             convertView = inflater.inflate(mResource, parent, false);
+
 
             holder.imgUrl = (ImageView) convertView.findViewById(R.id.imageForSpendings);
             holder.brandName = (TextView) convertView.findViewById(R.id.textViewBrandName);
