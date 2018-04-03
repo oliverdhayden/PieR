@@ -1,5 +1,6 @@
 package com.groupl.project.pier;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by alexandra on 14/02/2018.
  */
@@ -31,6 +34,7 @@ public class Previous1Month extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view  = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
 
         mListView = (ListView)view.findViewById(R.id.ListView);
