@@ -249,7 +249,7 @@ public class settingPage extends AppCompatActivity {
                 Log.d("Category",list.get(i)[4]);
                 Log.d("Value",list.get(i)[5]);
                 Log.d("Balance",list.get(i)[6]);
-                AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+       //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
             }
         } catch (IOException e) {
             e.printStackTrace();
