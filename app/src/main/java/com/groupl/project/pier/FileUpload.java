@@ -51,6 +51,7 @@ import  	android.support.v4.app.ActivityCompat;
 //add file name chosen + change file button.
 public class FileUpload extends AppCompatActivity {
 
+    public static boolean uploadButtonWasPressed = false;
     String TAG = "FileUpload";
     String PathHolder = "newTest.jpg";
     String identityID = "this failed";
@@ -119,55 +120,6 @@ public class FileUpload extends AppCompatActivity {
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 1);
 
-
-        //-----------------------------code for taking data from aws lambda----------------------------------------
-        // Create an instance of CognitoCachingCredentialsProvider
-        CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
-                this.getApplicationContext(), "eu-west-2:cecfc1a1-8002-4a00-a2a4-a38e9e0aa4ec", Regions.EU_WEST_2);
-
-// Create LambdaInvokerFactory, to be used to instantiate the Lambda proxy.
-        LambdaInvokerFactory factory = LambdaInvokerFactory.builder() .context(this.getApplicationContext()) .region(Regions.EU_WEST_2) .credentialsProvider(cognitoProvider) .build();
-
-// Create the Lambda proxy object with a default Json data binder.
-// You can provide your own data binder by implementing
-// LambdaDataBinder.
-        final MyInterface myInterface = factory.build(MyInterface.class);
-
-// The Lambda function invocation results in a network call.
-// Make sure it is not called from the main thread.
-        final Button button = findViewById(R.id.buton_id);
-        //final TextView textView = findViewById(R.id.textView_id);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Code here executes on main thread after user presses button
-                RequestClass request = new RequestClass("Liviu", "Nedelcu", "pierandroid-userfiles-mobilehub-318679301", "statement.csv");
-                new AsyncTask<RequestClass, Void, ResponseClass>() {
-                    @Override
-                    protected ResponseClass doInBackground(RequestClass... params) {
-                        // invoke "echo" method. In case it fails, it will throw a
-                        // LambdaFunctionException.
-                        try {
-                            return myInterface.lambdaBackendNodeJsTutorial(params[0]);
-                        } catch (LambdaFunctionException lfe) {
-                            Log.e("Tag", lfe.getDetails(), lfe);
-                            return null;
-                        }
-                    }
-
-                    @Override
-                    protected void onPostExecute(ResponseClass result) {
-                        if (result == null) {
-                            return;
-                        }
-                        // Do a toast
-                        String paid = stringOfTotalSpendings(result.getGreetings());
-                        // textView.setText(result.getGreetings());
-                        Toast.makeText(FileUpload.this, paid, Toast.LENGTH_LONG).show();
-                    }
-                }.execute(request);
-            }
-        });
-
         buttonUpload = findViewById(R.id.btn_upload);
 
         progressBar = findViewById(R.id.progressBar);
@@ -177,6 +129,7 @@ public class FileUpload extends AppCompatActivity {
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                uploadButtonWasPressed = true;
                 uploadData(filePath);
             }
         });

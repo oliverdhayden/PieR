@@ -40,18 +40,24 @@ public class Previous1Month extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (month == 0){
+        if (FileUpload.uploadButtonWasPressed == false) {
+            View view = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
+            return view;
+        }
+        else {
+
+        if (month == 0) {
             month = 12;
         }
 
         //************************* ACCESS TO THE DATABASE **************************
-        SQLiteDatabase pierDatabase = getActivity().openOrCreateDatabase("Statement",android.content.Context.MODE_PRIVATE ,null);
-        Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = '"+month+"'", null);
+        SQLiteDatabase pierDatabase = getActivity().openOrCreateDatabase("Statement", android.content.Context.MODE_PRIVATE, null);
+        Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = '" + month + "'", null);
 
-        View view  = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
-        currentMonthChange = (TextView)view.findViewById(R.id.currentMonthTextView);
+        View view = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
+        currentMonthChange = (TextView) view.findViewById(R.id.currentMonthTextView);
 
-        mListView = (ListView)view.findViewById(R.id.ListView);
+        mListView = (ListView) view.findViewById(R.id.ListView);
         goToCurrentMonth = (ImageButton) view.findViewById(R.id.btnGoToCurrentMonth);
         goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
 
@@ -71,7 +77,7 @@ public class Previous1Month extends Fragment {
         // END - UNIVERSAL IMAGE LOADER SETUP
 
         ArrayList<DayOfTheMonthListItem> MontlyList = new ArrayList<>();
-        String[] monthArray = new String[]{"0","JAN","FEB","MAR","APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC"};
+        String[] monthArray = new String[]{"0", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
         String monthString = monthArray[month];
 
 
@@ -86,31 +92,32 @@ public class Previous1Month extends Fragment {
             cursor.moveToFirst();
 
 
-            while (cursor!= null){
-                DayOfTheMonthListItem item = new DayOfTheMonthListItem("drawable://" + R.drawable.general, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);;
-                if(cursor.getString(category).toLowerCase().equals("groceries")) {
-                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+            while (cursor != null) {
+                DayOfTheMonthListItem item = new DayOfTheMonthListItem("drawable://" + R.drawable.general, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
+                ;
+                if (cursor.getString(category).toLowerCase().equals("groceries")) {
+                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
-                if(cursor.getString(category).toLowerCase().equals("eating out")) {
-                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.eating_out, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+                if (cursor.getString(category).toLowerCase().equals("eating out")) {
+                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.eating_out, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
-                if(cursor.getString(category).toLowerCase().equals("transport")) {
-                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.transport, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+                if (cursor.getString(category).toLowerCase().equals("transport")) {
+                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.transport, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
-                if(cursor.getString(category).toLowerCase().equals("bills")) {
-                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.bills, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+                if (cursor.getString(category).toLowerCase().equals("bills")) {
+                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.bills, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
-                if(cursor.getString(category).toLowerCase().equals("rent")) {
-                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.rent, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+                if (cursor.getString(category).toLowerCase().equals("rent")) {
+                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.rent, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
-                if(cursor.getString(category).toLowerCase().equals("shopping")) {
-                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.shopping, cursor.getString(description), cursor.getString(value),cursor.getString(day),monthString);
+                if (cursor.getString(category).toLowerCase().equals("shopping")) {
+                    item = new DayOfTheMonthListItem("drawable://" + R.drawable.shopping, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
                 currentMonthChange.setText(fullMonthArray[month] + "\n" + cursor.getString(year));
                 MontlyList.add(item);
                 cursor.moveToNext();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -123,19 +130,19 @@ public class Previous1Month extends Fragment {
             @Override
             public void onClick(View view) {
                 //this will give us acces to every method inside of the main activity
-                ((FullStatement)getActivity()).setViewPager(0);
+                ((FullStatement) getActivity()).setViewPager(0);
             }
         });
         goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //this will give us acces to every method inside of the main activity
-                ((FullStatement)getActivity()).setViewPager(2);
+                ((FullStatement) getActivity()).setViewPager(2);
             }
         });
 
 
-
         return view;
+    }
     }
 }
