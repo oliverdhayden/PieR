@@ -247,7 +247,7 @@ public class settingPage extends AppCompatActivity {
 
                 // if its the last month of the last year
                 if((list.get(i)[2]).equals(list.get(list.size()-1)[2]) && (list.get(i)[1]).equals(list.get(list.size()-1)[1])) {
-                    if ((list.get(i)[4]).toLowerCase().equals("grocerie")) {
+                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
                         groceries += Integer.parseInt(list.get(i)[5]);
                     }
                     if ((list.get(i)[4]).toLowerCase().equals("general")) {
@@ -281,7 +281,7 @@ public class settingPage extends AppCompatActivity {
        //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
 
             }
-            preference.setPreference(this,"grocerie",String.valueOf(groceries));
+            preference.setPreference(this,"groceries",String.valueOf(groceries));
             preference.setPreference(this,"general",String.valueOf(general));
             preference.setPreference(this,"eatingOut",String.valueOf(eatingOut));
             preference.setPreference(this,"transport",String.valueOf(transport));

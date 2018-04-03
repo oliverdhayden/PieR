@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public static PinpointManager pinpointManager;
 
     //******* GET DATA BACK FORM PREFERENCE ********
-//    String grocerie = preference.getPreference(this,"grocerie");
+//    String groceries = preference.getPreference(this,"groceries");
 //    String general = preference.getPreference(this,"general");
 //    String rent = preference.getPreference(this,"rent");
 //    String eatingOut = preference.getPreference(this,"eatingOut");
@@ -255,8 +255,8 @@ public class MainActivity extends AppCompatActivity {
         ListView mListView = (ListView)findViewById(R.id.listViewForHomePage);
         String[] money = {"£120", "£1470", "£235", "£130", "£200", "£49", "£68"};
         HomePageListAdapter.valueOfRent = money[1];
-        HomePageListAdapter.rentIcon = "drawable://" + R.drawable.grocerie;
-        HomePageListItem l1 = new HomePageListItem("Groceries","£" + preference.getPreference(this,"grocerie"), "drawable://" + R.drawable.grocerie);
+        HomePageListAdapter.rentIcon = "drawable://" + R.drawable.groceries;
+        HomePageListItem l1 = new HomePageListItem("Groceries","£" + preference.getPreference(this,"groceries"), "drawable://" + R.drawable.groceries);
         HomePageListItem l2 = new HomePageListItem("Rent","£" + preference.getPreference(this,"rent"), "drawable://" + R.drawable.rent);
         HomePageListItem l3 = new HomePageListItem("Transport","£" + preference.getPreference(this,"transport"), "drawable://" + R.drawable.transportation);
         HomePageListItem l4 = new HomePageListItem("Bills","£" + preference.getPreference(this,"bills"), "drawable://" + R.drawable.bills);
