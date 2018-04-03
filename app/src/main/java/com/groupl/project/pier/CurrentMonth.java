@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -26,6 +27,7 @@ public class CurrentMonth extends Fragment {
 
     private ListView mListView;
     private ImageButton goToPrevious1Month;
+    private TextView currentMonthTV;
 
     @Nullable
     @Override
@@ -34,6 +36,7 @@ public class CurrentMonth extends Fragment {
 
         mListView = (ListView) view.findViewById(R.id.ListView);
         goToPrevious1Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious1);
+        currentMonthTV = (TextView)view.findViewById(R.id.currentMonthTextView);
 
         // UNIVERSAL IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -85,11 +88,14 @@ public class CurrentMonth extends Fragment {
         MonthListItemAdapter adapter = new MonthListItemAdapter(getActivity(), R.layout.adapter_view_layout, MontlyList);
         mListView.setAdapter(adapter);
 
+        currentMonthTV.setText("April \n 2018");
+
          goToPrevious1Month.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
              //this will give us acces to every method inside of the main activity
              ((FullStatement)getActivity()).setViewPager(1);
+
              }
     });
 
