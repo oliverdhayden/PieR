@@ -278,7 +278,7 @@ public class settingPage extends AppCompatActivity {
                     }
 
                 }
-                
+
                 Log.d("Day",list.get(i)[0]);
                 Log.d("Month",list.get(i)[1]);
                 Log.d("Year",list.get(i)[2]);
