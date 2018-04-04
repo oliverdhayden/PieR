@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private String TAG = "Main Activity";
-    private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 56};
-    private String[] xData = {"Rent", "Bills" , "Transport" , "Shopping", "Eating Out", "General", "Groceries"};
+
     PieChart pieChart;
     //raju
     private DrawerLayout myDrawerLaout;
@@ -157,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         //pieChart.setDescription(" ");
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
-        pieChart.setUsePercentValues(true);
+
         //pieChart.setHoleColor(Color.BLUE);
         pieChart.setCenterTextColor(R.color.black);
         pieChart.setEntryLabelColor(R.color.black);
@@ -172,13 +171,39 @@ public class MainActivity extends AppCompatActivity {
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
         pieChart.getLegend().setEnabled(false);
+        //pieChart.setNoDataText("Please upload a bank statement");
 
+        //check if the datat is downloaded
+        //the true false may need to be changed
+        if (settingPage.getPreference(this,"dataDownloaded")){
+        //if (false){
+            Log.i(TAG, "onCreate: this fired");
+            pieChart.setCenterText("Please upload a bank statement");
+            pieChart.setUsePercentValues(false);
+            pieChart.setDrawEntryLabels(false);
+            pieChart.setRotationEnabled(false);
+            addEmptyData(pieChart);
+        }
 
-        addDataSet(pieChart);
+        else{
+            float[] yData = new float[7];
+            yData[0] = hasData(preference.getPreference(this,"rent"));
+            yData[1] = hasData(preference.getPreference(this,"bills"));
+            yData[2] = hasData(preference.getPreference(this,"transport"));
+            yData[3] = hasData(preference.getPreference(this,"shopping"));
+            yData[4] = hasData(preference.getPreference(this,"eatingOut"));
+            yData[5] = hasData(preference.getPreference(this,"general"));
+            yData[6] = hasData(preference.getPreference(this,"groceries"));
+
+            String[] xData = {"Rent", "Bills" , "Transport" , "Shopping", "Eating Out", "General", "Groceries"};
+            addDataSet(pieChart,yData,xData);
+            pieChart.setUsePercentValues(false);
+            pieChart.setDrawEntryLabels(true);
+            pieChart.setRotationEnabled(true);
+        }
+
         //pieChart.setDrawSliceText(false);
-        pieChart.setDrawEntryLabels(true);
         pieChart.invalidate();
-
         pieChart.animateX(700);
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -289,7 +314,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     //raju - opens the menu tab
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -305,9 +329,45 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private float hasData(String preference){
+        float value = 0;
+        if(!preference.equals("N/A")){
+            value = Float.parseFloat(preference);
+        }
+        return value;
+    }
+
+    private void addEmptyData(PieChart chart){
+        ArrayList<PieEntry> yEntries = new ArrayList<>();
+        ArrayList<String> xEntries = new ArrayList<>();
+
+        yEntries.add(new PieEntry(75, ""));
+        yEntries.add(new PieEntry(75, ""));
+        xEntries.add("");
+        xEntries.add("");
+
+        PieDataSet pieDataSet = new PieDataSet(yEntries,"");
+        pieDataSet.setSliceSpace(2);
+        pieDataSet.setValueTextSize(0);
+
+        ArrayList<Integer> colors = new ArrayList<>();
+//        colors.add(getResources().getColor(R.color.b6));
+        colors.add(getResources().getColor(R.color.b2));
+
+        //colors.add(getResources().getColor(R.color.coral));
+
+        pieDataSet.setColors(colors);
+
+        //create pie data object
+        PieData pieData = new PieData(pieDataSet);
+
+        pieChart.setData(pieData);
+        pieChart.invalidate();
 
 
-    private void addDataSet(PieChart chart){
+    }
+
+    private void addDataSet(PieChart chart, float[] yData ,String[] xData){
         ArrayList<PieEntry> yEntries = new ArrayList<>();
         ArrayList<String> xEntries = new ArrayList<>();
 

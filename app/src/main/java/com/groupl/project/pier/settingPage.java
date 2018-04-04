@@ -118,20 +118,24 @@ public class settingPage extends AppCompatActivity {
     }
 
     public void testFileAccess(View view)throws Exception{
-//        File csv = new File(Environment.getExternalStorageDirectory(),"PierData/infoFile.csv");
-//        Scanner scanner = new Scanner(csv);
-//        for(int i = 0; i<10; i++){
-//            if(scanner.hasNext()){
-//                Log.i(TAG, "testFileAccess: "+scanner.next() );
-//            }
-//        }
-        UserStatement user = new UserStatement();
-        preference.setPreferenceObject(this,"userStatement",user);
+        File csv = new File(Environment.getExternalStorageDirectory(),"PierData/infoFile.csv");
+        Scanner scanner = new Scanner(csv);
+        ArrayList<String> list = new ArrayList<String>();
+        while(scanner.hasNext()){
+            //if(scanner.hasNext()) {
+                Log.i(TAG, "testFileAccess: " + scanner.next());
+                list.add(scanner.next());
+            //}
+        }
+        //Toast.makeText(settingPage.this, "Finished unpacking csv", Toast.LENGTH_SHORT).show();
+        Toast.makeText(settingPage.this, list.get(0),Toast.LENGTH_SHORT).show();
+        //UserStatement user = new UserStatement();
+        //preference.setPreferenceObject(this,"userStatement",user);
     }
 
     public void testGetSharedPrefObj(View view)throws Exception{
-        UserStatement user = preference.getPreferenceObject(this,"userStatement");
-        Log.i(TAG, "testGetSharedPrefObj: " +user.name);
+        //UserStatement user = preference.getPreferenceObject(this,"userStatement");
+        //Log.i(TAG, "testGetSharedPrefObj: " +user.name);
     }
 
 
@@ -281,6 +285,7 @@ public class settingPage extends AppCompatActivity {
        //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
 
             }
+            setPreference(false, "dataDownloaded");
             preference.setPreference(this,"groceries",String.valueOf(groceries));
             preference.setPreference(this,"general",String.valueOf(general));
             preference.setPreference(this,"eatingOut",String.valueOf(eatingOut));
