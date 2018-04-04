@@ -467,7 +467,7 @@ public class FileUpload extends AppCompatActivity {
                     if ((list.get(i)[4]).toLowerCase().equals("bills")) {
                         bills += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals(" ")) {
+                    if ((list.get(i)[4]).equals("") ||(list.get(i)[4]) == null) {
                         untagged += Integer.parseInt(list.get(i)[5]);
                     }
 
