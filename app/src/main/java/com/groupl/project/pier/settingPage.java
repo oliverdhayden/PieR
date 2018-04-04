@@ -99,7 +99,7 @@ public class settingPage extends AppCompatActivity {
 
     static public boolean getPreference(Context context, String option) {
         SharedPreferences prefs = context.getSharedPreferences("Preference", MODE_PRIVATE);
-        return prefs.getBoolean("Option " + option, true);
+        return prefs.getBoolean("Option " + option, false);
     }
 
     public void reset(View view) {

@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 //    String general = preference.getPreference(this,"general");
 //    String rent = preference.getPreference(this,"rent");
 //    String eatingOut = preference.getPreference(this,"eatingOut");
-//    String shopping = preference.getPreference(this,"shopping");
+//    String untagged = preference.getPreference(this,"untagged");
 //    String bills = preference.getPreference(this,"bills");
 //    String transport = preference.getPreference(this,"transport");
 
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle myToggle;
     NavigationView navigation;
     List<String[]> list = new ArrayList<String[]>();
-    int groceries = 0, rent = 0, transport = 0, bills = 0, shopping = 0, eatingOut = 0, general = 0;
+    int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
 
 
     @Override
@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         //pieChart.setNoDataText("Please upload a bank statement");
 
         //check if the data is downloaded
-        if (settingPage.getPreference(this, "dataDownloaded")) {
+        if (!FileUpload.getPreference(this, "dataDownloaded")) {
             //if (false){
             Log.i(TAG, "onCreate: this fired");
             pieChart.setCenterText("Please upload a bank statement");
@@ -231,12 +231,12 @@ public class MainActivity extends AppCompatActivity {
             yData[0] = hasData(preference.getPreference(this, "rent"));
             yData[1] = hasData(preference.getPreference(this, "bills"));
             yData[2] = hasData(preference.getPreference(this, "transport"));
-            yData[3] = hasData(preference.getPreference(this, "shopping"));
+            yData[3] = hasData(preference.getPreference(this, "untagged"));
             yData[4] = hasData(preference.getPreference(this, "eatingOut"));
             yData[5] = hasData(preference.getPreference(this, "general"));
             yData[6] = hasData(preference.getPreference(this, "groceries"));
 
-            String[] xData = {"Rent", "Bills", "Transport", "Shopping", "Eating Out", "General", "Groceries"};
+            String[] xData = {"Rent", "Bills", "Transport", "Untagged", "Eating Out", "General", "Groceries"};
             addDataSet(pieChart, yData, xData);
             pieChart.setUsePercentValues(false);
             pieChart.setDrawEntryLabels(true);
@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
         HomePageListItem l2 = new HomePageListItem("Rent", "£" + preference.getPreference(this, "rent"), "drawable://" + R.drawable.rent);
         HomePageListItem l3 = new HomePageListItem("Transport", "£" + preference.getPreference(this, "transport"), "drawable://" + R.drawable.transportation);
         HomePageListItem l4 = new HomePageListItem("Bills", "£" + preference.getPreference(this, "bills"), "drawable://" + R.drawable.bills);
-        HomePageListItem l5 = new HomePageListItem("Shopping", "£" + preference.getPreference(this, "shopping"), "drawable://" + R.drawable.shopping);
+        HomePageListItem l5 = new HomePageListItem("Untagged", "£" + preference.getPreference(this, "untagged"), "drawable://" + R.drawable.shopping);
         HomePageListItem l7 = new HomePageListItem("Eating Out", "£" + preference.getPreference(this, "eatingOut"), "drawable://" + R.drawable.food);
         HomePageListItem l8 = new HomePageListItem("General", "£" + preference.getPreference(this, "general"), "drawable://" + R.drawable.general);
 
@@ -605,8 +605,8 @@ public class MainActivity extends AppCompatActivity {
                     if ((list.get(i)[4]).toLowerCase().equals("bills")) {
                         bills += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("shopping")) {
-                        shopping += Integer.parseInt(list.get(i)[5]);
+                    if ((list.get(i)[4]).toLowerCase().equals("untagged")) {
+                        untagged += Integer.parseInt(list.get(i)[5]);
                     }
 
                 }
@@ -627,7 +627,7 @@ public class MainActivity extends AppCompatActivity {
             preference.setPreference(this, "transport", String.valueOf(transport));
             preference.setPreference(this, "rent", String.valueOf(rent));
             preference.setPreference(this, "bills", String.valueOf(bills));
-            preference.setPreference(this, "shopping", String.valueOf(shopping));
+            preference.setPreference(this, "untagged", String.valueOf(untagged));
 
             // *************** CREATE SIMPLE DATABASE ***********
 

@@ -106,7 +106,7 @@ public class Previous5Month extends Fragment {
                 if (cursor.getString(category).toLowerCase().equals("rent")) {
                     item = new DayOfTheMonthListItem("drawable://" + R.drawable.rent, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
-                if (cursor.getString(category).toLowerCase().equals("shopping")) {
+                if (cursor.getString(category).toLowerCase().equals("untagged")) {
                     item = new DayOfTheMonthListItem("drawable://" + R.drawable.shopping, cursor.getString(description), cursor.getString(value), cursor.getString(day), monthString);
                 }
                 currentMonthChange.setText(fullMonthArray[month] + "\n" + cursor.getString(year));

@@ -2,11 +2,11 @@
 package com.groupl.project.pier;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,13 +15,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
-import com.amazonaws.mobileconnectors.lambdainvoker.LambdaFunctionException;
-import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 
@@ -77,7 +74,7 @@ public class FileUpload extends AppCompatActivity {
 
 
     List<String[]> list = new ArrayList<String[]>();
-    int groceries = 0, rent = 0, transport = 0, bills = 0, shopping = 0, eatingOut = 0, general = 0;
+    int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
 
 
 //    AmazonS3Client s3;
@@ -98,6 +95,11 @@ public class FileUpload extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("Option " + option, b);
         editor.apply();
+    }
+
+    static public boolean getPreference(Context context, String option) {
+        SharedPreferences prefs = context.getSharedPreferences("Preference", MODE_PRIVATE);
+        return prefs.getBoolean("Option " + option, false);
     }
 
     public void requestPermissions() {
@@ -465,8 +467,8 @@ public class FileUpload extends AppCompatActivity {
                     if ((list.get(i)[4]).toLowerCase().equals("bills")) {
                         bills += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("shopping")) {
-                        shopping += Integer.parseInt(list.get(i)[5]);
+                    if ((list.get(i)[4]).toLowerCase().equals(" ")) {
+                        untagged += Integer.parseInt(list.get(i)[5]);
                     }
 
                 }
@@ -488,9 +490,9 @@ public class FileUpload extends AppCompatActivity {
             preference.setPreference(this, "transport", String.valueOf(transport));
             preference.setPreference(this, "rent", String.valueOf(rent));
             preference.setPreference(this, "bills", String.valueOf(bills));
-            preference.setPreference(this, "shopping", String.valueOf(shopping));
+            preference.setPreference(this, "untagged", String.valueOf(untagged));
 
-            int monthTotal = groceries +general+eatingOut+transport+rent+bills+shopping;
+            int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
             preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
 
 
