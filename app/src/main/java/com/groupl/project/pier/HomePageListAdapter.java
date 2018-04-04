@@ -26,7 +26,7 @@ import static com.amazonaws.util.ClassLoaderHelper.getResource;
  * Created by alexandra on 04/02/2018.
  */
 
-public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
+public class HomePageListAdapter extends ArrayAdapter<HomePageListItem> {
 
     public static String valueOfRent;
     public static String rentIcon;
@@ -51,29 +51,28 @@ public class HomePageListAdapter extends ArrayAdapter<HomePageListItem>{
         String spendingType = getItem(position).getSpendingType();
         String money = getItem(position).getSpendingMoney();
         String imgURL = getItem(position).getImgURL();
-        ViewHolder holder= new ViewHolder();
+        ViewHolder holder = new ViewHolder();
 
         //this logic means that: store some objects before time
-        if(convertView == null) {  //if that posision hasn't been visited yet
+        if (convertView == null) {  //if that posision hasn't been visited yet
             LayoutInflater inflater = LayoutInflater.from(mContext);
 
             convertView = inflater.inflate(mResource, parent, false);
 
             holder.spendingType = (TextView) convertView.findViewById(R.id.textViewSpentType);
             holder.spendingMoney = (TextView) convertView.findViewById(R.id.textViewMoneySpent);
-            holder.img =  (ImageView) convertView.findViewById(R.id.image);
+            holder.img = (ImageView) convertView.findViewById(R.id.image);
 
 
             //a TAG is gest a way to store a view in memory
             //here the view will be stored in memory
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             //here the view will be referenced from memory
             holder = (ViewHolder) convertView.getTag();
         }
 
-        int  defaultImage = mContext.getResources().getIdentifier("@drawable/image_failed", null, mContext.getPackageName());
+        int defaultImage = mContext.getResources().getIdentifier("@drawable/image_failed", null, mContext.getPackageName());
         ImageLoader imageLoader = ImageLoader.getInstance();
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
                 .cacheOnDisc(true).resetViewBeforeLoading(true)

@@ -16,7 +16,7 @@ public class SignOutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_out);
 
         AWSConfiguration a = new AWSConfiguration(this);
-        CognitoUserPool userPool = new CognitoUserPool(this,a);
+        CognitoUserPool userPool = new CognitoUserPool(this, a);
         CognitoUser user = userPool.getCurrentUser();
         user.signOut();
 

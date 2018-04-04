@@ -44,25 +44,24 @@ public class TagsListItemAdapter extends ArrayAdapter<ListItemForTags> {
         String transactionDate = getItem(position).getTransactionDate();
         String tagMessage = getItem(position).getTagMessage();
 
-        ViewHolder holder= new ViewHolder();
+        ViewHolder holder = new ViewHolder();
 
         //this logic means that: store some objects before time
-        if(convertView == null) {  //if that posision hasn't been visited yet
+        if (convertView == null) {  //if that posision hasn't been visited yet
             LayoutInflater inflater = LayoutInflater.from(mContext);
 
             convertView = inflater.inflate(mResource, parent, false);
 
             holder.transactionAmount = (TextView) convertView.findViewById(R.id.textViewTransactionAmount);
             holder.transactionBrand = (TextView) convertView.findViewById(R.id.textViewTransactionBrand);
-            holder.transactionDate =  (TextView) convertView.findViewById(R.id.textViewTransactionDate);
+            holder.transactionDate = (TextView) convertView.findViewById(R.id.textViewTransactionDate);
             holder.tagMessage = (TextView) convertView.findViewById(R.id.textViewTagMessage);
             holder.tagTransactionButton = (ImageButton) convertView.findViewById(R.id.btnForTag);
 
             //a TAG is gest a way to store a view in memory
             //here the view will be stored in memory
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             //here the view will be referenced from memory
             holder = (ViewHolder) convertView.getTag();
         }
@@ -84,8 +83,8 @@ public class TagsListItemAdapter extends ArrayAdapter<ListItemForTags> {
                 positionOfTheItemInTheList = (Integer) view.getTag();
 
                 //open the dialog when the tag button is pressed
-                if(mContext instanceof Tagging){
-                    ((Tagging)mContext).openDialog();
+                if (mContext instanceof Tagging) {
+                    ((Tagging) mContext).openDialog();
                 }
 
 

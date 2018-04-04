@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity {
         }).execute();
 
         AWSConfiguration a = new AWSConfiguration(this);
-        CognitoUserPool userPool = new CognitoUserPool(this,a);
+        CognitoUserPool userPool = new CognitoUserPool(this, a);
 
         CognitoUser user = userPool.getCurrentUser();
 
@@ -59,11 +59,10 @@ public class Login extends AppCompatActivity {
         preference.setPreference(this, "username", user.getUserId());
 
 
-
 //      AccountUtils accountUtils = new AccountUtils();
 //      accountUtils.userName = username;
         finish();
-        }
+    }
 
 
 }

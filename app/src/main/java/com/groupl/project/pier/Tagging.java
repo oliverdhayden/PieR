@@ -123,26 +123,26 @@ public class Tagging extends AppCompatActivity {
         navigation = (NavigationView) findViewById(R.id.navigation_view);
         View headerView = navigation.getHeaderView(0);
         TextView username = (TextView) headerView.findViewById(R.id.header_username);
-        username.setText(preference.getPreference(this,"username").toUpperCase());
+        username.setText(preference.getPreference(this, "username").toUpperCase());
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.signOut:
-                        Intent SignOut = new Intent(Tagging.this,SignOutActivity.class);
+                        Intent SignOut = new Intent(Tagging.this, SignOutActivity.class);
                         startActivity(SignOut);
                         break;
                     case R.id.setting:
-                        Intent setting = new Intent(Tagging.this,settingPage.class);
+                        Intent setting = new Intent(Tagging.this, settingPage.class);
                         startActivity(setting);
                         break;
                     case R.id.about:
-                        Intent about = new Intent(Tagging.this,aboutUS.class);
+                        Intent about = new Intent(Tagging.this, aboutUS.class);
                         startActivity(about);
                         break;
                     case R.id.upload:
-                        Intent upload = new Intent(Tagging.this,FileUpload.class);
+                        Intent upload = new Intent(Tagging.this, FileUpload.class);
                         startActivity(upload);
                 }
                 return false;
@@ -152,7 +152,7 @@ public class Tagging extends AppCompatActivity {
 
         //raju
         myDrawerLaout = (DrawerLayout) findViewById(R.id.drawer);
-        myToggle = new ActionBarDrawerToggle(this,myDrawerLaout,R.string.Open,R.string.Close);
+        myToggle = new ActionBarDrawerToggle(this, myDrawerLaout, R.string.Open, R.string.Close);
         myDrawerLaout.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -165,7 +165,7 @@ public class Tagging extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         String idStr = getResources().getResourceName(id);
-        if (myToggle.onOptionsItemSelected(item)){
+        if (myToggle.onOptionsItemSelected(item)) {
             return false;
         }
         return super.onOptionsItemSelected(item);
