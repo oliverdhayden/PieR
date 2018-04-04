@@ -33,21 +33,17 @@ public class Previous1Month extends Fragment {
     private ImageButton goToPrevious2Month;
     Calendar c = Calendar.getInstance();
     //previous month
-    int month = c.get(Calendar.MONTH)-1;
-    String[] fullMonthArray = new String[]{"sdafsdf", "January", "February","March","April","May","June","July","August","September","October","November","December"};
+    int month = c.get(Calendar.MONTH) - 1;
+    String[] fullMonthArray = new String[]{"sdafsdf", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private TextView currentMonthChange;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if (FileUpload.uploadButtonWasPressed == false) {
-            View view = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
-            return view;
-        }
-        else {
 
-        if (month == 0) {
-            month = 12;
+
+        if (month <= 0 ) {
+            month = 12 + month;
         }
 
         //************************* ACCESS TO THE DATABASE **************************
@@ -144,5 +140,5 @@ public class Previous1Month extends Fragment {
 
         return view;
     }
-    }
+
 }

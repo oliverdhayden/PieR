@@ -158,6 +158,8 @@ public class FullStatement extends AppCompatActivity {
         adapter.addFragment(new Previous1Month(), "Previous1Month");
         adapter.addFragment(new Previous2Month(), "Previous2Month");
         adapter.addFragment(new Previous3Month(), "Previous3Month");
+        adapter.addFragment(new Previous4Month(), "Previous4Month");
+        adapter.addFragment(new Previous5Month(), "Previous5Month");
 
         viewPager.setAdapter(adapter);
     }
