@@ -215,8 +215,7 @@ public class MainActivity extends AppCompatActivity {
         pieChart.getLegend().setEnabled(false);
         //pieChart.setNoDataText("Please upload a bank statement");
 
-        //check if the datat is downloaded
-        //the true false may need to be changed
+        //check if the data is downloaded
         if (settingPage.getPreference(this, "dataDownloaded")) {
             //if (false){
             Log.i(TAG, "onCreate: this fired");
@@ -225,7 +224,9 @@ public class MainActivity extends AppCompatActivity {
             pieChart.setDrawEntryLabels(false);
             pieChart.setRotationEnabled(false);
             addEmptyData(pieChart);
-        } else {
+        }
+
+        else {
             float[] yData = new float[7];
             yData[0] = hasData(preference.getPreference(this, "rent"));
             yData[1] = hasData(preference.getPreference(this, "bills"));
@@ -240,6 +241,7 @@ public class MainActivity extends AppCompatActivity {
             pieChart.setUsePercentValues(false);
             pieChart.setDrawEntryLabels(true);
             pieChart.setRotationEnabled(true);
+            pieChart.setCenterText("Month total: £"+preference.getPreference(this, "monthTotal"));
         }
 
         //pieChart.setDrawSliceText(false);

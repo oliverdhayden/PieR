@@ -90,7 +90,7 @@ public class settingPage extends AppCompatActivity {
 
     }
 
-    private void setPreference(boolean b, String option) {
+    public void setPreference( boolean b, String option) {
         SharedPreferences prefs = this.getSharedPreferences("Preference", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("Option " + option, b);

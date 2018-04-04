@@ -3,6 +3,7 @@ package com.groupl.project.pier;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -91,6 +92,13 @@ public class FileUpload extends AppCompatActivity {
     AmazonS3 s3;
     Uri PathUri;
     File file;
+
+    public void setPreference( boolean b, String option) {
+        SharedPreferences prefs = this.getSharedPreferences("Preference", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("Option " + option, b);
+        editor.apply();
+    }
 
     public void requestPermissions() {
         // Here, thisActivity is the current activity
@@ -473,6 +481,7 @@ public class FileUpload extends AppCompatActivity {
                 //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
 
             }
+            setPreference(true,"dataDownloaded");
             preference.setPreference(this, "groceries", String.valueOf(groceries));
             preference.setPreference(this, "general", String.valueOf(general));
             preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
@@ -480,6 +489,10 @@ public class FileUpload extends AppCompatActivity {
             preference.setPreference(this, "rent", String.valueOf(rent));
             preference.setPreference(this, "bills", String.valueOf(bills));
             preference.setPreference(this, "shopping", String.valueOf(shopping));
+
+            int monthTotal = groceries +general+eatingOut+transport+rent+bills+shopping;
+            preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
+
 
             // *************** CREATE SIMPLE DATABASE ***********
 
