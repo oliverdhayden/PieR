@@ -13,8 +13,8 @@ public class UserStatement {
     ArrayList<String> lines;
     ArrayList<String> categories;
 
-    
-    UserStatement(){
+
+    UserStatement() {
         this.test = "hello world";
     }
 

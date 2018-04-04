@@ -18,33 +18,34 @@ public class WelcomeSlider extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
 //        if(getPreference(this,"firsttime")) {
-            if(true){
+        if (true) {
             setContentView(R.layout.welcome_screen0);
-        }
-        else {
+        } else {
 
             Intent intent = new Intent(WelcomeSlider.this, MainActivity.class);
             startActivity(intent);
-            setPreference(false, "firsttime",this);
+            setPreference(false, "firsttime", this);
             finish();
         }
     }
-    static public void setPreference(boolean b, String option,Context context) {
+
+    static public void setPreference(boolean b, String option, Context context) {
         SharedPreferences prefs = context.getSharedPreferences("Preference", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("Option " + option, b);
         editor.apply();
     }
-    static public boolean getPreference(Context context, String option){
+
+    static public boolean getPreference(Context context, String option) {
         SharedPreferences prefs = context.getSharedPreferences("Preference", MODE_PRIVATE);
-        return prefs.getBoolean("Option "+ option, true);
+        return prefs.getBoolean("Option " + option, true);
     }
+
     public void skipTour(View view) {
         Intent intent = new Intent(WelcomeSlider.this, Login.class);
         startActivity(intent);
-        setPreference(false, "firsttime",this);
+        setPreference(false, "firsttime", this);
         finish();
     }
 

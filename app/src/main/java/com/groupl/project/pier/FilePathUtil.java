@@ -3,6 +3,7 @@ package com.groupl.project.pier;
 /**
  * Created by ollie on 08/03/2018.
  */
+
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,8 +13,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-public class FilePathUtil
-{
+public class FilePathUtil {
 
 
     /**
@@ -23,8 +23,7 @@ public class FilePathUtil
      * @param uri
      * @return path of the selected image file from gallery
      */
-    public static String getPath(final Context context, final Uri uri)
-    {
+    public static String getPath(final Context context, final Uri uri) {
 
         //check here to KITKAT or new version
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -67,7 +66,7 @@ public class FilePathUtil
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
 
@@ -95,9 +94,9 @@ public class FilePathUtil
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
      *
-     * @param context The context.
-     * @param uri The Uri to query.
-     * @param selection (Optional) Filter used in the query.
+     * @param context       The context.
+     * @param uri           The Uri to query.
+     * @param selection     (Optional) Filter used in the query.
      * @param selectionArgs (Optional) Selection arguments used in the query.
      * @return The value of the _data column, which is typically a file path.
      */
