@@ -3,6 +3,7 @@ package com.groupl.project.pier;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -313,12 +314,16 @@ public class settingPage extends AppCompatActivity {
                         pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('"+list.get(i)[0]+"','"+list.get(i)[1]+"','"+list.get(i)[2]+"','"+desc+"','"+list.get(i)[4]+"','"+list.get(i)[5]+"','"+list.get(i)[6]+"')");
                     //}
                 }
-                Log.i("Database", "all data added");
+
+                //****************** RESTART APP ***********************
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Log.i("Array size",String.valueOf(list.size()));
 
         } catch (IOException e) {
             e.printStackTrace();
