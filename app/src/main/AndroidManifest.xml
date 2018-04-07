@@ -80,6 +80,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".SignOutActivity"></activity>
+        <service android:name=".backgroundReminder"/>
     </application>
 
 </manifest>

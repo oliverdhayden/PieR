@@ -139,6 +139,7 @@ public class FileUpload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
 
+
         // ------- ASK PERMISSION TO EDIT FILES -------------------
         ActivityCompat.requestPermissions(FileUpload.this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -154,7 +155,7 @@ public class FileUpload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadButtonWasPressed = true;
-                uploadData(filePath);
+                uploadData(filePath.substring(15));
             }
         });
         requestPermissions();
@@ -172,24 +173,30 @@ public class FileUpload extends AppCompatActivity {
         switch (requestCode) {
             case 7:
                 if (resultCode == RESULT_OK) {
-                    //gets String Path of selected file
-                    PathUri = data.getData();
-                    filePath = FilePathUtil.getPath(getApplicationContext(), PathUri);
-                    File file = new File(filePath);
-                    //check the extention is correct
-                    String extension = FileExtentionUtil.getExtensionOfFile(file);
-                    String csv = "csv";
-                    //if incorrect extension restart the file manager
-                    if (!extension.equals(csv)) {
-                        Toast.makeText(this, "The chosen file has the extension " + extension + " which is not a csv file, please choose another file.", Toast.LENGTH_LONG).show();
-                        intent = new Intent(Intent.ACTION_GET_CONTENT);
-                        intent.setType("*/*");
-                        startActivityForResult(intent, 7);
+                    try{
+                        //gets String Path of selected file
+                        PathUri = data.getData();
+                        File selectedFile = new File(PathUri.getPath());
+                        filePath = selectedFile.getAbsolutePath();
+                        File file = new File(filePath);
+                        //check the extention is correct
+                        String extension = FileExtentionUtil.getExtensionOfFile(file);
+                        String csv = "csv";
+                        Log.i("Filepath", filePath.substring(15));
+                        //if incorrect extension restart the file manager
+                        if (!extension.equals(csv)) {
+                            Toast.makeText(this, "The chosen file has the extension " + extension + " which is not a csv file, please choose another file.", Toast.LENGTH_LONG).show();
+                            intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.setType("*/*");
+                            startActivityForResult(intent, 7);
+                        }
+                        // ------------------------ SHOW SELECTED FILE NAME -----------------------------------------------
+                        TextView filename = (TextView) findViewById(R.id.filename);
+                        filename.setText(file.getName());
+                        percentDone = 0;
+                    } catch (Exception e){
+                        e.printStackTrace();
                     }
-                    // ------------------------ SHOW SELECTED FILE NAME -----------------------------------------------
-                    TextView filename = (TextView) findViewById(R.id.filename);
-                    filename.setText(file.getName());
-                    percentDone = 0;
                 }
                 break;
         }
@@ -503,6 +510,8 @@ public class FileUpload extends AppCompatActivity {
                 SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
                 // create table
                 pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
+                // create table to store null category
+
                 // cleare data from table only for demo purpose
                 pierDatabase.execSQL("DELETE FROM  statement");
                 for (int i = 1; i < list.size(); i++) {
@@ -511,7 +520,6 @@ public class FileUpload extends AppCompatActivity {
                     if (desc.toLowerCase().equals("scott's restaurant")) {
                         desc = "Scotts Restaurant";
                     }
-                    // add data to the database
                     pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + list.get(i)[4] + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
                     //}
                 }
