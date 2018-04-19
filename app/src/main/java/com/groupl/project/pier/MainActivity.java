@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         //pieChart.setNoDataText("Please upload a bank statement");
 
         //check if the data is downloaded
-        if (!FileUpload.getPreference(this, "dataDownloaded")) {
+        if (preference.getPreference(this,"dataDownloaded").equals("false")) {
             //if (false){
             Log.i(TAG, "onCreate: this fired");
             pieChart.setCenterText("Please upload a bank statement");

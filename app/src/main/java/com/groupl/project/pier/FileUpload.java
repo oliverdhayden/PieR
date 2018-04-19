@@ -522,7 +522,8 @@ public class FileUpload extends AppCompatActivity {
                 //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
 
             }
-            setPreference(true,"dataDownloaded");
+            //setPreference(true,"dataDownloaded");
+            preference.setPreference(this, "dataDownloaded", "true");
             preference.setPreference(this, "groceries", String.valueOf(groceries));
             preference.setPreference(this, "general", String.valueOf(general));
             preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
