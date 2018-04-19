@@ -649,9 +649,13 @@ public class MainActivity extends AppCompatActivity {
                 // create a tabase if not exist, if does make it accessable
                 SQLiteDatabase pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
                 // cleare data from table only for demo purpose
-                pierDatabase.execSQL("DROP TABLE statement");
+//                pierDatabase.execSQL("DROP TABLE statement;");
+//                pierDatabase.execSQL("DELETE FROM statement;");
+                pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
+
+
                 // create table
-                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
+                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
                 for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
