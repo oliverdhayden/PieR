@@ -1,6 +1,8 @@
 package com.groupl.project.pier;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -52,32 +54,32 @@ public class Tagging extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
 
-        ListItemForTags item1 = new ListItemForTags("£20", "Tesco", "12/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item2 = new ListItemForTags("£120", "BritishGas", "12/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item3 = new ListItemForTags("£234", "Sainsbury", "11/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item4 = new ListItemForTags("£230", "Amazon", "10/3.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item5 = new ListItemForTags("£45", "eBay", "12/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item6 = new ListItemForTags("£67", "Tesco", "12/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item7 = new ListItemForTags("£89", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item8 = new ListItemForTags("£567", "Landlord", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item9 = new ListItemForTags("£56", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item10 = new ListItemForTags("£23", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item11 = new ListItemForTags("£46", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-        ListItemForTags item12 = new ListItemForTags("£56", "Tesco", "9/2.2018", "Please select the adequate TAG for this payment");
-
         transactionList = new ArrayList<>();
-        transactionList.add(item1);
-        transactionList.add(item2);
-        transactionList.add(item3);
-        transactionList.add(item4);
-        transactionList.add(item5);
-        transactionList.add(item6);
-        transactionList.add(item7);
-        transactionList.add(item8);
-        transactionList.add(item9);
-        transactionList.add(item10);
-        transactionList.add(item11);
-        transactionList.add(item12);
+
+        try {
+            // create a tabase if not exist, if does make it accessable
+            SQLiteDatabase pierDatabase = Tagging.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+            Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE category = ''", null);
+
+            int description = cursor.getColumnIndex("description");
+            int value = cursor.getColumnIndex("value");
+            int day = cursor.getColumnIndex("day");
+            int month = cursor.getColumnIndex("month");
+            int year = cursor.getColumnIndex("year");
+
+
+            cursor.moveToFirst();
+
+
+            while (cursor != null) {
+                ListItemForTags item = new ListItemForTags(cursor.getString(value), cursor.getString(description), cursor.getString(day)+"/"+cursor.getString(month)+"/"+cursor.getString(year), "Please select the adequate TAG for this payment");
+                transactionList.add(item);
+                cursor.moveToNext();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         adapter = new TagsListItemAdapter(this, R.layout.adapter_view_for_tag, transactionList);
         mListView.setAdapter(adapter);
