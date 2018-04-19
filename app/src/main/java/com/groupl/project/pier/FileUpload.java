@@ -45,6 +45,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferListener;
 
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -179,13 +180,19 @@ public class FileUpload extends AppCompatActivity {
                         File selectedFile = new File(PathUri.getPath());
                         filePath = selectedFile.getAbsolutePath();
                         File file = new File(filePath);
-                        //check the extention is correct
                         String extension = FileExtentionUtil.getExtensionOfFile(file);
                         String csv = "csv";
-                        Log.i("Filepath", filePath.substring(15));
+                        Log.i("Extension", extension);
+                        Log.i("Filepath", filePath);
                         //if incorrect extension restart the file manager
                         if (!extension.equals(csv)) {
                             Toast.makeText(this, "The chosen file has the extension " + extension + " which is not a csv file, please choose another file.", Toast.LENGTH_LONG).show();
+                            intent = new Intent(Intent.ACTION_GET_CONTENT);
+                            intent.setType("*/*");
+                            startActivityForResult(intent, 7);
+                        }
+                        if (filePath.length() < 15) {
+                            Toast.makeText(this, "Wrong file path!", Toast.LENGTH_LONG).show();
                             intent = new Intent(Intent.ACTION_GET_CONTENT);
                             intent.setType("*/*");
                             startActivityForResult(intent, 7);
@@ -366,6 +373,9 @@ public class FileUpload extends AppCompatActivity {
         }
         // FILE TO STORE THE CSV INFO
         final File fileDown = new File(dir, "infoFile.csv");
+        //makeToast("Statemnt is getting analyside by PieR");
+        //makeToast("Analyzed! Start downloading...");
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -375,6 +385,8 @@ public class FileUpload extends AppCompatActivity {
                 // CHECK IF FILE EXIST
                 boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/" + userName, "last_six_months.csv");
                 Log.d("CHECK_IF_EXIST", " -> " + check);
+
+
 
                 // IF EXIST DOWNLOAD
                 if (check) {
@@ -424,6 +436,9 @@ public class FileUpload extends AppCompatActivity {
         }).start();
 
 
+    }
+    void makeToast(String toast) {
+        Toast.makeText(this, toast,Toast.LENGTH_SHORT).show();
     }
 
     public void parseCSV(String url) {

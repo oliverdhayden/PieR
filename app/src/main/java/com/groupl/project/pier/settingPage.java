@@ -90,7 +90,7 @@ public class settingPage extends AppCompatActivity {
 
     }
 
-    public void setPreference( boolean b, String option) {
+    private void setPreference(boolean b, String option) {
         SharedPreferences prefs = this.getSharedPreferences("Preference", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("Option " + option, b);
@@ -99,7 +99,7 @@ public class settingPage extends AppCompatActivity {
 
     static public boolean getPreference(Context context, String option) {
         SharedPreferences prefs = context.getSharedPreferences("Preference", MODE_PRIVATE);
-        return prefs.getBoolean("Option " + option, false);
+        return prefs.getBoolean("Option " + option, true);
     }
 
     public void reset(View view) {
@@ -127,7 +127,6 @@ public class settingPage extends AppCompatActivity {
         //UserStatement user = preference.getPreferenceObject(this,"userStatement");
         //Log.i(TAG, "testGetSharedPrefObj: " +user.name);
     }
-
 
 
 
