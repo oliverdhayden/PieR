@@ -599,6 +599,7 @@ public class MainActivity extends AppCompatActivity {
                 if ((list.get(i)[2]).equals(list.get(list.size() - 1)[2]) && (list.get(i)[1]).equals(list.get(list.size() - 1)[1])) {
                     if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
                         groceries += Integer.parseInt(list.get(i)[5]);
+                        Log.i(TAG, "parseCSV: found a groceries");
                     }
                     if ((list.get(i)[4]).toLowerCase().equals("general")) {
                         general += Integer.parseInt(list.get(i)[5]);

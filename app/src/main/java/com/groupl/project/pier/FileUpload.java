@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 
@@ -310,7 +312,18 @@ public class FileUpload extends AppCompatActivity {
                     //dialog.hide();
 
                     //***************** CHECK FILE ************
-                    checkFile();
+                    //checkFile();
+
+                    Log.i(TAG, "onStateChanged: start of delay --------");
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after 5s = 5000ms
+                            checkFile();
+                            Log.i(TAG, "run: delayed function ran ---------");
+                        }
+                    }, 5000);
                 }
             }
 
@@ -398,7 +411,7 @@ public class FileUpload extends AppCompatActivity {
             public void run() {
 
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
-                S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
+                S3_CLIENT.setRegion(Region.getRegion(Regions.EU_WEST_2));
                 // CHECK IF FILE EXIST
                 boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/" + userName, "last_six_months.csv");
                 Log.d("CHECK_IF_EXIST", " -> " + check);
@@ -426,6 +439,7 @@ public class FileUpload extends AppCompatActivity {
                             if (TransferState.COMPLETED == state) {
                                 Toast.makeText(FileUpload.this, "Download Completed", Toast.LENGTH_SHORT).show();
                                 parseCSV(fileDown.getAbsolutePath());
+
                             }
                         }
 
@@ -446,13 +460,13 @@ public class FileUpload extends AppCompatActivity {
                 } else {
                     // if file doesent exist check again
                     //commented else check file out, danger of infinate loop
-                    // checkFile();
+                    //checkFile();
+
                 }
 
             }
         }).start();
-
-
+        Log.i(TAG, "checkFile: end of check file (delay)");
     }
     void makeToast(String toast) {
         Toast.makeText(this, toast,Toast.LENGTH_SHORT).show();
@@ -487,8 +501,10 @@ public class FileUpload extends AppCompatActivity {
                 //add data to the database
                 // if its the last month of the last year
                 if (list.get(i)[1].equals(String.valueOf(month)) && list.get(i)[2].equals(String.valueOf(year))) {
-                    if ((list.get(i)[4]).equals("Groceries")) {
+                    Log.i(TAG, "parseCSV: for loop triggered");
+                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
                         groceries += Integer.parseInt(list.get(i)[5]);
+                        Log.i(TAG, "parseCSV: found a groceries");
                     }
                     if ((list.get(i)[4]).equals("General")) {
                         general += Integer.parseInt(list.get(i)[5]);
@@ -537,7 +553,6 @@ public class FileUpload extends AppCompatActivity {
 
             String monthTotalTest = preference.getPreference(this,"monthTotal");
             Toast.makeText(this, monthTotalTest, Toast.LENGTH_LONG).show();
-
             Log.i(TAG, "parseCSV: monthTotal = "+monthTotalTest );
 
             // *************** CREATE SIMPLE DATABASE ***********
@@ -553,7 +568,7 @@ public class FileUpload extends AppCompatActivity {
                 // create table to store null category
 
 
-                for (int i = 1; i < list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
                     if (desc.toLowerCase().equals("scott's restaurant")) {
@@ -576,6 +591,10 @@ public class FileUpload extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.i(TAG, "parseCSV: end of parse csv (delays)");
+        Intent mainActivity = new Intent(FileUpload.this, MainActivity.class);
+        startActivity(mainActivity);
+
     }
 
 }
