@@ -22,27 +22,26 @@ public class SlideAdapter extends PagerAdapter {
     LayoutInflater inflater;
 
     // list of img
-    public int[] lst_img = {R.drawable.slide_1,R.drawable.slide_2,R.drawable.slide_3,};
+    public int[] lst_img = {R.drawable.slide_1, R.drawable.slide_2, R.drawable.slide_3,};
 
     // list of titles
-    public String[] lst_title = {"Categorize","Machine Learning","Plugins"};
+    public String[] lst_title = {"Categorize", "Machine Learning", "Plugins"};
     // list description
-    public String[] lst_description ={
+    public String[] lst_description = {
             "Catagorise your spending to keep tabs on where your hard earned money ends up.",
             "Using machine learning techniques, our app will create a predictive model based on your income and expenditure so you don\\'t have to worry about working out if you can afford to get the next round in.",
             "We also offer a range of additional plugins that show you where and how you can save on everything from grocerie to rent."
     };
     // list of background colors
     public int[] lst_bgcolor = {
-            Color.rgb(239,85,85),
-            Color.rgb(51,149,255),
-            Color.rgb(242,237,216)
+            Color.rgb(239, 85, 85),
+            Color.rgb(51, 149, 255),
+            Color.rgb(242, 237, 216)
     };
 
-    public SlideAdapter(Context context){
+    public SlideAdapter(Context context) {
         this.context = context;
     }
-
 
 
     @Override
@@ -52,13 +51,13 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return (view == (LinearLayout)object);
+        return (view == (LinearLayout) object);
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.activity_welcome_page,container,false);
+        View view = inflater.inflate(R.layout.activity_welcome_page, container, false);
         LinearLayout layoutslide = (LinearLayout) view.findViewById(R.id.sliderlayout);
         Button button = (Button) view.findViewById(R.id.slider_button);
         ImageView imgslide = (ImageView) view.findViewById(R.id.slideimg);
@@ -69,11 +68,10 @@ public class SlideAdapter extends PagerAdapter {
         imgslide.setImageResource(lst_img[position]);
         txtTitle.setText(lst_title[position]);
         txtDescription.setText(lst_description[position]);
-        if(position == lst_title.length -1){
+        if (position == lst_title.length - 1) {
             button.setVisibility(View.VISIBLE);
             txtLeft.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             button.setVisibility(View.GONE);
         }
         container.addView(view);
@@ -82,6 +80,6 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout)object);
+        container.removeView((LinearLayout) object);
     }
 }

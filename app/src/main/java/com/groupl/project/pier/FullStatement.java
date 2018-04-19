@@ -1,10 +1,10 @@
 package com.groupl.project.pier;
 
 import android.content.Intent;
-        import android.os.Bundle;
-        import android.support.annotation.NonNull;
-        import android.support.annotation.Nullable;
-        import android.support.design.widget.BottomNavigationView;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,21 +13,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-        import android.view.MenuItem;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 /**
  * Created by ollie on 28/01/2018.
-
--------------READ THIS TO UNDERSTAND WHICH CLASSES AND LAYOUTS ARE BEING USED FOR SPENDINGS TAB---------------
-
-The following classes are only for Spendings:
-DayOfTheMonthListItem, MonthListItemAdaptor, Previous1Month, Previous2Month, Previous3Month, SectionsStatePagerAdapter, FullStatement
-
-The following layouts are for Spendings:
-activity_full_statement, adapter_view_layout, current_month_fragment_layout, previous1_month_fragment_layout, previous2_month_fragment_layout, previous3_month_fragment_layout
-
+ * <p>
+ * -------------READ THIS TO UNDERSTAND WHICH CLASSES AND LAYOUTS ARE BEING USED FOR SPENDINGS TAB---------------
+ * <p>
+ * The following classes are only for Spendings:
+ * DayOfTheMonthListItem, MonthListItemAdaptor, Previous1Month, Previous2Month, Previous3Month, SectionsStatePagerAdapter, FullStatement
+ * <p>
+ * The following layouts are for Spendings:
+ * activity_full_statement, adapter_view_layout, current_month_fragment_layout, previous1_month_fragment_layout, previous2_month_fragment_layout, previous3_month_fragment_layout
  */
 public class FullStatement extends AppCompatActivity {
 
@@ -103,26 +102,26 @@ public class FullStatement extends AppCompatActivity {
         navigation = (NavigationView) findViewById(R.id.navigation_view);
         View headerView = navigation.getHeaderView(0);
         TextView username = (TextView) headerView.findViewById(R.id.header_username);
-        username.setText(preference.getPreference(this,"username").toUpperCase());
+        username.setText(preference.getPreference(this, "username").toUpperCase());
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.signOut:
-                        Intent SignOut = new Intent(FullStatement.this,SignOutActivity.class);
+                        Intent SignOut = new Intent(FullStatement.this, SignOutActivity.class);
                         startActivity(SignOut);
                         break;
                     case R.id.setting:
-                        Intent setting = new Intent(FullStatement.this,settingPage.class);
+                        Intent setting = new Intent(FullStatement.this, settingPage.class);
                         startActivity(setting);
                         break;
                     case R.id.about:
-                        Intent about = new Intent(FullStatement.this,aboutUS.class);
+                        Intent about = new Intent(FullStatement.this, aboutUS.class);
                         startActivity(about);
                         break;
                     case R.id.upload:
-                        Intent upload = new Intent(FullStatement.this,FileUpload.class);
+                        Intent upload = new Intent(FullStatement.this, FileUpload.class);
                         startActivity(upload);
                 }
                 return false;
@@ -132,7 +131,7 @@ public class FullStatement extends AppCompatActivity {
 
         //raju
         myDrawerLaout = (DrawerLayout) findViewById(R.id.drawer);
-        myToggle = new ActionBarDrawerToggle(this,myDrawerLaout,R.string.Open,R.string.Close);
+        myToggle = new ActionBarDrawerToggle(this, myDrawerLaout, R.string.Open, R.string.Close);
         myDrawerLaout.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -145,7 +144,7 @@ public class FullStatement extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         String idStr = getResources().getResourceName(id);
-        if (myToggle.onOptionsItemSelected(item)){
+        if (myToggle.onOptionsItemSelected(item)) {
             return false;
         }
         return super.onOptionsItemSelected(item);
@@ -158,6 +157,8 @@ public class FullStatement extends AppCompatActivity {
         adapter.addFragment(new Previous1Month(), "Previous1Month");
         adapter.addFragment(new Previous2Month(), "Previous2Month");
         adapter.addFragment(new Previous3Month(), "Previous3Month");
+        adapter.addFragment(new Previous4Month(), "Previous4Month");
+        adapter.addFragment(new Previous5Month(), "Previous5Month");
 
         viewPager.setAdapter(adapter);
     }

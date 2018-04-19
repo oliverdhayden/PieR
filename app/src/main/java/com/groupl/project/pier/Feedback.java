@@ -39,6 +39,7 @@ public class Feedback extends AppCompatActivity {
     private DrawerLayout myDrawerLaout;
     private ActionBarDrawerToggle myToggle;
     NavigationView navigation;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,13 +83,13 @@ public class Feedback extends AppCompatActivity {
         greenMessage = "Spending not too much money";
         yellowMessage = "Be carefull on how much money you spend";
         redMessage = "Spending way too much money";
-        FeedbackTagListItem l1 = new FeedbackTagListItem("drawable://" + R.drawable.red_light,"Groceries",redMessage);
-        FeedbackTagListItem l2 = new FeedbackTagListItem("drawable://" + R.drawable.yellow_light,"Bills", yellowMessage);
-        FeedbackTagListItem l3 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Rent", greenMessage);
-        FeedbackTagListItem l4 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Eating Out", greenMessage);
-        FeedbackTagListItem l5 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"General", greenMessage);
-        FeedbackTagListItem l6 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Transport", greenMessage);
-        FeedbackTagListItem l7 = new FeedbackTagListItem("drawable://" + R.drawable.green_light,"Shopping",greenMessage);
+        FeedbackTagListItem l1 = new FeedbackTagListItem("drawable://" + R.drawable.red_light, "Groceries", redMessage);
+        FeedbackTagListItem l2 = new FeedbackTagListItem("drawable://" + R.drawable.yellow_light, "Bills", yellowMessage);
+        FeedbackTagListItem l3 = new FeedbackTagListItem("drawable://" + R.drawable.green_light, "Rent", greenMessage);
+        FeedbackTagListItem l4 = new FeedbackTagListItem("drawable://" + R.drawable.green_light, "Eating Out", greenMessage);
+        FeedbackTagListItem l5 = new FeedbackTagListItem("drawable://" + R.drawable.green_light, "General", greenMessage);
+        FeedbackTagListItem l6 = new FeedbackTagListItem("drawable://" + R.drawable.green_light, "Transport", greenMessage);
+        FeedbackTagListItem l7 = new FeedbackTagListItem("drawable://" + R.drawable.green_light, "Shopping", greenMessage);
 
         ArrayList<FeedbackTagListItem> breakdownList = new ArrayList<>();
         breakdownList.add(l1);
@@ -98,14 +99,14 @@ public class Feedback extends AppCompatActivity {
         breakdownList.add(l5);
         breakdownList.add(l7);
 
-        ListView mListView = (ListView)findViewById(R.id.listViewForFeedbackPage);
-        FeedbackListItemAdapter adapter= new FeedbackListItemAdapter(this, R.layout.adapter_view_feedback, breakdownList);
+        ListView mListView = (ListView) findViewById(R.id.listViewForFeedbackPage);
+        FeedbackListItemAdapter adapter = new FeedbackListItemAdapter(this, R.layout.adapter_view_feedback, breakdownList);
         mListView.setAdapter(adapter);
 
         //---------LIST VIEW CODE END--------
 
         //TextView title = findViewById(R.id.activityTitle3);
-       // title.setText("This is Activity Three");
+        // title.setText("This is Activity Three");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -146,26 +147,26 @@ public class Feedback extends AppCompatActivity {
         navigation = (NavigationView) findViewById(R.id.navigation_view);
         View headerView = navigation.getHeaderView(0);
         TextView username = (TextView) headerView.findViewById(R.id.header_username);
-        username.setText(preference.getPreference(this,"username").toUpperCase());
+        username.setText(preference.getPreference(this, "username").toUpperCase());
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.signOut:
-                        Intent SignOut = new Intent(Feedback.this,SignOutActivity.class);
+                        Intent SignOut = new Intent(Feedback.this, SignOutActivity.class);
                         startActivity(SignOut);
                         break;
                     case R.id.setting:
-                        Intent setting = new Intent(Feedback.this,settingPage.class);
+                        Intent setting = new Intent(Feedback.this, settingPage.class);
                         startActivity(setting);
                         break;
                     case R.id.about:
-                        Intent about = new Intent(Feedback.this,aboutUS.class);
+                        Intent about = new Intent(Feedback.this, aboutUS.class);
                         startActivity(about);
                         break;
                     case R.id.upload:
-                        Intent upload = new Intent(Feedback.this,FileUpload.class);
+                        Intent upload = new Intent(Feedback.this, FileUpload.class);
                         startActivity(upload);
                 }
                 return false;
@@ -175,7 +176,7 @@ public class Feedback extends AppCompatActivity {
 
         //raju
         myDrawerLaout = (DrawerLayout) findViewById(R.id.drawer);
-        myToggle = new ActionBarDrawerToggle(this,myDrawerLaout,R.string.Open,R.string.Close);
+        myToggle = new ActionBarDrawerToggle(this, myDrawerLaout, R.string.Open, R.string.Close);
         myDrawerLaout.addDrawerListener(myToggle);
         myToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -188,7 +189,7 @@ public class Feedback extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         String idStr = getResources().getResourceName(id);
-        if (myToggle.onOptionsItemSelected(item)){
+        if (myToggle.onOptionsItemSelected(item)) {
             return false;
         }
         return super.onOptionsItemSelected(item);

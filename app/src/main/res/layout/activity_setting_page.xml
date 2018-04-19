@@ -147,6 +147,11 @@
             android:layout_height="wrap_content"
             android:text="Test get shared pref object"
             android:onClick="testGetSharedPrefObj"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check Notification"
+            android:onClick="startNotification"/>
 
 
     </LinearLayout>

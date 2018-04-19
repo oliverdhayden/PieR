@@ -45,10 +45,10 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
         String stringFeedbackTag = getItem(position).getFeedbackTag();
         String stringFeedbackMessage = getItem(position).getFeedbackMessage();
 
-        ViewHolder holder= new ViewHolder();
+        ViewHolder holder = new ViewHolder();
 
         //this logic means that: store some objects before time
-        if(convertView == null) {  //if that posision hasn't been visited yet
+        if (convertView == null) {  //if that posision hasn't been visited yet
             LayoutInflater inflater = LayoutInflater.from(mContext);
 
             convertView = inflater.inflate(mResource, parent, false);
@@ -59,13 +59,12 @@ public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
             //a TAG is gest a way to store a view in memory
             //here the view will be stored in memory
             convertView.setTag(holder);
-        }
-        else {
+        } else {
             //here the view will be referenced from memory
             holder = (ViewHolder) convertView.getTag();
         }
 
-        int  defaultImage = mContext.getResources().getIdentifier("@drawable/image_failed", null, mContext.getPackageName());
+        int defaultImage = mContext.getResources().getIdentifier("@drawable/image_failed", null, mContext.getPackageName());
         ImageLoader imageLoader = ImageLoader.getInstance();
         DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
                 .cacheOnDisc(true).resetViewBeforeLoading(true)
