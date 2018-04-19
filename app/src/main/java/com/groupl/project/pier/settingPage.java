@@ -103,8 +103,7 @@ public class settingPage extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        WelcomeSlider.setPreference(true, "firsttime", this);
-        Toast.makeText(settingPage.this, "First Time Resetted", Toast.LENGTH_SHORT).show();
+        preference.deleteAllSharePrefs(this);
     }
 
     public void testFileAccess(View view) throws Exception {

@@ -77,6 +77,10 @@ public class FileUpload extends AppCompatActivity {
     List<String[]> list = new ArrayList<String[]>();
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
 
+    Calendar c = Calendar.getInstance();
+    int month = c.get(Calendar.MONTH) + 1;
+    int year = c.get(Calendar.YEAR);
+
 
 //    AmazonS3Client s3;
 //    BasicAWSCredentials credentials;
@@ -481,30 +485,30 @@ public class FileUpload extends AppCompatActivity {
 
 
                 //add data to the database
-
                 // if its the last month of the last year
-                if ((list.get(i)[2]).equals(list.get(list.size() - 1)[2]) && (list.get(i)[1]).equals(list.get(list.size() - 1)[1])) {
-                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
+                if (list.get(i)[1].equals(String.valueOf(month)) && list.get(i)[2].equals(String.valueOf(year))) {
+                    if ((list.get(i)[4]).equals("Groceries")) {
                         groceries += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("general")) {
+                    if ((list.get(i)[4]).equals("General")) {
                         general += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("eating out")) {
+                    if ((list.get(i)[4]).equals("Eating Out")) {
                         eatingOut += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("transport")) {
+                    if ((list.get(i)[4]).equals("Transport")) {
                         transport += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("rent")) {
+                    if ((list.get(i)[4]).equals("Rent")) {
                         rent += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("bills")) {
+                    if ((list.get(i)[4]).equals("Bills")) {
                         bills += Integer.parseInt(list.get(i)[5]);
                     }
                     if ((list.get(i)[4]).equals("") ||(list.get(i)[4]) == null) {
                         untagged += Integer.parseInt(list.get(i)[5]);
                     }
+                    makeToast("Data analysed");
 
                 }
 

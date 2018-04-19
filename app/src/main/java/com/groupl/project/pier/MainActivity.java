@@ -329,8 +329,6 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------code for home page which displays the summary of the spendings----------------
 
         ListView mListView = (ListView) findViewById(R.id.listViewForHomePage);
-        String[] money = {"£120", "£1470", "£235", "£130", "£200", "£49", "£68"};
-        HomePageListAdapter.valueOfRent = money[1];
         HomePageListAdapter.rentIcon = "drawable://" + R.drawable.groceries;
         HomePageListItem l1 = new HomePageListItem("Groceries", "£" + preference.getPreference(this, "groceries"), "drawable://" + R.drawable.groceries);
         HomePageListItem l2 = new HomePageListItem("Rent", "£" + preference.getPreference(this, "rent"), "drawable://" + R.drawable.rent);

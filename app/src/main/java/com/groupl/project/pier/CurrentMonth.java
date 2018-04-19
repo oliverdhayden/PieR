@@ -5,12 +5,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -33,7 +35,7 @@ public class CurrentMonth extends Fragment {
     private ImageButton goToPrevious2Month;
     Calendar c = Calendar.getInstance();
     //previous month
-    int month = c.get(Calendar.MONTH);
+    int month = c.get(Calendar.MONTH) + 1;
     String[] fullMonthArray = new String[]{"sdafsdf", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private TextView currentMonthChange;
 
@@ -45,7 +47,7 @@ public class CurrentMonth extends Fragment {
         if (month <= 0) {
             month = 12 + month;
         }
-
+        Log.d("Month" , String.valueOf(month));
         //************************* ACCESS TO THE DATABASE **************************
         SQLiteDatabase pierDatabase = getActivity().openOrCreateDatabase("Statement", android.content.Context.MODE_PRIVATE, null);
         Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = '" + month + "'", null);
