@@ -156,7 +156,9 @@ public class FileUpload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadButtonWasPressed = true;
-                uploadData(filePath.substring(15));
+//                uploadData(filePath.substring(15));
+                uploadData(filePath);
+
             }
         });
         requestPermissions();
@@ -176,14 +178,22 @@ public class FileUpload extends AppCompatActivity {
                 if (resultCode == RESULT_OK) {
                     try{
                         //gets String Path of selected file
+//                        PathUri = data.getData();
+//                        File selectedFile = new File(PathUri.getPath());
+//                        filePath = selectedFile.getAbsolutePath();
+//                        File file = new File(filePath);
+//                        String extension = FileExtentionUtil.getExtensionOfFile(file);
+//                        String csv = "csv";
+//                        Log.i("Extension", extension);
+//                        Log.i("Filepath", filePath);
+
                         PathUri = data.getData();
-                        File selectedFile = new File(PathUri.getPath());
-                        filePath = selectedFile.getAbsolutePath();
+                        filePath = FilePathUtil.getPath(getApplicationContext(), PathUri);
                         File file = new File(filePath);
+                        //check the extention is correct
                         String extension = FileExtentionUtil.getExtensionOfFile(file);
                         String csv = "csv";
-                        Log.i("Extension", extension);
-                        Log.i("Filepath", filePath);
+
                         //if incorrect extension restart the file manager
                         if (!extension.equals(csv)) {
                             Toast.makeText(this, "The chosen file has the extension " + extension + " which is not a csv file, please choose another file.", Toast.LENGTH_LONG).show();
@@ -191,12 +201,13 @@ public class FileUpload extends AppCompatActivity {
                             intent.setType("*/*");
                             startActivityForResult(intent, 7);
                         }
-                        if (filePath.length() < 15) {
-                            Toast.makeText(this, "Wrong file path!", Toast.LENGTH_LONG).show();
-                            intent = new Intent(Intent.ACTION_GET_CONTENT);
-                            intent.setType("*/*");
-                            startActivityForResult(intent, 7);
-                        }
+//                        if (filePath.length() < 15) {
+//                            Toast.makeText(this, "Wrong file path!", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(this, filePath, Toast.LENGTH_LONG).show();
+//                            intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                            intent.setType("*/*");
+//                            startActivityForResult(intent, 7);
+//                        }
                         // ------------------------ SHOW SELECTED FILE NAME -----------------------------------------------
                         TextView filename = (TextView) findViewById(R.id.filename);
                         filename.setText(file.getName());
