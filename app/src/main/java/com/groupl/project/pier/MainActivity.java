@@ -85,12 +85,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         String downloade = preference.getPreference(MainActivity.this,"alreadyDownloaded");
         if (downloade.equals("true")){
 
         }
         else {
             //*************** CHECK FILE *****************
+//            preference.setPreference(this, "groceries", "0");
+//            preference.setPreference(this, "general", "0");
+//            preference.setPreference(this, "eatingOut", "0");
+//            preference.setPreference(this, "transport", "0");
+//            preference.setPreference(this, "rent", "0");
+//            preference.setPreference(this, "bills", "0");
+//            preference.setPreference(this, "untagged", "0");
+//            preference.setPreference(this, "monthTotal", "0");
+
             checkFile();
         }
 
@@ -634,11 +646,11 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // create a tabase if not exist, if does make it accessable
                 SQLiteDatabase pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+                // cleare data from table only for demo purpose
+                pierDatabase.execSQL("DROP TABLE statement");
                 // create table
                 pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
-                // cleare data from table only for demo purpose
-                pierDatabase.execSQL("DELETE FROM  statement");
-                for (int i = 1; i < list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
                     if (desc.toLowerCase().equals("scott's restaurant")) {

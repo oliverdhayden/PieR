@@ -193,6 +193,7 @@ public class FileUpload extends AppCompatActivity {
                         //check the extention is correct
                         String extension = FileExtentionUtil.getExtensionOfFile(file);
                         String csv = "csv";
+                        Log.i(TAG, "onActivityResult:filepath = "+filePath);
 
                         //if incorrect extension restart the file manager
                         if (!extension.equals(csv)) {
@@ -387,6 +388,7 @@ public class FileUpload extends AppCompatActivity {
         //makeToast("Statemnt is getting analyside by PieR");
         //makeToast("Analyzed! Start downloading...");
 
+        //download last 6 months csv
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -468,7 +470,7 @@ public class FileUpload extends AppCompatActivity {
             }
 
             // ******************* SAVE TO PREFERENCE ************
-            for (int i = 1; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
 //                Log.d("Day",list.get(list.size()-1)[0]);
 //                Log.d("Month",list.get(list.size()-1)[1]);
 //                Log.d("Year",list.get(list.size()-1)[2]);
@@ -534,12 +536,14 @@ public class FileUpload extends AppCompatActivity {
             try {
                 // create a tabase if not exist, if does make it accessable
                 SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+
+                // cleare data from table only for demo purpose
+                pierDatabase.execSQL("DROP TABLE statement");
                 // create table
                 pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
                 // create table to store null category
 
-                // cleare data from table only for demo purpose
-                pierDatabase.execSQL("DELETE FROM  statement");
+
                 for (int i = 1; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
