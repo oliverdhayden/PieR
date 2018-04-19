@@ -535,6 +535,10 @@ public class FileUpload extends AppCompatActivity {
             int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
             preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
 
+            String monthTotalTest = preference.getPreference(this,"monthTotal");
+            Toast.makeText(this, monthTotalTest, Toast.LENGTH_LONG).show();
+
+            Log.i(TAG, "parseCSV: monthTotal = "+monthTotalTest );
 
             // *************** CREATE SIMPLE DATABASE ***********
 

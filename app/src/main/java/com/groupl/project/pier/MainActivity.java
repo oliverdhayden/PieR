@@ -639,6 +639,9 @@ public class MainActivity extends AppCompatActivity {
             preference.setPreference(this, "bills", String.valueOf(bills));
             preference.setPreference(this, "untagged", String.valueOf(untagged));
 
+            int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
+            preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
+
             // *************** CREATE SIMPLE DATABASE ***********
 
             try {
