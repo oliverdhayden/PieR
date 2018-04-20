@@ -189,6 +189,8 @@ public class FileUpload extends AppCompatActivity {
 
                         PathUri = data.getData();
                         filePath = FilePathUtil.getPath(getApplicationContext(), PathUri);
+                        Log.i(TAG, filePath + "----------------------------------------------------------------");
+
                         File file = new File(filePath);
                         //check the extention is correct
                         String extension = FileExtentionUtil.getExtensionOfFile(file);
