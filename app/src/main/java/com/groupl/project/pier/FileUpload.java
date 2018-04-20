@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import com.amazonaws.mobile.config.AWSConfiguration;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUserDetails;
 import com.amazonaws.mobileconnectors.cognitoidentityprovider.handlers.GetDetailsHandler;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 
@@ -76,6 +78,10 @@ public class FileUpload extends AppCompatActivity {
 
     List<String[]> list = new ArrayList<String[]>();
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
+
+    Calendar c = Calendar.getInstance();
+    int month = c.get(Calendar.MONTH) + 1;
+    int year = c.get(Calendar.YEAR);
 
 
 //    AmazonS3Client s3;
@@ -195,6 +201,7 @@ public class FileUpload extends AppCompatActivity {
                         //check the extention is correct
                         String extension = FileExtentionUtil.getExtensionOfFile(file);
                         String csv = "csv";
+                        Log.i(TAG, "onActivityResult:filepath = "+filePath);
 
                         //if incorrect extension restart the file manager
                         if (!extension.equals(csv)) {
@@ -307,7 +314,18 @@ public class FileUpload extends AppCompatActivity {
                     //dialog.hide();
 
                     //***************** CHECK FILE ************
-                    checkFile();
+                    //checkFile();
+
+                    Log.i(TAG, "onStateChanged: start of delay --------");
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after 5s = 5000ms
+                            checkFile();
+                            Log.i(TAG, "run: delayed function ran ---------");
+                        }
+                    }, 5000);
                 }
             }
 
@@ -389,12 +407,13 @@ public class FileUpload extends AppCompatActivity {
         //makeToast("Statemnt is getting analyside by PieR");
         //makeToast("Analyzed! Start downloading...");
 
+        //download last 6 months csv
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
-                S3_CLIENT.setRegion(com.amazonaws.regions.Region.getRegion(Regions.EU_WEST_2));
+                S3_CLIENT.setRegion(Region.getRegion(Regions.EU_WEST_2));
                 // CHECK IF FILE EXIST
                 boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/" + userName, "last_six_months.csv");
                 Log.d("CHECK_IF_EXIST", " -> " + check);
@@ -421,6 +440,7 @@ public class FileUpload extends AppCompatActivity {
                         public void onStateChanged(int id, TransferState state) {
                             if (TransferState.COMPLETED == state) {
                                 Toast.makeText(FileUpload.this, "Download Completed", Toast.LENGTH_SHORT).show();
+                                //parseCSV(fileDown.getAbsolutePath());
                                 parseCSV(fileDown.getAbsolutePath());
                             }
                         }
@@ -442,19 +462,21 @@ public class FileUpload extends AppCompatActivity {
                 } else {
                     // if file doesent exist check again
                     //commented else check file out, danger of infinate loop
-                    // checkFile();
+                    //checkFile();
+
                 }
 
             }
         }).start();
-
-
+        Log.i(TAG, "checkFile: end of check file (delay)");
     }
     void makeToast(String toast) {
         Toast.makeText(this, toast,Toast.LENGTH_SHORT).show();
     }
 
     public void parseCSV(String url) {
+//        int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
+//        List<String[]> list = new ArrayList<String[]>();
         String next[] = {};
 
         try {
@@ -479,13 +501,13 @@ public class FileUpload extends AppCompatActivity {
 //                Log.d("Value",list.get(list.size()-1)[5]);
 //                Log.d("Balance",list.get(list.size()-1)[6]);
 
-
                 //add data to the database
 
                 // if its the last month of the last year
                 if ((list.get(i)[2]).equals(list.get(list.size() - 1)[2]) && (list.get(i)[1]).equals(list.get(list.size() - 1)[1])) {
                     if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
                         groceries += Integer.parseInt(list.get(i)[5]);
+                        Log.i(TAG, "parseCSV: found a groceries");
                     }
                     if ((list.get(i)[4]).toLowerCase().equals("general")) {
                         general += Integer.parseInt(list.get(i)[5]);
@@ -502,7 +524,7 @@ public class FileUpload extends AppCompatActivity {
                     if ((list.get(i)[4]).toLowerCase().equals("bills")) {
                         bills += Integer.parseInt(list.get(i)[5]);
                     }
-                    if ((list.get(i)[4]).equals("") ||(list.get(i)[4]) == null) {
+                    if ((list.get(i)[4]).toLowerCase().equals("untagged")) {
                         untagged += Integer.parseInt(list.get(i)[5]);
                     }
 
@@ -518,7 +540,6 @@ public class FileUpload extends AppCompatActivity {
                 //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
 
             }
-            setPreference(true,"dataDownloaded");
             preference.setPreference(this, "groceries", String.valueOf(groceries));
             preference.setPreference(this, "general", String.valueOf(general));
             preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
@@ -530,33 +551,34 @@ public class FileUpload extends AppCompatActivity {
             int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
             preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
 
-
             // *************** CREATE SIMPLE DATABASE ***********
 
             try {
                 // create a tabase if not exist, if does make it accessable
                 SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+                // cleare data from table only for demo purpose
+                pierDatabase.execSQL("DROP TABLE statement");
                 // create table
                 pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
-                // create table to store null category
-
-                // cleare data from table only for demo purpose
-                pierDatabase.execSQL("DELETE FROM  statement");
-                for (int i = 1; i < list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
                     if (desc.toLowerCase().equals("scott's restaurant")) {
                         desc = "Scotts Restaurant";
                     }
+                    // add data to the database
                     pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + list.get(i)[4] + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
                     //}
                 }
 
+
                 //****************** RESTART APP ***********************
+                preference.setPreference(FileUpload.this,"alreadyDownloaded", "true");
                 Intent i = getBaseContext().getPackageManager()
                         .getLaunchIntentForPackage(getBaseContext().getPackageName());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
+
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -565,7 +587,135 @@ public class FileUpload extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Log.i(TAG, "parseCSV: end of parse csv (delays)");
+        Intent mainActivity = new Intent(FileUpload.this, MainActivity.class);
+        startActivity(mainActivity);
     }
+
+//    public void parseCSV(String url) {
+//        String next[] = {};
+//
+//        try {
+//            //************ PARSE CVS TO ARRAYLIST *****************
+//            CSVReader reader = new CSVReader(new FileReader(url));// file to parse
+//            for (; ; ) {
+//                next = reader.readNext();
+//                if (next != null) {
+//                    list.add(next);
+//                } else {
+//                    break;
+//                }
+//            }
+//
+//            // ******************* SAVE TO PREFERENCE ************
+//            for (int i = 0; i < list.size(); i++) {
+////                Log.d("Day",list.get(list.size()-1)[0]);
+////                Log.d("Month",list.get(list.size()-1)[1]);
+////                Log.d("Year",list.get(list.size()-1)[2]);
+////                Log.d("Desc",list.get(list.size()-1)[3]);
+////                Log.d("Category",list.get(list.size()-1)[4]);
+////                Log.d("Value",list.get(list.size()-1)[5]);
+////                Log.d("Balance",list.get(list.size()-1)[6]);
+//
+//
+//                //add data to the database
+//                // if its the last month of the last year
+//                if (list.get(i)[1].equals(String.valueOf(month)) && list.get(i)[2].equals(String.valueOf(year))) {
+//                    Log.i(TAG, "parseCSV: for loop triggered");
+//                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
+//                        groceries += Integer.parseInt(list.get(i)[5]);
+//                        Log.i(TAG, "parseCSV: found a groceries");
+//                    }
+//                    if ((list.get(i)[4]).equals("General")) {
+//                        general += Integer.parseInt(list.get(i)[5]);
+//                    }
+//                    if ((list.get(i)[4]).equals("Eating Out")) {
+//                        eatingOut += Integer.parseInt(list.get(i)[5]);
+//                    }
+//                    if ((list.get(i)[4]).equals("Transport")) {
+//                        transport += Integer.parseInt(list.get(i)[5]);
+//                    }
+//                    if ((list.get(i)[4]).equals("Rent")) {
+//                        rent += Integer.parseInt(list.get(i)[5]);
+//                    }
+//                    if ((list.get(i)[4]).equals("Bills")) {
+//                        bills += Integer.parseInt(list.get(i)[5]);
+//                    }
+//                    if ((list.get(i)[4]).equals("") ||(list.get(i)[4]) == null) {
+//                        untagged += Integer.parseInt(list.get(i)[5]);
+//                    }
+//                    makeToast("Data analysed");
+//
+//                }
+//
+//                Log.d("Day", list.get(i)[0]);
+//                Log.d("Month", list.get(i)[1]);
+//                Log.d("Year", list.get(i)[2]);
+//                Log.d("Desc", list.get(i)[3]);
+//                Log.d("Category", list.get(i)[4]);
+//                Log.d("Value", list.get(i)[5]);
+//                Log.d("Balance", list.get(i)[6]);
+//                //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
+//
+//            }
+//            //setPreference(true,"dataDownloaded");
+//            preference.setPreference(this, "dataDownloaded", "true");
+//            preference.setPreference(this, "groceries", String.valueOf(groceries));
+//            preference.setPreference(this, "general", String.valueOf(general));
+//            preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
+//            preference.setPreference(this, "transport", String.valueOf(transport));
+//            preference.setPreference(this, "rent", String.valueOf(rent));
+//            preference.setPreference(this, "bills", String.valueOf(bills));
+//            preference.setPreference(this, "untagged", String.valueOf(untagged));
+//
+//            int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
+//            preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
+//
+//            String monthTotalTest = preference.getPreference(this,"monthTotal");
+//            Toast.makeText(this, monthTotalTest, Toast.LENGTH_LONG).show();
+//            Log.i(TAG, "parseCSV: monthTotal = "+monthTotalTest );
+//
+//            // *************** CREATE SIMPLE DATABASE ***********
+//
+//            try {
+//                // create a tabase if not exist, if does make it accessable
+//                SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+//
+//                // cleare data from table only for demo purpose
+//                pierDatabase.execSQL("DROP TABLE statement");
+//                // create table
+//                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
+//                // create table to store null category
+//
+//
+//                for (int i = 0; i < list.size(); i++) {
+//                    //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
+//                    String desc = list.get(i)[3];
+//                    if (desc.toLowerCase().equals("scott's restaurant")) {
+//                        desc = "Scotts Restaurant";
+//                    }
+//                    pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + list.get(i)[4] + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
+//                    //}
+//                }
+//
+//                //****************** RESTART APP ***********************
+//                Intent i = getBaseContext().getPackageManager()
+//                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(i);
+//
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Log.i(TAG, "parseCSV: end of parse csv (delays)");
+//        Intent mainActivity = new Intent(FileUpload.this, MainActivity.class);
+//        startActivity(mainActivity);
+//
+//    }
 
 }
 

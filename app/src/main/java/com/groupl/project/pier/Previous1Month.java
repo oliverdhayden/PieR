@@ -33,7 +33,7 @@ public class Previous1Month extends Fragment {
     private ImageButton goToPrevious2Month;
     Calendar c = Calendar.getInstance();
     //previous month
-    int month = c.get(Calendar.MONTH) - 1;
+    int month = c.get(Calendar.MONTH);
     String[] fullMonthArray = new String[]{"sdafsdf", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
     private TextView currentMonthChange;
 

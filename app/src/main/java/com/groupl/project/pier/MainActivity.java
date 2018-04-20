@@ -85,12 +85,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         String downloade = preference.getPreference(MainActivity.this,"alreadyDownloaded");
         if (downloade.equals("true")){
 
         }
         else {
             //*************** CHECK FILE *****************
+//            preference.setPreference(this, "groceries", "0");
+//            preference.setPreference(this, "general", "0");
+//            preference.setPreference(this, "eatingOut", "0");
+//            preference.setPreference(this, "transport", "0");
+//            preference.setPreference(this, "rent", "0");
+//            preference.setPreference(this, "bills", "0");
+//            preference.setPreference(this, "untagged", "0");
+//            preference.setPreference(this, "monthTotal", "0");
+
             checkFile();
         }
 
@@ -216,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
         //pieChart.setNoDataText("Please upload a bank statement");
 
         //check if the data is downloaded
-        if (!FileUpload.getPreference(this, "dataDownloaded")) {
+        if (preference.getPreference(this,"dataDownloaded").equals("false")) {
             //if (false){
             Log.i(TAG, "onCreate: this fired");
             pieChart.setCenterText("Please upload a bank statement");
@@ -317,8 +329,6 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------code for home page which displays the summary of the spendings----------------
 
         ListView mListView = (ListView) findViewById(R.id.listViewForHomePage);
-        String[] money = {"£120", "£1470", "£235", "£130", "£200", "£49", "£68"};
-        HomePageListAdapter.valueOfRent = money[1];
         HomePageListAdapter.rentIcon = "drawable://" + R.drawable.groceries;
         HomePageListItem l1 = new HomePageListItem("Groceries", "£" + preference.getPreference(this, "groceries"), "drawable://" + R.drawable.groceries);
         HomePageListItem l2 = new HomePageListItem("Rent", "£" + preference.getPreference(this, "rent"), "drawable://" + R.drawable.rent);
@@ -589,6 +599,7 @@ public class MainActivity extends AppCompatActivity {
                 if ((list.get(i)[2]).equals(list.get(list.size() - 1)[2]) && (list.get(i)[1]).equals(list.get(list.size() - 1)[1])) {
                     if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
                         groceries += Integer.parseInt(list.get(i)[5]);
+                        Log.i(TAG, "parseCSV: found a groceries");
                     }
                     if ((list.get(i)[4]).toLowerCase().equals("general")) {
                         general += Integer.parseInt(list.get(i)[5]);
@@ -629,16 +640,23 @@ public class MainActivity extends AppCompatActivity {
             preference.setPreference(this, "bills", String.valueOf(bills));
             preference.setPreference(this, "untagged", String.valueOf(untagged));
 
+            int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
+            preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
+
             // *************** CREATE SIMPLE DATABASE ***********
 
             try {
                 // create a tabase if not exist, if does make it accessable
                 SQLiteDatabase pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
-                // create table
-                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
                 // cleare data from table only for demo purpose
-                pierDatabase.execSQL("DELETE FROM  statement");
-                for (int i = 1; i < list.size(); i++) {
+//                pierDatabase.execSQL("DROP TABLE statement;");
+//                pierDatabase.execSQL("DELETE FROM statement;");
+                pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
+
+
+                // create table
+                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
+                for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
                     if (desc.toLowerCase().equals("scott's restaurant")) {

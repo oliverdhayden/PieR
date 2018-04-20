@@ -38,4 +38,9 @@ public class preference {
         SharedPreferences prefs = context.getSharedPreferences("Preference", Context.MODE_PRIVATE);
         return prefs.getString(optionName, "N/A");
     }
+
+    public static void deleteAllSharePrefs(Context context){
+        SharedPreferences prefs = context.getSharedPreferences("Preference", Context.MODE_PRIVATE);
+        prefs.edit().clear().commit();
+    }
 }
