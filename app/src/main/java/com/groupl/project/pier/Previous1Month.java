@@ -95,6 +95,9 @@ public class Previous1Month extends Fragment {
             currentYear -= 1;
             yearString = String.valueOf(currentYear);
         }
+        else{
+            currentMonthString = String.valueOf(month);
+        }
 
 
         try{
