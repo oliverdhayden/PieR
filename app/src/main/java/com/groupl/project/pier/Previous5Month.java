@@ -115,7 +115,7 @@ public class Previous5Month extends Fragment {
 
         mListView = (ListView) view.findViewById(R.id.ListView);
         goToCurrentMonth = (ImageButton) view.findViewById(R.id.btnGoToCurrentMonth);
-        goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
+        //goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
 
         // UNIVERSAL IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
@@ -186,16 +186,16 @@ public class Previous5Month extends Fragment {
             @Override
             public void onClick(View view) {
                 //this will give us acces to every method inside of the main activity
-                ((FullStatement) getActivity()).setViewPager(0);
+                ((FullStatement) getActivity()).setViewPager(4);
             }
         });
-        goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //this will give us acces to every method inside of the main activity
-                ((FullStatement) getActivity()).setViewPager(2);
-            }
-        });
+//        goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //this will give us acces to every method inside of the main activity
+//                ((FullStatement) getActivity()).setViewPager(2);
+//            }
+//        });
 
         return view;
     }

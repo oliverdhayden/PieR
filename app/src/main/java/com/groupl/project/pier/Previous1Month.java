@@ -70,7 +70,7 @@ public class Previous1Month extends Fragment {
                 Log.i(TAG, "onCreateView: year = " + yearString);
             }
             //find the most recent month from that year
-            cursor = pierDatabase.rawQuery("SELECT MAX(month) FROM statement WHERE year =" + yearString + ";", null);
+            cursor = pierDatabase.rawQuery("SELECT MAX(month) FROM statement WHERE year ='" + yearString + "';", null);
             if (cursor.getCount() > 0) {
                 Log.i(TAG, "onCreateView: second query ran");
                 cursor.moveToFirst();
@@ -101,7 +101,7 @@ public class Previous1Month extends Fragment {
 
 
         try{
-            cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = " + currentMonthString +" AND year = "+yearString+";", null);
+            cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = '" + currentMonthString + "' AND year = '" + yearString + "';", null);
         }
         catch(Exception e){
             Log.i(TAG, "onCreateView: "+e);

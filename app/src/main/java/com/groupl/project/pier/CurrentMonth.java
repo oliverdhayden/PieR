@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-
 public class CurrentMonth extends Fragment {
 
     private ListView mListView;
@@ -79,26 +78,23 @@ public class CurrentMonth extends Fragment {
                 month = Integer.parseInt(currentMonthString);
                 Log.i(TAG, "onCreateView: month = " + currentMonthString);
             }
-        }
-        catch(Exception e){
-            Log.i(TAG, "onCreateView: "+ e);
-        }
-        finally {
+        } catch (Exception e) {
+            Log.i(TAG, "onCreateView: " + e);
+        } finally {
 //            cursor.close();
         }
 
-        try{
-            cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = " + currentMonthString +" AND year = "+yearString+";", null);
-        }
-        catch(Exception e){
-            Log.i(TAG, "onCreateView: "+e);
+        try {
+            cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE month = '" + currentMonthString + "' AND year = '" + yearString + "';", null);
+        } catch (Exception e) {
+            Log.i(TAG, "onCreateView: " + e);
         }
 
         View view = inflater.inflate(R.layout.previous1_month_fragment_layout, container, false);
         currentMonthChange = (TextView) view.findViewById(R.id.currentMonthTextView);
 
         mListView = (ListView) view.findViewById(R.id.ListView);
-        goToCurrentMonth = (ImageButton) view.findViewById(R.id.btnGoToCurrentMonth);
+//        goToCurrentMonth = (ImageButton) view.findViewById(R.id.btnGoToCurrentMonth);
         goToPrevious2Month = (ImageButton) view.findViewById(R.id.btnGoToPrevious2);
 
         // UNIVERSAL IMAGE LOADER SETUP
@@ -166,18 +162,18 @@ public class CurrentMonth extends Fragment {
         MonthListItemAdapter adapter = new MonthListItemAdapter(getActivity(), R.layout.adapter_view_layout, MontlyList);
         mListView.setAdapter(adapter);
 
-        goToCurrentMonth.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //this will give us acces to every method inside of the main activity
-                ((FullStatement) getActivity()).setViewPager(0);
-            }
-        });
+//        goToCurrentMonth.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //this will give us acces to every method inside of the main activity
+//                ((FullStatement) getActivity()).setViewPager(0);
+//            }
+//        });
         goToPrevious2Month.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //this will give us acces to every method inside of the main activity
-                ((FullStatement) getActivity()).setViewPager(2);
+                ((FullStatement) getActivity()).setViewPager(1);
             }
         });
 

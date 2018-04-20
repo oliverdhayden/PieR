@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        SQLiteDatabase pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
 
         String downloade = preference.getPreference(MainActivity.this,"alreadyDownloaded");
         if (downloade.equals("true")){
@@ -102,6 +102,13 @@ public class MainActivity extends AppCompatActivity {
 //            preference.setPreference(this, "bills", "0");
 //            preference.setPreference(this, "untagged", "0");
 //            preference.setPreference(this, "monthTotal", "0");
+            // cleare data from table only for demo purpose
+//                pierDatabase.execSQL("DROP TABLE statement;");
+//                pierDatabase.execSQL("DELETE FROM statement;");
+            pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
+
+            // create table
+            pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
 
             checkFile();
         }

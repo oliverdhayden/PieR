@@ -145,6 +145,10 @@ public class FileUpload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
+        getApplicationContext().deleteDatabase("Statement");
+        SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+        // create table
+        pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
 
 
         // ------- ASK PERMISSION TO EDIT FILES -------------------
@@ -393,24 +397,26 @@ public class FileUpload extends AppCompatActivity {
                 1);
 
         final String userName = preference.getPreference(this, "username");
-        String folderName = "PierData";
-        // CREATE FOLDER TO STORE THE CSV
-        File dir = new File(Environment.getExternalStorageDirectory(), folderName);
-        if (!dir.exists()) {
-            dir.mkdirs();
-            Log.d("Directory", "created");
-        } else {
-            Log.d("Folder ->", "not created");
-        }
-        // FILE TO STORE THE CSV INFO
-        final File fileDown = new File(dir, "infoFile.csv");
-        //makeToast("Statemnt is getting analyside by PieR");
-        //makeToast("Analyzed! Start downloading...");
+
+
 
         //download last 6 months csv
         new Thread(new Runnable() {
             @Override
             public void run() {
+                String folderName = "PierData";
+                // CREATE FOLDER TO STORE THE CSV
+                File dir = new File(Environment.getExternalStorageDirectory(), folderName);
+                if (!dir.exists()) {
+                    dir.mkdirs();
+                    Log.d("Directory", "created");
+                } else {
+                    Log.d("Folder ->", "not created");
+                }
+                // FILE TO STORE THE CSV INFO
+                File fileDown = new File(dir, "infoFile.csv");
+                fileDown.delete();
+                final String fileAbsolutePath = fileDown.getAbsolutePath();
 
                 AmazonS3 S3_CLIENT = new AmazonS3Client(AWSMobileClient.getInstance().getCredentialsProvider());
                 S3_CLIENT.setRegion(Region.getRegion(Regions.EU_WEST_2));
@@ -441,7 +447,7 @@ public class FileUpload extends AppCompatActivity {
                             if (TransferState.COMPLETED == state) {
                                 Toast.makeText(FileUpload.this, "Download Completed", Toast.LENGTH_SHORT).show();
                                 //parseCSV(fileDown.getAbsolutePath());
-                                parseCSV(fileDown.getAbsolutePath());
+                                parseCSV(fileAbsolutePath);
                             }
                         }
 
@@ -556,10 +562,8 @@ public class FileUpload extends AppCompatActivity {
             try {
                 // create a tabase if not exist, if does make it accessable
                 SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
-                // cleare data from table only for demo purpose
-                pierDatabase.execSQL("DROP TABLE statement");
                 // create table
-                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
+                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
                 for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];

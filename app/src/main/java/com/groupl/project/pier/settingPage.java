@@ -103,7 +103,8 @@ public class settingPage extends AppCompatActivity {
     }
 
     public void reset(View view) {
-        preference.deleteAllSharePrefs(this);
+        getApplicationContext().deleteDatabase("Statement");
+
     }
 
     public void testFileAccess(View view) throws Exception {
