@@ -128,8 +128,10 @@ public class CurrentMonth extends Fragment {
                 cursor.moveToFirst();
 
                 while (cursor != null) {
-                    DayOfTheMonthListItem item = new DayOfTheMonthListItem("drawable://" + R.drawable.general, cursor.getString(description), "£" + cursor.getString(value), cursor.getString(day), monthString);
-                    ;
+                    DayOfTheMonthListItem item = new DayOfTheMonthListItem("drawable://" + R.drawable.label, cursor.getString(description), "£" + cursor.getString(value), cursor.getString(day), monthString);
+                    if (cursor.getString(category).toLowerCase().equals("general")) {
+                        item = new DayOfTheMonthListItem("drawable://" + R.drawable.general, cursor.getString(description), "£" + cursor.getString(value), cursor.getString(day), monthString);
+                    }
                     if (cursor.getString(category).toLowerCase().equals("groceries")) {
                         item = new DayOfTheMonthListItem("drawable://" + R.drawable.groceries, cursor.getString(description), "£" + cursor.getString(value), cursor.getString(day), monthString);
                     }

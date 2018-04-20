@@ -68,7 +68,7 @@
         <TextView
             android:id="@+id/textViewDayOfTheMonth"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:fontFamily="@font/open_sans"
             android:gravity="center"
             android:text="@string/day_of_the_month"
@@ -78,7 +78,7 @@
         <TextView
             android:id="@+id/textViewMonth"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
+            android:layout_height="20dp"
             android:fontFamily="@font/open_sans"
             android:gravity="center"
             android:text="@string/month"
