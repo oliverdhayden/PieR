@@ -44,9 +44,7 @@ public class Previous1Month extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-//        if (month <= 0) {
-//            month = 12 + month;
-//        }
+
         Log.d("Month", String.valueOf(month));
         //************************* ACCESS TO THE DATABASE **************************
         SQLiteDatabase pierDatabase = getActivity().openOrCreateDatabase("Statement", android.content.Context.MODE_PRIVATE, null);
@@ -57,7 +55,7 @@ public class Previous1Month extends Fragment {
 
         Cursor cursor = null;
         int month = 1;
-        int currentYear;
+        int currentYear =0;
         String yearString = "";
         String currentMonthString = "";
 //        Integer.parseInt();
@@ -88,6 +86,15 @@ public class Previous1Month extends Fragment {
 //            cursor.close();
         }
 
+        //move back n months
+        month -=1;
+        if (month <= 0) {
+            month = 12 + month;
+            currentMonthString = String.valueOf(month);
+            //move the year back as well
+            currentYear -= 1;
+            yearString = String.valueOf(currentYear);
+        }
 
 
         try{
