@@ -1,8 +1,6 @@
 package com.groupl.project.pier;
 
-/**
- * Created by alexandra on 27/02/2018.
- */
+
 
 public class FeedbackTagListItem {
     private String trafficLight;

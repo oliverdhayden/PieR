@@ -22,9 +22,7 @@ import java.util.ArrayList;
 
 import static com.amazonaws.util.ClassLoaderHelper.getResource;
 
-/**
- * Created by alexandra on 04/02/2018.
- */
+
 
 public class HomePageListAdapter extends ArrayAdapter<HomePageListItem> {
 

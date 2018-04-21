@@ -30,8 +30,6 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_login);
-
         AWSMobileClient.getInstance().initialize(this, new AWSStartupHandler() {
             @Override
             public void onComplete(AWSStartupResult awsStartupResult) {
@@ -41,10 +39,6 @@ public class Login extends AppCompatActivity {
                                 .logoResId(R.mipmap.icon)
                                 .canCancel(true)
                                 .build();
-
-//                SignInUI signin = (SignInUI) AWSMobileClient.getInstance().getClient(Login.this, SignInUI.class);
-//                signin.login(Login.this, MainActivity.class).execute();
-
                 SignInUI signinUI = (SignInUI) AWSMobileClient.getInstance().getClient(Login.this, SignInUI.class);
                 signinUI.login(Login.this, MainActivity.class).authUIConfiguration(config).execute();
             }
@@ -57,10 +51,6 @@ public class Login extends AppCompatActivity {
 
         // set username
         preference.setPreference(this, "username", user.getUserId());
-
-
-//      AccountUtils accountUtils = new AccountUtils();
-//      accountUtils.userName = username;
         finish();
     }
 

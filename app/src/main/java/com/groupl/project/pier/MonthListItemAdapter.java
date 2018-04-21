@@ -1,8 +1,6 @@
 package com.groupl.project.pier;
 
-/**
- * Created by alexandra on 14/02/2018.
- */
+
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -20,9 +18,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.Calendar;
 import java.util.List;
 
-/**
- * Created by alexandra on 14/02/2018.
- */
 
 public class MonthListItemAdapter extends ArrayAdapter<DayOfTheMonthListItem> {
     Calendar c = Calendar.getInstance();

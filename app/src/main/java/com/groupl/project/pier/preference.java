@@ -5,9 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 
-/**
- * Created by kremi on 13/03/2018.
- */
+
 
 public class preference {
     static public void setPreference(Context context, String optionName, String optionValue) {

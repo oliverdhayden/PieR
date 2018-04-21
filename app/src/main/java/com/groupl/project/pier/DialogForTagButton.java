@@ -7,9 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.widget.Toast;
 
-/**
- * Created by alexandra on 18/02/2018.
- */
+
 
 public class DialogForTagButton extends AppCompatDialogFragment {
 

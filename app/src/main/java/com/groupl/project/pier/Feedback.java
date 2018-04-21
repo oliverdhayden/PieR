@@ -49,13 +49,6 @@ public class Feedback extends AppCompatActivity {
         getWindow().setAllowEnterTransitionOverlap(false);
         getWindow().setAllowReturnTransitionOverlap(false);
 
-//        int navBar = R.id.bottomBar
-//        Transition fade = new Fade();
-//        fade.excludeTarget(navBar, true);
-//        fade.excludeTarget(android.R.id.navigationBarBackground, true);
-//        getWindow().setExitTransition(fade);
-//        getWindow().setEnterTransition(fade);
-
         setContentView(R.layout.activity_feedback);
 
         // UNIVERSAL IMAGE LOADER SETUP
@@ -104,9 +97,6 @@ public class Feedback extends AppCompatActivity {
         mListView.setAdapter(adapter);
 
         //---------LIST VIEW CODE END--------
-
-        //TextView title = findViewById(R.id.activityTitle3);
-        // title.setText("This is Activity Three");
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavView_Bar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

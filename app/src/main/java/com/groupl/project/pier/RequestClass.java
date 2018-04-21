@@ -1,8 +1,6 @@
 package com.groupl.project.pier;
 
-/**
- * Created by alexandra on 13/03/2018.
- */
+
 
 public class RequestClass {
     String firstName;

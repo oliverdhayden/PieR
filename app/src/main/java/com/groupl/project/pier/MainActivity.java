@@ -61,26 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
     public static PinpointManager pinpointManager;
 
-    //******* GET DATA BACK FORM PREFERENCE ********
-//    String groceries = preference.getPreference(this,"groceries");
-//    String general = preference.getPreference(this,"general");
-//    String rent = preference.getPreference(this,"rent");
-//    String eatingOut = preference.getPreference(this,"eatingOut");
-//    String untagged = preference.getPreference(this,"untagged");
-//    String bills = preference.getPreference(this,"bills");
-//    String transport = preference.getPreference(this,"transport");
-
-
     private String TAG = "Main Activity";
 
     PieChart pieChart;
-    //raju
     private DrawerLayout myDrawerLaout;
     private ActionBarDrawerToggle myToggle;
     NavigationView navigation;
     List<String[]> list = new ArrayList<String[]>();
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,18 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else {
-            //*************** CHECK FILE *****************
-//            preference.setPreference(this, "groceries", "0");
-//            preference.setPreference(this, "general", "0");
-//            preference.setPreference(this, "eatingOut", "0");
-//            preference.setPreference(this, "transport", "0");
-//            preference.setPreference(this, "rent", "0");
-//            preference.setPreference(this, "bills", "0");
-//            preference.setPreference(this, "untagged", "0");
-//            preference.setPreference(this, "monthTotal", "0");
-            // cleare data from table only for demo purpose
-//                pierDatabase.execSQL("DROP TABLE statement;");
-//                pierDatabase.execSQL("DELETE FROM statement;");
             pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
 
             // create table
@@ -181,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.ic_summary:
-
                         break;
 
                     case R.id.ic_full_statement:
@@ -214,11 +189,9 @@ public class MainActivity extends AppCompatActivity {
         //pie chart
         pieChart = (PieChart) findViewById(R.id.idPieChart);
 
-        //pieChart.setDescription(" ");
         pieChart.getDescription().setEnabled(false);
         pieChart.setRotationEnabled(true);
 
-        //pieChart.setHoleColor(Color.BLUE);
         pieChart.setCenterTextColor(R.color.black);
         pieChart.setEntryLabelColor(R.color.black);
         pieChart.setEntryLabelTextSize(15);
@@ -226,13 +199,7 @@ public class MainActivity extends AppCompatActivity {
         pieChart.setHoleRadius(58f);
         pieChart.setTransparentCircleRadius(61f);
 
-        //pieChart.setTransparentCircleAlpha(0);
-        //pieChart.setCenterText("Super Cool Chart");
-        //pieChart.setCenterTextSize(0);
-        //pieChart.setDrawEntryLabels(true);
-        //pieChart.setEntryLabelTextSize(20);
         pieChart.getLegend().setEnabled(false);
-        //pieChart.setNoDataText("Please upload a bank statement");
 
         //check if the data is downloaded
         if (preference.getPreference(this,"dataDownloaded").equals("false")) {
@@ -270,21 +237,6 @@ public class MainActivity extends AppCompatActivity {
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-//                Log.d(TAG, "onValueSelected: Value select from chart.");
-//                Log.d(TAG, "onValueSelected: " + e.toString());
-//                Log.d(TAG, "onValueSelected: " + h.toString());
-
-//                int pos1 = e.toString().indexOf("(sum): ");
-//                String sales = e.toString().substring(pos1 + 7);
-//
-//                for(int i = 0; i < yData.length; i++){
-//                    if(yData[i] == Float.parseFloat(sales)){
-//                        pos1 = i;
-//                        break;
-//                    }
-//                }
-//                String employee = xData[pos1 + 1];
-//                Toast.makeText(MainActivity.this, "Employee " + employee + "\n" + "Sales: $" + sales + "K", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -294,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //raju
         navigation = (NavigationView) findViewById(R.id.navigation_view);
         View headerView = navigation.getHeaderView(0);
         TextView username = (TextView) headerView.findViewById(R.id.header_username);
@@ -330,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-        //set username
 
 
         //------------------------------code for home page which displays the summary of the spendings----------------
@@ -404,10 +354,8 @@ public class MainActivity extends AppCompatActivity {
         pieDataSet.setValueTextSize(0);
 
         ArrayList<Integer> colors = new ArrayList<>();
-//        colors.add(getResources().getColor(R.color.b6));
         colors.add(getResources().getColor(R.color.b2));
 
-        //colors.add(getResources().getColor(R.color.coral));
 
         pieDataSet.setColors(colors);
 
@@ -482,11 +430,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         pieDataSet.setColors(colors);
-
-        //add legend to chart
-        //Legend legend = pieChart.getLegend();
-        //legend.setForm(Legend.LegendForm.CIRCLE);
-        //legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
 
         //create pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -591,14 +534,6 @@ public class MainActivity extends AppCompatActivity {
 
             // ******************* SAVE TO PREFERENCE ************
             for (int i = 1; i < list.size(); i++) {
-//                Log.d("Day",list.get(list.size()-1)[0]);
-//                Log.d("Month",list.get(list.size()-1)[1]);
-//                Log.d("Year",list.get(list.size()-1)[2]);
-//                Log.d("Desc",list.get(list.size()-1)[3]);
-//                Log.d("Category",list.get(list.size()-1)[4]);
-//                Log.d("Value",list.get(list.size()-1)[5]);
-//                Log.d("Balance",list.get(list.size()-1)[6]);
-
 
                 //add data to the database
 

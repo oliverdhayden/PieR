@@ -1,8 +1,6 @@
 package com.groupl.project.pier;
 
-/**
- * Created by alexandra on 14/02/2018.
- */
+
 
 public class DayOfTheMonthListItem {
     private String brandName;

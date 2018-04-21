@@ -1,8 +1,6 @@
 package com.groupl.project.pier;
 
-/**
- * Created by alexandra on 18/02/2018.
- */
+
 
 public class ListItemForTags {
     private String transactionAmount;

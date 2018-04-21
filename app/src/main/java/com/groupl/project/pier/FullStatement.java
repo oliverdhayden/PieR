@@ -42,13 +42,6 @@ public class FullStatement extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        int navBar = R.id.bottomBar
-//        Transition fade = new Fade();
-//        fade.excludeTarget(navBar, true);
-//        fade.excludeTarget(android.R.id.navigationBarBackground, true);
-//        getWindow().setExitTransition(fade);
-//        getWindow().setEnterTransition(fade);
-
         setContentView(R.layout.activity_full_statement);
 
         final ActionBar actionBar = getSupportActionBar();

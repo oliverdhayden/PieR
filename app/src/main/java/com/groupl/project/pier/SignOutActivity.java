@@ -17,12 +17,13 @@ public class SignOutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_out);
 
+        //get hold of the current user
         AWSConfiguration a = new AWSConfiguration(this);
         CognitoUserPool userPool = new CognitoUserPool(this, a);
         CognitoUser user = userPool.getCurrentUser();
+        //sign the user out
         user.signOut();
-
-
+        //start the splash activity which will allow the user to sign in
         Intent intent = new Intent(SignOutActivity.this, WelcomeSlider.class);
         startActivity(intent);
         finish();

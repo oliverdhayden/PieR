@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by alexandra on 18/02/2018.
- */
+
 
 public class TagsListItemAdapter extends ArrayAdapter<ListItemForTags> {
     public static int positionOfTheItemInTheList;

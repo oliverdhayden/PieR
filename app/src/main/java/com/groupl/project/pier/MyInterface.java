@@ -2,9 +2,6 @@ package com.groupl.project.pier;
 
 import com.amazonaws.mobileconnectors.lambdainvoker.LambdaFunction;
 
-/**
- * Created by alexandra on 13/03/2018.
- */
 
 public interface MyInterface {
     /**

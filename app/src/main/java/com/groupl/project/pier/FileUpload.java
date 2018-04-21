@@ -55,11 +55,6 @@ import android.support.v4.app.ActivityCompat;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-//todo
-//add error retry upload button
-//on sucsesfful upload change remove upload functionallyty from button to stop multiple uploads,
-//add return to home button on complete
-//add file name chosen + change file button.
 public class FileUpload extends AppCompatActivity {
 
     public static boolean uploadButtonWasPressed = false;
@@ -69,12 +64,10 @@ public class FileUpload extends AppCompatActivity {
     String filePath;
     ProgressDialog dialog;
 
-
     int percentDone = 0;
     ProgressBar progressBar;
     TextView progressText;
     Button buttonUpload;
-
 
     List<String[]> list = new ArrayList<String[]>();
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
@@ -84,14 +77,6 @@ public class FileUpload extends AppCompatActivity {
     int year = c.get(Calendar.YEAR);
 
 
-//    AmazonS3Client s3;
-//    BasicAWSCredentials credentials;
-//    TransferUtility transferUtility;
-//    TransferObserver observer;
-
-    //    String key = "FK5382F0HJ409J2309";
-//    String secret = "FAJ9E280F39FA0FUA90FSP/ACN3820F";
-//    String path = "someFilePath.png";
     Intent intent = null;
     AmazonS3 s3;
     Uri PathUri;
@@ -115,8 +100,6 @@ public class FileUpload extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Permission is not granted
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
@@ -150,25 +133,19 @@ public class FileUpload extends AppCompatActivity {
         // create table
         pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
 
-
         // ------- ASK PERMISSION TO EDIT FILES -------------------
         ActivityCompat.requestPermissions(FileUpload.this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 1);
 
         buttonUpload = findViewById(R.id.btn_upload);
-
         progressBar = findViewById(R.id.progressBar);
         progressText = findViewById(R.id.progressBarText);
-
-
         buttonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 uploadButtonWasPressed = true;
-//                uploadData(filePath.substring(15));
                 uploadData(filePath);
-
             }
         });
         requestPermissions();
@@ -176,7 +153,6 @@ public class FileUpload extends AppCompatActivity {
         intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("*/*");
         startActivityForResult(intent, 7);
-
     }
 
 
@@ -187,15 +163,6 @@ public class FileUpload extends AppCompatActivity {
             case 7:
                 if (resultCode == RESULT_OK) {
                     try{
-                        //gets String Path of selected file
-//                        PathUri = data.getData();
-//                        File selectedFile = new File(PathUri.getPath());
-//                        filePath = selectedFile.getAbsolutePath();
-//                        File file = new File(filePath);
-//                        String extension = FileExtentionUtil.getExtensionOfFile(file);
-//                        String csv = "csv";
-//                        Log.i("Extension", extension);
-//                        Log.i("Filepath", filePath);
 
                         PathUri = data.getData();
                         filePath = FilePathUtil.getPath(getApplicationContext(), PathUri);
@@ -214,13 +181,6 @@ public class FileUpload extends AppCompatActivity {
                             intent.setType("*/*");
                             startActivityForResult(intent, 7);
                         }
-//                        if (filePath.length() < 15) {
-//                            Toast.makeText(this, "Wrong file path!", Toast.LENGTH_LONG).show();
-//                            Toast.makeText(this, filePath, Toast.LENGTH_LONG).show();
-//                            intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                            intent.setType("*/*");
-//                            startActivityForResult(intent, 7);
-//                        }
                         // ------------------------ SHOW SELECTED FILE NAME -----------------------------------------------
                         TextView filename = (TextView) findViewById(R.id.filename);
                         filename.setText(file.getName());
@@ -278,7 +238,6 @@ public class FileUpload extends AppCompatActivity {
             return;
         }
 
-
         // ----------------------- BLOCK UPLOAD IF NOT AN CSV FILE ----------------------------------------
         //check the extention is correct
         String extension = FileExtentionUtil.getExtensionOfFile(file);
@@ -293,11 +252,6 @@ public class FileUpload extends AppCompatActivity {
         }
 
 
-//        dialog = new ProgressDialog(this);
-//        dialog.setMessage("Uploading File");
-//        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//        dialog.setMax(100);
-//        dialog.show();
 
         //old bucket name = "pierandroid-userfiles-mobilehub-318679301/public/"+userName
         //new bucket "pierandroid-userfiles-mobilehub-318679301/public/incoming"
@@ -315,10 +269,8 @@ public class FileUpload extends AppCompatActivity {
             public void onStateChanged(int id, TransferState state) {
                 if (TransferState.COMPLETED == state) {
                     Toast.makeText(FileUpload.this, "Upload Completed", Toast.LENGTH_LONG).show();
-                    //dialog.hide();
 
                     //***************** CHECK FILE ************
-                    //checkFile();
 
                     Log.i(TAG, "onStateChanged: start of delay --------");
                     final Handler handler = new Handler();
@@ -338,11 +290,9 @@ public class FileUpload extends AppCompatActivity {
                 float percentDonef = ((float) bytesCurrent / (float) bytesTotal) * 100;
                 percentDone = (int) percentDonef;
 
-                //dialog.setProgress(percentDone);
                 progressBar.setProgress(percentDone);
                 progressText.setText(percentDone + "/" + progressBar.getMax());
 
-                //System.out.println(dialog.getProgress());
                 Log.i(TAG, "onProgressChanged:" + "ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
                 Log.d(TAG, "   ID:" + id + "   bytesCurrent: " + bytesCurrent + "   bytesTotal: " + bytesTotal + " " + percentDone + "%");
             }
@@ -352,10 +302,7 @@ public class FileUpload extends AppCompatActivity {
 
                 System.out.println(id + " " + ex);
                 Toast.makeText(FileUpload.this, "error uploading", Toast.LENGTH_LONG).show();
-
-
             }
-
         });
 
         // If your upload does not trigger the onStateChanged method inside your
@@ -398,8 +345,6 @@ public class FileUpload extends AppCompatActivity {
 
         final String userName = preference.getPreference(this, "username");
 
-
-
         //download last 6 months csv
         new Thread(new Runnable() {
             @Override
@@ -423,8 +368,6 @@ public class FileUpload extends AppCompatActivity {
                 // CHECK IF FILE EXIST
                 boolean check = S3_CLIENT.doesObjectExist("/pierandroid-userfiles-mobilehub-318679301/public/" + userName, "last_six_months.csv");
                 Log.d("CHECK_IF_EXIST", " -> " + check);
-
-
 
                 // IF EXIST DOWNLOAD
                 if (check) {
@@ -466,10 +409,6 @@ public class FileUpload extends AppCompatActivity {
 
                     });
                 } else {
-                    // if file doesent exist check again
-                    //commented else check file out, danger of infinate loop
-                    //checkFile();
-
                 }
 
             }
@@ -481,8 +420,6 @@ public class FileUpload extends AppCompatActivity {
     }
 
     public void parseCSV(String url) {
-//        int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
-//        List<String[]> list = new ArrayList<String[]>();
         String next[] = {};
 
         try {
@@ -499,14 +436,6 @@ public class FileUpload extends AppCompatActivity {
 
             // ******************* SAVE TO PREFERENCE ************
             for (int i = 1; i < list.size(); i++) {
-//                Log.d("Day",list.get(list.size()-1)[0]);
-//                Log.d("Month",list.get(list.size()-1)[1]);
-//                Log.d("Year",list.get(list.size()-1)[2]);
-//                Log.d("Desc",list.get(list.size()-1)[3]);
-//                Log.d("Category",list.get(list.size()-1)[4]);
-//                Log.d("Value",list.get(list.size()-1)[5]);
-//                Log.d("Balance",list.get(list.size()-1)[6]);
-
                 //add data to the database
 
                 // if its the last month of the last year
@@ -572,7 +501,6 @@ public class FileUpload extends AppCompatActivity {
                     }
                     // add data to the database
                     pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + list.get(i)[4] + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
-                    //}
                 }
 
 
@@ -595,131 +523,5 @@ public class FileUpload extends AppCompatActivity {
         Intent mainActivity = new Intent(FileUpload.this, MainActivity.class);
         startActivity(mainActivity);
     }
-
-//    public void parseCSV(String url) {
-//        String next[] = {};
-//
-//        try {
-//            //************ PARSE CVS TO ARRAYLIST *****************
-//            CSVReader reader = new CSVReader(new FileReader(url));// file to parse
-//            for (; ; ) {
-//                next = reader.readNext();
-//                if (next != null) {
-//                    list.add(next);
-//                } else {
-//                    break;
-//                }
-//            }
-//
-//            // ******************* SAVE TO PREFERENCE ************
-//            for (int i = 0; i < list.size(); i++) {
-////                Log.d("Day",list.get(list.size()-1)[0]);
-////                Log.d("Month",list.get(list.size()-1)[1]);
-////                Log.d("Year",list.get(list.size()-1)[2]);
-////                Log.d("Desc",list.get(list.size()-1)[3]);
-////                Log.d("Category",list.get(list.size()-1)[4]);
-////                Log.d("Value",list.get(list.size()-1)[5]);
-////                Log.d("Balance",list.get(list.size()-1)[6]);
-//
-//
-//                //add data to the database
-//                // if its the last month of the last year
-//                if (list.get(i)[1].equals(String.valueOf(month)) && list.get(i)[2].equals(String.valueOf(year))) {
-//                    Log.i(TAG, "parseCSV: for loop triggered");
-//                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
-//                        groceries += Integer.parseInt(list.get(i)[5]);
-//                        Log.i(TAG, "parseCSV: found a groceries");
-//                    }
-//                    if ((list.get(i)[4]).equals("General")) {
-//                        general += Integer.parseInt(list.get(i)[5]);
-//                    }
-//                    if ((list.get(i)[4]).equals("Eating Out")) {
-//                        eatingOut += Integer.parseInt(list.get(i)[5]);
-//                    }
-//                    if ((list.get(i)[4]).equals("Transport")) {
-//                        transport += Integer.parseInt(list.get(i)[5]);
-//                    }
-//                    if ((list.get(i)[4]).equals("Rent")) {
-//                        rent += Integer.parseInt(list.get(i)[5]);
-//                    }
-//                    if ((list.get(i)[4]).equals("Bills")) {
-//                        bills += Integer.parseInt(list.get(i)[5]);
-//                    }
-//                    if ((list.get(i)[4]).equals("") ||(list.get(i)[4]) == null) {
-//                        untagged += Integer.parseInt(list.get(i)[5]);
-//                    }
-//                    makeToast("Data analysed");
-//
-//                }
-//
-//                Log.d("Day", list.get(i)[0]);
-//                Log.d("Month", list.get(i)[1]);
-//                Log.d("Year", list.get(i)[2]);
-//                Log.d("Desc", list.get(i)[3]);
-//                Log.d("Category", list.get(i)[4]);
-//                Log.d("Value", list.get(i)[5]);
-//                Log.d("Balance", list.get(i)[6]);
-//                //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
-//
-//            }
-//            //setPreference(true,"dataDownloaded");
-//            preference.setPreference(this, "dataDownloaded", "true");
-//            preference.setPreference(this, "groceries", String.valueOf(groceries));
-//            preference.setPreference(this, "general", String.valueOf(general));
-//            preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
-//            preference.setPreference(this, "transport", String.valueOf(transport));
-//            preference.setPreference(this, "rent", String.valueOf(rent));
-//            preference.setPreference(this, "bills", String.valueOf(bills));
-//            preference.setPreference(this, "untagged", String.valueOf(untagged));
-//
-//            int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
-//            preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
-//
-//            String monthTotalTest = preference.getPreference(this,"monthTotal");
-//            Toast.makeText(this, monthTotalTest, Toast.LENGTH_LONG).show();
-//            Log.i(TAG, "parseCSV: monthTotal = "+monthTotalTest );
-//
-//            // *************** CREATE SIMPLE DATABASE ***********
-//
-//            try {
-//                // create a tabase if not exist, if does make it accessable
-//                SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
-//
-//                // cleare data from table only for demo purpose
-//                pierDatabase.execSQL("DROP TABLE statement");
-//                // create table
-//                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR)");
-//                // create table to store null category
-//
-//
-//                for (int i = 0; i < list.size(); i++) {
-//                    //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
-//                    String desc = list.get(i)[3];
-//                    if (desc.toLowerCase().equals("scott's restaurant")) {
-//                        desc = "Scotts Restaurant";
-//                    }
-//                    pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + list.get(i)[4] + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
-//                    //}
-//                }
-//
-//                //****************** RESTART APP ***********************
-//                Intent i = getBaseContext().getPackageManager()
-//                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
-//                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(i);
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        Log.i(TAG, "parseCSV: end of parse csv (delays)");
-//        Intent mainActivity = new Intent(FileUpload.this, MainActivity.class);
-//        startActivity(mainActivity);
-//
-//    }
-
 }
 

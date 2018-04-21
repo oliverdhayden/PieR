@@ -1,7 +1,10 @@
 package com.groupl.project.pier;
 
 /**
- * Created by ollie on 08/03/2018.
+ * referenced from stack overflow
+ * Get real path from URI, Android KitKat new storage access framework [duplicate]
+ * User Paul Burke
+ * https://stackoverflow.com/questions/20067508/get-real-path-from-uri-android-kitkat-new-storage-access-framework
  */
 
 import android.content.ContentUris;

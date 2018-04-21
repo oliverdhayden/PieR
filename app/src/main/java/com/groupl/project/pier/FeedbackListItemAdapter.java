@@ -17,9 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
-/**
- * Created by alexandra on 27/02/2018.
- */
+
 
 public class FeedbackListItemAdapter extends ArrayAdapter<FeedbackTagListItem> {
 
