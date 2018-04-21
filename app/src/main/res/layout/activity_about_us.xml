@@ -54,6 +54,13 @@
 
         <TextView
             android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:paddingTop="10dp"
+            android:text="Find us on GitHub"
+            android:textColor="#fff" />
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="25dp"
             android:text="Billal - Bilalismail"
             android:textColor="#d68e6d" />
@@ -88,11 +95,6 @@
             android:text="Liviu - nedelculiviu95"
             android:textColor="#d6cd6d" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:paddingTop="10dp"
-            android:textColor="#fff" />
     </LinearLayout>
 
 </android.widget.LinearLayout>
