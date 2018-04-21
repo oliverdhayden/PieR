@@ -22,10 +22,8 @@ public class SignOutActivity extends AppCompatActivity {
         CognitoUser user = userPool.getCurrentUser();
         user.signOut();
 
-        Log.i(TAG, "onCreate: sign out user");
-        Log.i(TAG, "onCreate: "+ user.getUserId());
-        Intent intent = new Intent(SignOutActivity.this, SplashActivity.class);
 
+        Intent intent = new Intent(SignOutActivity.this, WelcomeSlider.class);
         startActivity(intent);
         finish();
     }
