@@ -27,7 +27,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Who are we??"
             android:textColor="@color/white" />
 
     </LinearLayout>
@@ -42,51 +41,58 @@
         android:gravity="center"
         android:layout_gravity="center"
         >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_gravity="center"
+            android:background="@drawable/button_orange"
             android:gravity="center"
-            android:text="The Group L"
-            android:textStyle="bold"
+            android:text="Group L"
             android:textColor="@color/white"
-            android:background="@drawable/button_orange"/>
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Billal - Bilalismail"
+            android:textColor="#d68e6d" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Harley - LittleFXRadio"
+            android:textColor="#d66d85" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Ollie - oliverdhayden"
+            android:textColor="#6d78d6" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Raju - rajuAbedin"
+            android:textColor="@color/light_violet" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="WIlson - stdlibdoh"
+            android:textColor="#84d66d" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Liviu - nedelculiviu95"
+            android:textColor="#d6cd6d" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:textColor="#fff"
             android:paddingTop="10dp"
-            android:text="We are a group of Nerds that hate programming and dream that one happy day we will be rich selling your information ;)"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textColor="#d68e6d"
-            android:text="Billal - The Man" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textColor="#d66d85"
-            android:text="Harley - The Energaizer" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textColor="#6d78d6"
-            android:text="Ollie - Two man in One" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textColor="@color/light_violet"
-            android:text="Raju - The Lazy Guy" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textColor="#84d66d"
-            android:text="WIlson - The Dictator" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textColor="#d6cd6d"
-            android:text="Liviu - Soccer Guy" />
+            android:textColor="#fff" />
     </LinearLayout>
 
 </android.widget.LinearLayout>
