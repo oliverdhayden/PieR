@@ -100,6 +100,7 @@ public class settingPage extends AppCompatActivity {
 
     public void reset(View view) {
         getApplicationContext().deleteDatabase("Statement");
+        preference.deleteAllSharePrefs(this);
 
     }
 
