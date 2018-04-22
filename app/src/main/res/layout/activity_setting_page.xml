@@ -6,131 +6,139 @@
     android:layout_height="match_parent"
     tools:context="com.groupl.project.pier.settingPage"
     android:orientation="vertical"
-    android:background="@drawable/bg1">
+    android:background="@color/colorWhite">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@color/light_black"
         android:padding="10dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/buttonToGoBackFromSettingsPage"
+            android:layout_width="38dp"
+            android:layout_height="27dp"
+            android:background="@drawable/ic_left_arrow__24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/error_field_required"
+            />
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Setting Page"
-            android:textSize="17sp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:text="Settings Page"
+            android:textSize="22sp"
             android:fontFamily="sans-serif"
             android:textStyle="bold"
-            android:textColor="@color/white"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Here youcan change Pier as much you want"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:orientation="vertical">
-
-        <!-- Option 1 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/light_white"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:layout_margin="5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
-                android:textStyle="bold"
-                android:text="Looooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong text for test"/>
-            <Switch
-                android:id="@+id/option1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
+        android:orientation="vertical"
+        android:layout_marginStart="2dp">
 
         <!-- Option 2 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0.2"
+            android:layout_marginTop="10dp"
+            android:textSize="17sp"
+            android:textColor="@color/light_black"
+            android:textStyle="bold"
+            android:text="Allow PieR to send notifications"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_white"
             android:orientation="horizontal"
-            android:padding="5dp"
-            android:layout_margin="5dp">
+            android:weightSum="3"
+            >
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.2"
+                android:layout_weight="2.3"
+                android:text="@string/notification_message"
                 android:textStyle="bold"
-                android:text="Allow PieR to send notifications about your spending"/>
+                />
             <Switch
                 android:id="@+id/option2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
-
-        <!-- Option 3 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/light_white"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:layout_margin="5dp">
-            <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:textStyle="bold"
-                android:text="Get update every 24h"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="center_vertical">
-                <Switch
-                    android:id="@+id/option3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
-            </LinearLayout>
+                android:layout_weight="0.7"/>
         </LinearLayout>
 
-        <!-- Option 4 -->
-        <LinearLayout
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/border_black"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/light_white"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            android:layout_margin="5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textStyle="bold"
-                android:text="Some other option"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:layout_gravity="center_vertical">
-                <Switch
-                    android:id="@+id/option4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"/>
-            </LinearLayout>
-        </LinearLayout>
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.2"
+            android:textSize="17sp"
+            android:textColor="@color/light_black"
+            android:textStyle="bold"
+            android:text="Reset Application"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/border_black"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.2"
+            android:textSize="17sp"
+            android:textColor="@color/light_black"
+            android:textStyle="bold"
+            android:text="About Pier"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/border_black"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.2"
+            android:textSize="17sp"
+            android:textColor="@color/light_black"
+            android:textStyle="bold"
+            android:text="About Us"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@drawable/border_black"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -145,13 +153,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test get shared pref object"
-            android:onClick="testGetSharedPrefObj"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Check Notification"
-            android:onClick="startNotification"/>
+            android:text="Check Notification"/>
+            //android:onClick="startNotification" //------------Raju fix this-------
 
 
     </LinearLayout>

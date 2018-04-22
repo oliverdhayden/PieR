@@ -69,4 +69,6 @@
     <string name="green_light_message">Spending not too much money</string>
     <string name="yellow_light_message">Be carefull on how much money you spend</string>
     <string name="red_light_message">Spending way too much money</string>
+
+    <string name="notification_message">You will recieve notifications every month to update the applcation by uploading a new csv file.</string>
 </resources>
