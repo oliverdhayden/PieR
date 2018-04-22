@@ -13,21 +13,28 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@color/light_black"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="13dp">
 
+        <ImageButton
+            android:id="@+id/buttonToGoBackFromAboutUsPage"
+            android:layout_width="38dp"
+            android:layout_height="27dp"
+            android:background="@drawable/ic_left_arrow__24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/error_field_required"
+            />
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="About us "
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:text="About us"
+            android:textSize="22sp"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white" />
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
