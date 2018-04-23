@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
             pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
-
-            // create table
+            //
+            //            // create table
             pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
 
             checkFile();
@@ -291,7 +291,7 @@ public class MainActivity extends AppCompatActivity {
         HomePageListItem l2 = new HomePageListItem("Rent", "£" + preference.getPreference(this, "rent"), "drawable://" + R.drawable.rent);
         HomePageListItem l3 = new HomePageListItem("Transport", "£" + preference.getPreference(this, "transport"), "drawable://" + R.drawable.transportation);
         HomePageListItem l4 = new HomePageListItem("Bills", "£" + preference.getPreference(this, "bills"), "drawable://" + R.drawable.bills);
-        HomePageListItem l5 = new HomePageListItem("Untagged", "£" + preference.getPreference(this, "untagged"), "drawable://" + R.drawable.shopping);
+        HomePageListItem l5 = new HomePageListItem("Untagged", "£" + preference.getPreference(this, "untagged"), "drawable://" + R.drawable.label);
         HomePageListItem l7 = new HomePageListItem("Eating Out", "£" + preference.getPreference(this, "eatingOut"), "drawable://" + R.drawable.food);
         HomePageListItem l8 = new HomePageListItem("General", "£" + preference.getPreference(this, "general"), "drawable://" + R.drawable.general);
 

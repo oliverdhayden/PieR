@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
@@ -128,8 +129,8 @@ public class FileUpload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
-        getApplicationContext().deleteDatabase("Statement");
         SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+        pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
         // create table
         pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
 
@@ -491,6 +492,7 @@ public class FileUpload extends AppCompatActivity {
             try {
                 // create a tabase if not exist, if does make it accessable
                 SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+                pierDatabase.execSQL("DELETE FROM statement");
                 // create table
                 pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
                 for (int i = 0; i < list.size(); i++) {
@@ -499,8 +501,17 @@ public class FileUpload extends AppCompatActivity {
                     if (desc.toLowerCase().equals("scott's restaurant")) {
                         desc = "Scotts Restaurant";
                     }
+                    Cursor cursordata = pierDatabase.rawQuery("SELECT * FROM tag WHERE description ='"+desc+"';", null);
+                    Log.i("Querry" ,"SELECT * FROM tag WHERE description ='"+desc+"';");
+                    int count = cursordata.getCount();
+                    Log.i("Count", desc + String.valueOf(count));
+                    int categoryIndex = cursordata.getColumnIndex("category");
+                    String category =  list.get(i)[4];
+                    if(count != 0 ){
+                        category = cursordata.getString(categoryIndex);
+                    }
                     // add data to the database
-                    pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + list.get(i)[4] + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
+                    pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + category + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
                 }
 
 
