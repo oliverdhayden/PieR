@@ -69,18 +69,18 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigation;
     List<String[]> list = new ArrayList<String[]>();
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
+    SQLiteDatabase pierDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SQLiteDatabase pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+        pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
 
-        String downloade = preference.getPreference(MainActivity.this,"alreadyDownloaded");
-        if (downloade.equals("true")){
-
-        }
-        else {
+        String downloade = preference.getPreference(MainActivity.this, "alreadyDownloaded");
+        if (downloade.equals("true")) {
+            pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
+        } else {
             pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
             //
             //            // create table
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         pieChart.getLegend().setEnabled(false);
 
         //check if the data is downloaded
-        if (preference.getPreference(this,"dataDownloaded").equals("false")) {
+        if (preference.getPreference(this, "dataDownloaded").equals("false")) {
             //if (false){
             Log.i(TAG, "onCreate: this fired");
             pieChart.setCenterText("Please upload a bank statement");
@@ -210,9 +210,7 @@ public class MainActivity extends AppCompatActivity {
             pieChart.setDrawEntryLabels(false);
             pieChart.setRotationEnabled(false);
             addEmptyData(pieChart);
-        }
-
-        else {
+        } else {
             float[] yData = new float[7];
             yData[0] = hasData(preference.getPreference(this, "rent"));
             yData[1] = hasData(preference.getPreference(this, "bills"));
@@ -227,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             pieChart.setUsePercentValues(false);
             pieChart.setDrawEntryLabels(true);
             pieChart.setRotationEnabled(true);
-            pieChart.setCenterText("Month total: £"+preference.getPreference(this, "monthTotal"));
+            pieChart.setCenterText("Month total: £" + preference.getPreference(this, "monthTotal"));
         }
 
         //pieChart.setDrawSliceText(false);
@@ -582,22 +580,12 @@ public class MainActivity extends AppCompatActivity {
             preference.setPreference(this, "bills", String.valueOf(bills));
             preference.setPreference(this, "untagged", String.valueOf(untagged));
 
-            int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
+            int monthTotal = groceries + general + eatingOut + transport + rent + bills + untagged;
             preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
 
             // *************** CREATE SIMPLE DATABASE ***********
 
             try {
-                // create a tabase if not exist, if does make it accessable
-                SQLiteDatabase pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
-                // cleare data from table only for demo purpose
-//                pierDatabase.execSQL("DROP TABLE statement;");
-//                pierDatabase.execSQL("DELETE FROM statement;");
-                pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
-
-
-                // create table
-                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
                 for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
@@ -610,12 +598,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-                    //****************** RESTART APP ***********************
-                    preference.setPreference(MainActivity.this,"alreadyDownloaded", "true");
-                    Intent i = getBaseContext().getPackageManager()
-                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
+                //****************** RESTART APP ***********************
+                preference.setPreference(MainActivity.this, "alreadyDownloaded", "true");
+                Intent i = getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
 
 
             } catch (Exception e) {

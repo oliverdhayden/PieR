@@ -75,13 +75,14 @@ public class FileUpload extends AppCompatActivity {
 
     Calendar c = Calendar.getInstance();
     int month = c.get(Calendar.MONTH) + 1;
-    int year = c.get(Calendar.YEAR);
 
 
     Intent intent = null;
     AmazonS3 s3;
     Uri PathUri;
     File file;
+
+    SQLiteDatabase pierDatabase;
 
     public void setPreference( boolean b, String option) {
         SharedPreferences prefs = this.getSharedPreferences("Preference", MODE_PRIVATE);
@@ -129,10 +130,16 @@ public class FileUpload extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_file_upload);
-        SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
-        pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
-        // create table
-        pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
+        try{
+            pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+            pierDatabase.execSQL("DELETE FROM statement");
+            //
+            //            // create table
+            pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
+            Log.i("Database","Table Created");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
         // ------- ASK PERMISSION TO EDIT FILES -------------------
         ActivityCompat.requestPermissions(FileUpload.this,
@@ -486,15 +493,7 @@ public class FileUpload extends AppCompatActivity {
 
             int monthTotal = groceries +general+eatingOut+transport+rent+bills+ untagged;
             preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
-
-            // *************** CREATE SIMPLE DATABASE ***********
-
             try {
-                // create a tabase if not exist, if does make it accessable
-                SQLiteDatabase pierDatabase = FileUpload.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
-                pierDatabase.execSQL("DELETE FROM statement");
-                // create table
-                pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
                 for (int i = 0; i < list.size(); i++) {
                     //if (list.get(i)[1].equals("3") && list.get(i)[2].equals("2018")) {
                     String desc = list.get(i)[3];
@@ -505,13 +504,15 @@ public class FileUpload extends AppCompatActivity {
                     Log.i("Querry" ,"SELECT * FROM tag WHERE description ='"+desc+"';");
                     int count = cursordata.getCount();
                     Log.i("Count", desc + String.valueOf(count));
-                    int categoryIndex = cursordata.getColumnIndex("category");
                     String category =  list.get(i)[4];
                     if(count != 0 ){
+                        int categoryIndex = cursordata.getColumnIndex("category");
+                        cursordata.moveToFirst();
                         category = cursordata.getString(categoryIndex);
                     }
                     // add data to the database
                     pierDatabase.execSQL("INSERT INTO statement (day,month,year,description,category,value,balance) VALUES ('" + list.get(i)[0] + "','" + list.get(i)[1] + "','" + list.get(i)[2] + "','" + desc + "','" + category + "','" + list.get(i)[5] + "','" + list.get(i)[6] + "')");
+                    Log.i("Database" , "Data inserted!");
                 }
 
 
