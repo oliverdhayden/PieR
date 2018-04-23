@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -60,14 +61,15 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".WelcomePage"
-            android:theme="@style/NoActionBarTranparetStatus"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FileUpload"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTranparetStatus" />
+        <activity
+            android:name=".FileUpload"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/NoActionBarTranparetStatus"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTranparetStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,7 +82,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".SignOutActivity"></activity>
-        <service android:name=".backgroundReminder"/>
+        <service android:name=".backgroundReminder" />
+        <receiver android:name=".Notification_reciever"/>
     </application>
 
 </manifest>

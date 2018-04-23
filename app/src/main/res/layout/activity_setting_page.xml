@@ -4,139 +4,141 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.groupl.project.pier.settingPage"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:background="@color/colorWhite">
+    tools:context="com.groupl.project.pier.settingPage">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:background="@color/light_black"
-        android:padding="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <ImageButton
             android:id="@+id/buttonToGoBackFromSettingsPage"
             android:layout_width="38dp"
             android:layout_height="27dp"
-            android:background="@drawable/ic_left_arrow__24dp"
             android:layout_gravity="center"
-            android:contentDescription="@string/error_field_required"
-            />
+            android:background="@drawable/ic_left_arrow__24dp"
+            android:contentDescription="@string/error_field_required" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
             android:layout_marginStart="5dp"
-            android:text="Settings Page"
-            android:textSize="22sp"
+            android:layout_marginTop="5dp"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"
+            android:text="Settings Page"
             android:textColor="@color/white"
-            android:layout_gravity="center"/>
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
+        android:layout_marginStart="2dp"
         android:orientation="vertical"
-        android:layout_marginStart="2dp">
+        android:padding="5dp">
 
         <!-- Option 2 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="0.2"
             android:layout_marginTop="10dp"
-            android:textSize="17sp"
+            android:layout_weight="0.2"
+            android:text="Allow PieR to send notifications"
             android:textColor="@color/light_black"
-            android:textStyle="bold"
-            android:text="Allow PieR to send notifications"/>
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="3"
-            >
+            android:weightSum="3">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2.3"
                 android:text="@string/notification_message"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
+
             <Switch
                 android:id="@+id/option2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="0.7"/>
+                android:layout_weight="0.7" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@drawable/border_black"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="15dp"
-            android:layout_marginBottom="5dp"/>
+            android:background="@drawable/border_black" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="0.2"
-            android:textSize="17sp"
+            android:text="Reset Application"
             android:textColor="@color/light_black"
-            android:textStyle="bold"
-            android:text="Reset Application"/>
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@drawable/border_black"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:background="@drawable/border_black" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="0.2"
-            android:textSize="17sp"
+            android:text="About Pier"
             android:textColor="@color/light_black"
-            android:textStyle="bold"
-            android:text="About Pier"/>
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:background="@drawable/border_black"
+            android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"/>
+            android:background="@drawable/border_black" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset Fisrst Time"
-            android:onClick="reset"/>
+            android:onClick="reset"
+            android:text="Reset Fisrst Time" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test file access"
-            android:onClick="testFileAccess"/>
+            android:onClick="testFileAccess"
+            android:text="Test file access" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Check Notification"/>
-            //android:onClick="startNotification" //------------Raju fix this-------
+            android:onClick="sendNotification"
+            android:text="Check Notification" />
 
 
     </LinearLayout>

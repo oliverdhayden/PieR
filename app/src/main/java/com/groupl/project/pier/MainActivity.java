@@ -36,6 +36,7 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -194,12 +195,15 @@ public class MainActivity extends AppCompatActivity {
 
         pieChart.setCenterTextColor(R.color.black);
         pieChart.setEntryLabelColor(R.color.black);
-        pieChart.setEntryLabelTextSize(15);
+        pieChart.setEntryLabelTextSize(0);
 
         pieChart.setHoleRadius(58f);
         pieChart.setTransparentCircleRadius(61f);
 
-        pieChart.getLegend().setEnabled(false);
+        pieChart.getLegend().setEnabled(true);
+        pieChart.getLegend().setXEntrySpace(2);
+        pieChart.getLegend().setFormToTextSpace(4);
+        pieChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
 
         //check if the data is downloaded
         if (preference.getPreference(this, "dataDownloaded").equals("false")) {
