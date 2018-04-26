@@ -9,6 +9,7 @@ import com.amazonaws.mobileconnectors.pinpoint.PinpointConfiguration;
 
 import android.Manifest;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -54,6 +55,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -72,21 +74,24 @@ public class MainActivity extends AppCompatActivity {
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
     SQLiteDatabase pierDatabase;
 
+
+    Calendar c = Calendar.getInstance();
+    int month = c.get(Calendar.MONTH) + 1;
+    int year = c.get(Calendar.YEAR);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         pierDatabase = MainActivity.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
-
+        //            // create table
+        pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
+        pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS tag (description VARCHAR, category VARCHAR);");
         String downloade = preference.getPreference(MainActivity.this, "alreadyDownloaded");
         if (downloade.equals("true")) {
-            pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
         } else {
-            pierDatabase.execSQL("DROP TABLE IF EXISTS statement");
+            pierDatabase.execSQL("DELETE FROM statement");
             //
-            //            // create table
-            pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
-
             checkFile();
         }
 
@@ -535,57 +540,52 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // ******************* SAVE TO PREFERENCE ************
-            for (int i = 1; i < list.size(); i++) {
-
-                //add data to the database
-
-                // if its the last month of the last year
-                if ((list.get(i)[2]).equals(list.get(list.size() - 1)[2]) && (list.get(i)[1]).equals(list.get(list.size() - 1)[1])) {
-                    if ((list.get(i)[4]).toLowerCase().equals("groceries")) {
-                        groceries += Integer.parseInt(list.get(i)[5]);
-                        Log.i(TAG, "parseCSV: found a groceries");
+            // add data to preference
+            Cursor getmonthdata = pierDatabase.rawQuery("SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';", null);
+            Log.i("Cursor", "SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';");
+            Log.i("CursorSelected", String.valueOf(getmonthdata.getCount()));
+            int categoryIndex = getmonthdata.getColumnIndex("category");
+            int valueIndex = getmonthdata.getColumnIndex("value");
+            getmonthdata.moveToFirst();
+            try {
+                while (getmonthdata != null) {
+                    Log.i("Category", getmonthdata.getString(categoryIndex));
+                    if (getmonthdata.getString(categoryIndex).toLowerCase().equals("groceries")) {
+                        groceries += getmonthdata.getInt(valueIndex);
+                        Log.i("G value", String.valueOf(groceries));
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("general")) {
-                        general += Integer.parseInt(list.get(i)[5]);
+                    if (getmonthdata.getString(categoryIndex).toLowerCase().equals("general")) {
+                        general += getmonthdata.getInt(valueIndex);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("eating out")) {
-                        eatingOut += Integer.parseInt(list.get(i)[5]);
+                    if (getmonthdata.getString(categoryIndex).toLowerCase().equals("eating out")) {
+                        eatingOut += getmonthdata.getInt(valueIndex);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("transport")) {
-                        transport += Integer.parseInt(list.get(i)[5]);
+                    if (getmonthdata.getString(categoryIndex).toLowerCase().equals("transport")) {
+                        transport += getmonthdata.getInt(valueIndex);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("rent")) {
-                        rent += Integer.parseInt(list.get(i)[5]);
+                    if (getmonthdata.getString(categoryIndex).toLowerCase().equals("rent")) {
+                        rent += getmonthdata.getInt(valueIndex);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("bills")) {
-                        bills += Integer.parseInt(list.get(i)[5]);
+                    if (getmonthdata.getString(categoryIndex).toLowerCase().equals("bills")) {
+                        bills += getmonthdata.getInt(valueIndex);
                     }
-                    if ((list.get(i)[4]).toLowerCase().equals("untagged")) {
-                        untagged += Integer.parseInt(list.get(i)[5]);
+                    if (getmonthdata.getString(categoryIndex).toLowerCase().equals("")) {
+                        untagged += getmonthdata.getInt(valueIndex);
                     }
-
+                    getmonthdata.moveToNext();
                 }
-
-                Log.d("Day", list.get(i)[0]);
-                Log.d("Month", list.get(i)[1]);
-                Log.d("Year", list.get(i)[2]);
-                Log.d("Desc", list.get(i)[3]);
-                Log.d("Category", list.get(i)[4]);
-                Log.d("Value", list.get(i)[5]);
-                Log.d("Balance", list.get(i)[6]);
-                //         AddData(list.get(i)[0],list.get(i)[1],list.get(i)[2],list.get(i)[3],list.get(i)[4],list.get(i)[5],list.get(i)[6]);
-
+                preference.setPreference(this, "groceries", String.valueOf(groceries));
+                preference.setPreference(this, "general", String.valueOf(general));
+                preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
+                preference.setPreference(this, "transport", String.valueOf(transport));
+                preference.setPreference(this, "rent", String.valueOf(rent));
+                preference.setPreference(this, "bills", String.valueOf(bills));
+                preference.setPreference(this, "untagged", String.valueOf(untagged));
+                int monthTotal = groceries + general + eatingOut + transport + rent + bills + untagged;
+                preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            preference.setPreference(this, "groceries", String.valueOf(groceries));
-            preference.setPreference(this, "general", String.valueOf(general));
-            preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
-            preference.setPreference(this, "transport", String.valueOf(transport));
-            preference.setPreference(this, "rent", String.valueOf(rent));
-            preference.setPreference(this, "bills", String.valueOf(bills));
-            preference.setPreference(this, "untagged", String.valueOf(untagged));
-
-            int monthTotal = groceries + general + eatingOut + transport + rent + bills + untagged;
-            preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
 
             // *************** CREATE SIMPLE DATABASE ***********
 

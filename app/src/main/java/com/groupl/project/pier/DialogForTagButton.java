@@ -2,6 +2,7 @@ package com.groupl.project.pier;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -78,11 +79,7 @@ public class DialogForTagButton extends AppCompatDialogFragment {
 
                         //update the adapter because the arrayList has changed
                         ((Tagging) getActivity()).adapter.notifyDataSetChanged();
-
-                        Toast.makeText(getContext(), "Transaction was tagged in " + tagItems[indexOfSelectedItem] + " category", Toast.LENGTH_LONG).show();
-                        Toast.makeText(getContext(), "The index of the removed transaction: " + TagsListItemAdapter.positionOfTheItemInTheList, Toast.LENGTH_LONG).show();
-                        Toast.makeText(getContext(), "Name"+ ((Tagging) getActivity()).transactionList.get(TagsListItemAdapter.positionOfTheItemInTheList).getTransactionAmount(), Toast.LENGTH_SHORT).show();
-
+                        ((Tagging) getActivity()).refresh();
 
 
                     }

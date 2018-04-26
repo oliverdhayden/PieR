@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by ollie on 28/01/2018.
@@ -31,6 +33,12 @@ public class Tagging extends AppCompatActivity {
     NavigationView navigation;
 
     private ListView mListView;
+
+    int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
+    SQLiteDatabase pierDatabase;
+    Calendar c = Calendar.getInstance();
+    int month = c.get(Calendar.MONTH) + 1;
+    int year = c.get(Calendar.YEAR);
 
     //I set the transactions details and the adapter as public
     //because in the moment after the user will tag a transaction
@@ -58,7 +66,7 @@ public class Tagging extends AppCompatActivity {
 
         try {
             // create a tabase if not exist, if does make it accessable
-            SQLiteDatabase pierDatabase = Tagging.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
+            pierDatabase = Tagging.this.openOrCreateDatabase("Statement", MODE_PRIVATE, null);
             Cursor cursor = pierDatabase.rawQuery("SELECT * FROM statement WHERE category = ''", null);
 
             int description = cursor.getColumnIndex("description");
@@ -80,6 +88,59 @@ public class Tagging extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        // add data to preference
+        Cursor getmonthdata = pierDatabase.rawQuery("SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';", null);
+        Log.i("Cursor", "SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';");
+        Log.i("CursorSelected", String.valueOf(getmonthdata.getCount()));
+        int categoryIndex = getmonthdata.getColumnIndex("category");
+        int valueIndex = getmonthdata.getColumnIndex("value");
+        getmonthdata.moveToFirst();
+        int cursor = getmonthdata.getCount();
+        try {
+            while (cursor != 0 ) {
+                Log.i("Category", getmonthdata.getString(categoryIndex));
+                if (getmonthdata.getString(categoryIndex).toLowerCase().equals("groceries")) {
+                    groceries += getmonthdata.getInt(valueIndex);
+                    Log.i("G value", String.valueOf(groceries));
+                }
+                if (getmonthdata.getString(categoryIndex).toLowerCase().equals("general")) {
+                    general += getmonthdata.getInt(valueIndex);
+                }
+                if (getmonthdata.getString(categoryIndex).toLowerCase().equals("eating out")) {
+                    eatingOut += getmonthdata.getInt(valueIndex);
+                }
+                if (getmonthdata.getString(categoryIndex).toLowerCase().equals("transport")) {
+                    transport += getmonthdata.getInt(valueIndex);
+                }
+                if (getmonthdata.getString(categoryIndex).toLowerCase().equals("rent")) {
+                    rent += getmonthdata.getInt(valueIndex);
+                }
+                if (getmonthdata.getString(categoryIndex).toLowerCase().equals("bills")) {
+                    bills += getmonthdata.getInt(valueIndex);
+                }
+                if (getmonthdata.getString(categoryIndex).toLowerCase().equals("")) {
+                    untagged += getmonthdata.getInt(valueIndex);
+                }
+                cursor--;
+                getmonthdata.moveToNext();
+            }
+            preference.setPreference(this, "groceries", String.valueOf(groceries));
+            preference.setPreference(this, "general", String.valueOf(general));
+            preference.setPreference(this, "eatingOut", String.valueOf(eatingOut));
+            preference.setPreference(this, "transport", String.valueOf(transport));
+            preference.setPreference(this, "rent", String.valueOf(rent));
+            preference.setPreference(this, "bills", String.valueOf(bills));
+            preference.setPreference(this, "untagged", String.valueOf(untagged));
+            int monthTotal = groceries + general + eatingOut + transport + rent + bills + untagged;
+            preference.setPreference(this, "monthTotal", String.valueOf(monthTotal));
+
+            Log.i("GroceriesF", preference.getPreference(this,"groceries"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
         adapter = new TagsListItemAdapter(this, R.layout.adapter_view_for_tag, transactionList);
         mListView.setAdapter(adapter);
@@ -176,5 +237,12 @@ public class Tagging extends AppCompatActivity {
     public void openDialog() {
         DialogForTagButton dialog = new DialogForTagButton();
         dialog.show(getSupportFragmentManager(), "tag dialog");
+    }
+
+
+    public void refresh(){
+        Intent intent = new Intent(this,Tagging.class);
+        finish();
+        startActivity(intent);
     }
 }
