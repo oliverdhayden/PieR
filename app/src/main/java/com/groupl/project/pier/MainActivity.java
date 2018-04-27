@@ -75,9 +75,8 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase pierDatabase;
 
 
-    Calendar c = Calendar.getInstance();
-    int month = c.get(Calendar.MONTH) + 1;
-    int year = c.get(Calendar.YEAR);
+    int month = 0;
+    int year = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -538,6 +537,13 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
+
+            // get last date of data
+            Cursor getdate = pierDatabase.rawQuery("SELECT * FROM statement ORDER BY year DESC LIMIT 1;",null);
+            int monthIndex = getdate.getColumnIndex("month");
+            int yearIndex = getdate.getColumnIndex("year");
+            month = getdate.getInt(monthIndex);
+            year = getdate.getInt(yearIndex);
 
             // ******************* SAVE TO PREFERENCE ************
             // add data to preference

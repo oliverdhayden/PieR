@@ -73,9 +73,8 @@ public class FileUpload extends AppCompatActivity {
     List<String[]> list = new ArrayList<String[]>();
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
 
-    Calendar c = Calendar.getInstance();
-    int month = c.get(Calendar.MONTH) + 1;
-    int year = c.get(Calendar.YEAR);
+    int month = 0;
+    int year = 0;
 
 
     Intent intent = null;
@@ -464,6 +463,13 @@ public class FileUpload extends AppCompatActivity {
 
 
                 }
+
+                // get last date of data
+                Cursor getdate = pierDatabase.rawQuery("SELECT * FROM statement ORDER BY year DESC LIMIT 1;",null);
+                int monthIndex = getdate.getColumnIndex("month");
+                int yearIndex = getdate.getColumnIndex("year");
+                month = getdate.getInt(monthIndex);
+                year = getdate.getInt(yearIndex);
 
                 // add data to preference
                 Cursor getmonthdata = pierDatabase.rawQuery("SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';", null);
