@@ -36,9 +36,8 @@ public class Tagging extends AppCompatActivity {
 
     int groceries = 0, rent = 0, transport = 0, bills = 0, untagged = 0, eatingOut = 0, general = 0;
     SQLiteDatabase pierDatabase;
-    Calendar c = Calendar.getInstance();
-    int month = c.get(Calendar.MONTH) + 1;
-    int year = c.get(Calendar.YEAR);
+    int month = 0;
+    int year = 0;
 
     //I set the transactions details and the adapter as public
     //because in the moment after the user will tag a transaction
@@ -88,7 +87,19 @@ public class Tagging extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        // get last date of data
+        try {
+            Cursor getdate = pierDatabase.rawQuery("SELECT * FROM statement;",null);
+            getdate.moveToFirst();
+            Log.i("Date count", String.valueOf(getdate.getCount()));
+            int monthIndex = getdate.getColumnIndex("month");
+            int yearIndex = getdate.getColumnIndex("year");
+            month = getdate.getInt(monthIndex);
+            year = getdate.getInt(yearIndex);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         // add data to preference
         Cursor getmonthdata = pierDatabase.rawQuery("SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';", null);
         Log.i("Cursor", "SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';");

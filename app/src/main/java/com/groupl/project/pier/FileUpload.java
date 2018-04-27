@@ -467,7 +467,7 @@ public class FileUpload extends AppCompatActivity {
                 // get last date of data
                 try {
                     Cursor getdate = pierDatabase.rawQuery("SELECT * FROM statement;",null);
-
+                    getdate.moveToFirst();
                     Log.i("Date count", String.valueOf(getdate.getCount()));
                     int monthIndex = getdate.getColumnIndex("month");
                     int yearIndex = getdate.getColumnIndex("year");
