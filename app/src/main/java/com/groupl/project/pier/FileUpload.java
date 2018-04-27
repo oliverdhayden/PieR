@@ -342,10 +342,6 @@ public class FileUpload extends AppCompatActivity {
 
     // ---------------------- CHECK FILE ---------------------------
     void checkFile() {
-        // ------- ASK PERMISSION TO EDIT FILES -------------------
-        ActivityCompat.requestPermissions(FileUpload.this,
-                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                1);
 
         final String userName = preference.getPreference(this, "username");
 
