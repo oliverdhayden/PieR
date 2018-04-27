@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     int month = 0;
     int year = 0;
+    String download;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +89,15 @@ public class MainActivity extends AppCompatActivity {
         pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS statement (day VARCHAR, month VARCHAR, year VARCHAR, description VARCHAR, category VARCHAR, value VARCHAR, balance VARCHAR);");
         Log.i("Table " ,"Created statement");
         pierDatabase.execSQL("CREATE TABLE IF NOT EXISTS tag (description VARCHAR, category VARCHAR);");
-        String downloade = preference.getPreference(MainActivity.this, "alreadyDownloaded");
-        if (downloade.equals("true")) {
+        download = preference.getPreference(MainActivity.this, "alreadyDownloaded");
+        Log.i("Download", download);
+        if (download.equals("true")) {
         } else {
             pierDatabase.execSQL("DELETE FROM statement");
             //
-            preference.setPreference(MainActivity.this,"alreadyDownloaded","true");
+
             checkFile();
+            preference.setPreference(MainActivity.this,"alreadyDownloaded","true");
         }
 
         // ------- ASK PERMISSION TO EDIT FILES -------------------
@@ -213,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         pieChart.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
 
         //check if the data is downloaded
-        if (preference.getPreference(this, "dataDownloaded").equals("N/A")) {
+        if (download.equals("N/A")) {
             //if (false){
             Log.i(TAG, "onCreate: this fired");
             pieChart.setCenterText("Please upload a bank statement");
