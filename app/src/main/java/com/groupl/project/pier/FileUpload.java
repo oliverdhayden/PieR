@@ -465,11 +465,18 @@ public class FileUpload extends AppCompatActivity {
                 }
 
                 // get last date of data
-                Cursor getdate = pierDatabase.rawQuery("SELECT * FROM statement ORDER BY year DESC LIMIT 1;",null);
-                int monthIndex = getdate.getColumnIndex("month");
-                int yearIndex = getdate.getColumnIndex("year");
-                month = getdate.getInt(monthIndex);
-                year = getdate.getInt(yearIndex);
+                try {
+                    Cursor getdate = pierDatabase.rawQuery("SELECT * FROM statement;",null);
+
+                    Log.i("Date count", String.valueOf(getdate.getCount()));
+                    int monthIndex = getdate.getColumnIndex("month");
+                    int yearIndex = getdate.getColumnIndex("year");
+                    month = getdate.getInt(monthIndex);
+                    year = getdate.getInt(yearIndex);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
 
                 // add data to preference
                 Cursor getmonthdata = pierDatabase.rawQuery("SELECT * FROM statement WHERE year ='" + year + "' and month='" + month + "';", null);
