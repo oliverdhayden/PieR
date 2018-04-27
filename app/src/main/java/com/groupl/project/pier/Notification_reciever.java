@@ -24,7 +24,7 @@ class Notification_reciever extends BroadcastReceiver {
         int imp=NotificationManager.IMPORTANCE_HIGH;
         final String ChannelID="pier_channel_01";
         final int ncode=101;
-        String Body="PieR is hungry pls upload new statement!";
+        String Body="PieR is hungry please upload a new statement!";
         String Title = "New month new statement";
         Notification n = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
