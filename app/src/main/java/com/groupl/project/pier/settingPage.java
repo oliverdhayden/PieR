@@ -71,20 +71,6 @@ public class settingPage extends AppCompatActivity {
                 startActivity(intent0);
             }
         });
-        CompoundButton.OnCheckedChangeListener multiSwitch = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                switch (compoundButton.getId()) {
-                    case R.id.option2:
-                        setPreference(b, "option2");
-                        break;
-                }
-            }
-        };
-        ((Switch) findViewById(R.id.option2)).setOnCheckedChangeListener(multiSwitch);
-
-        // Active selected Switch
-        ((Switch) findViewById(R.id.option2)).setChecked(getPreference(this, "option2"));
 
 
     }
